@@ -1,0 +1,16 @@
+-Springboot-Maven Project
+-Create dependencies
+
+-Create Angular frontend
+command:
+sudo chown -R $(id -u):$(id -g) ~/.npm
+
+-Update Angular and NPM to the latest version
+
+ng new angular-frontend --standalone --style=scss --routing --skip-tests
+(portfolio oldalon nem nagyon fogok tesztelgetni)
+
+-bootstrap install (/angular-frontend/src))
+
+style.css-be beimportálni a bootstrap css-t
+@import "bootstrap/scss/bootstrap";
