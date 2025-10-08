@@ -1,23 +1,26 @@
 <!-- path: src/app/components/home/home.html -->
 <section class="hero">
-  <!-- Snapshot during hold -->
   <img *ngIf="lastFrameUrl() as img" [src]="img" alt="" class="bg-img" />
-
-  <!-- Background video -->
   <video id="bgvid" class="bg" autoplay muted playsinline preload="auto">
     <source src="assets/background.mp4" type="video/mp4" />
   </video>
-
-  <!-- Readability overlay -->
   <div class="scrim" aria-hidden="true"></div>
 
-  <!-- Header over background -->
   <header class="site-header">
     <div class="header-inner">
       <div class="intro">
-        <app-code-name name="Friedrich Gergő" role="Full Stack Developer" [cps]="45" [pauseMs]="200"></app-code-name>
-        <p class="role">Full Stack Developer</p>
 
+        <!-- keep this so CodeNameComponent is actually used -->
+        <app-code-name
+          name="Friedrich Gergő"
+          role="Full Stack Developer"
+          [cps]="45"
+          [pauseMs]="200">
+        </app-code-name>
+
+
+
+        <!-- socials -->
         <nav class="socials" aria-label="Social links">
           <a class="icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
@@ -35,9 +38,8 @@
       </div>
 
       <div class="photo">
-        <img
-          src="https://res.cloudinary.com/df6cyiedk/image/upload/e_background_removal/f_png/v1759833217/me_f0tchs.jpg"
-          alt="Portrait of Friedrich Gergő" loading="eager" decoding="async" />
+        <img src="https://res.cloudinary.com/df6cyiedk/image/upload/e_background_removal/f_png/v1759833217/me_f0tchs.jpg"
+             alt="Portrait of Friedrich Gergő" loading="eager" decoding="async" />
       </div>
     </div>
   </header>

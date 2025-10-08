@@ -35,3 +35,15 @@
   padding-top: 40vh;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
+/* e.g., in header.scss */
+.socials .icon svg {
+  width: 28px; height: 28px;
+  fill: #98e07a;               /* neon green */
+  transition: fill .2s ease, transform .2s ease, filter .2s ease;
+  filter: drop-shadow(0 0 4px rgba(152,224,122,.45));
+}
+.socials .icon:hover svg {
+  fill: #b7ff9a;               /* brighter on hover */
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 6px rgba(183,255,154,.55));
+}

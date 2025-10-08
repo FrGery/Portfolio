@@ -29,34 +29,59 @@ export class CodeNameComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.full = this.buildJavaLine(this.name());
+
+    // Respect reduced motion: render instantly
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
       this.visibleTokens.set([...this.full]);
       this.cursorVisible.set(false);
     } else {
-      this.startTyping();
-      const blink = () => { this.cursorVisible.set(!this.cursorVisible()); setTimeout(blink, 600); };
-      setTimeout(blink, 600);
+      const START_DELAY_MS = 3000; // ⏱ delay whole animation
+      this.cursorVisible.set(false); // no blink before start
+
+      setTimeout(() => {
+        this.startTyping();
+
+        // start cursor blink only after typing begins
+        this.cursorVisible.set(true);
+        const blink = () => {
+          this.cursorVisible.set(!this.cursorVisible());
+          setTimeout(blink, 600);
+        };
+        setTimeout(blink, 600);
+      }, START_DELAY_MS);
     }
-    effect(() => { if (this.copiedMsg()) setTimeout(() => this.copiedMsg.set(''), 1200); });
+
+    // keep your copied-msg auto-clear
+    effect(() => {
+      if (this.copiedMsg()) setTimeout(() => this.copiedMsg.set(''), 1200);
+    });
   }
 
   ngOnDestroy(): void { if (this.animId) cancelAnimationFrame(this.animId); }
 
   plainText(): string { return this.full.map(t => t.text).join(''); }
 
-  copy(): void {
-    navigator.clipboard.writeText(this.plainText()).then(() => this.copiedMsg.set('Copied!'));
-  }
 
+  // REPLACE ONLY this function in code-name.component.ts
   private buildJavaLine(n: string): Token[] {
     return [
-      { text: 'public', cls: 'kw' }, { text: ' ', cls: '' },
-      { text: 'static', cls: 'kw' }, { text: ' ', cls: '' },
-      { text: 'final', cls: 'kw' }, { text: ' ', cls: '' },
-      { text: 'String', cls: 'type' }, { text: ' ', cls: '' },
-      { text: 'NAME', cls: 'var' }, { text: ' ', cls: '' },
-      { text: '=', cls: 'op' }, { text: ' ', cls: '' },
-      { text: `"${n}"`, cls: 'str' }, { text: ';', cls: 'semi' },
+      // line 1: classDeveloper{
+      { text: 'class ', cls: 'kw' },
+      { text: 'Developer', cls: 'type' },
+      { text: '{\n', cls: 'punct' },
+
+      // line 2: Stringname=
+      { text: 'String ', cls: 'type' },
+      { text: 'name ', cls: 'var' },
+      { text: '= \n', cls: 'op' },
+
+      // line 3: “Friedrich Gergő”
+      { text: '“', cls: 'quote' },
+      { text: n, cls: 'name-big' },   // BIG green name
+      { text: '”\n', cls: 'quote' },
+
+      // line 4: }
+      { text: '}', cls: 'punct' },
     ];
   }
 
