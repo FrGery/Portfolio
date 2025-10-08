@@ -1,0 +1,23 @@
+/* path: src/app/components/code-name/code-name.component.scss */
+.code-line {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.15;
+  color: #e8e9ee;
+  white-space: pre-wrap;
+}
+.kw { color: #6c5ce7; }
+.type { color: #74b9ff; }
+.var { color: #00cec9; font-weight: 700; letter-spacing: .5px; }
+.op { color: #e8e9ee; }
+.str { color: #fdcb6e; }
+.semi { color: #aab0c0; }
+
+.cursor { display:inline-block; width:.6ch; height:1.05em; vertical-align:-.1em; background:#6c5ce7; margin-left:2px; border-radius:2px; animation:blink .9s steps(1,end) infinite; }
+.cursor.hidden { opacity: 0; animation: none; }
+@keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+
+.actions { display:flex; gap:.5rem; align-items:center; margin-top:.5rem; }
+.copy { padding:.35rem .7rem; border-radius:8px; border:1px solid rgba(255,255,255,.25); background:transparent; color:#e8e9ee; }
+.copy:hover { background: rgba(255,255,255,.08); }
+.hint { font-size:.85rem; opacity:.75; }
