@@ -12,112 +12,93 @@ type Token = { text: string; cls: string };
   styleUrls: ['./code-name.component.scss'],
 })
 export class CodeNameComponent implements OnInit, OnDestroy {
+  /** Inputs */
   name = input<string>('Friedrich Gergő');
-  role = input<string>('Full Stack Developer');
-  cps = input<number>(45);
-  pauseMs = input<number>(200);
+  cps = input<number>(45);            // characters per second
+  startDelayMs = input<number>(2000); // start delay
 
-  private full: Token[] = [];
-  private animId: number | null = null;
-  private idxToken = 0;
-  private idxChar = 0;
-  private lastTs = 0;
-
+  /** State */
   visibleTokens = signal<Token[]>([]);
   cursorVisible = signal(true);
-  copiedMsg = signal('');
+
+  /** Internals */
+  private stream: Token[] = [];
+  private idx = 0;
+  private typeTimer: number | null = null;
+  private blinkTimer: number | null = null;
 
   ngOnInit(): void {
-    this.full = this.buildJavaLine(this.name());
+    this.stream = this.buildCharStream(this.name());
 
-    // Respect reduced motion: render instantly
+    // Handle "prefers reduced motion"
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
-      this.visibleTokens.set([...this.full]);
+      this.visibleTokens.set([...this.stream]);
       this.cursorVisible.set(false);
-    } else {
-      const START_DELAY_MS = 3000; // ⏱ delay whole animation
-      this.cursorVisible.set(false); // no blink before start
-
-      setTimeout(() => {
-        this.startTyping();
-
-        // start cursor blink only after typing begins
-        this.cursorVisible.set(true);
-        const blink = () => {
-          this.cursorVisible.set(!this.cursorVisible());
-          setTimeout(blink, 600);
-        };
-        setTimeout(blink, 600);
-      }, START_DELAY_MS);
+      return;
     }
 
-    // keep your copied-msg auto-clear
-    effect(() => {
-      if (this.copiedMsg()) setTimeout(() => this.copiedMsg.set(''), 1200);
-    });
+    this.cursorVisible.set(false);
+    setTimeout(() => {
+      this.startTyping();
+
+      // Start blinking cursor after typing begins
+      this.cursorVisible.set(true);
+      this.blinkTimer = window.setInterval(() => {
+        this.cursorVisible.update(v => !v);
+      }, 600);
+    }, this.startDelayMs());
   }
 
-  ngOnDestroy(): void { if (this.animId) cancelAnimationFrame(this.animId); }
+  ngOnDestroy(): void {
+    if (this.typeTimer) clearInterval(this.typeTimer);
+    if (this.blinkTimer) clearInterval(this.blinkTimer);
+  }
 
-  plainText(): string { return this.full.map(t => t.text).join(''); }
+  /** Text for accessibility */
+  plainText(): string {
+    return this.stream.map(c => c.text).join('');
+  }
 
-
-  // REPLACE ONLY this function in code-name.component.ts
-  private buildJavaLine(n: string): Token[] {
-    return [
-      // line 1: classDeveloper{
+  /** Build tokens -> flat char stream */
+  private buildCharStream(n: string): Token[] {
+    const toks: Token[] = [
       { text: 'class ', cls: 'kw' },
       { text: 'Developer', cls: 'type' },
       { text: '{\n', cls: 'punct' },
-
-      // line 2: Stringname=
       { text: 'String ', cls: 'type' },
       { text: 'name ', cls: 'var' },
       { text: '= \n', cls: 'op' },
-
-      // line 3: “Friedrich Gergő”
-      { text: '“', cls: 'quote' },
-      { text: n, cls: 'name-big' },   // BIG green name
-      { text: '”\n', cls: 'quote' },
-
-      // line 4: }
+      { text: '"', cls: 'name-big' },
+      { text: n, cls: 'name-big' },
+      { text: '"\n', cls: 'name-big' },
       { text: '}', cls: 'punct' },
     ];
+
+    const out: Token[] = [];
+    for (const t of toks)
+      for (const ch of t.text)
+        out.push({ text: ch, cls: t.cls });
+    return out;
   }
 
+  /** Typing animation loop */
   private startTyping(): void {
+    const stepMs = Math.max(10, Math.floor(1000 / this.cps()));
     this.visibleTokens.set([]);
-    this.idxToken = 0; this.idxChar = 0; this.lastTs = performance.now();
-    const step = (ts: number) => {
-      const elapsed = ts - this.lastTs;
-      const chars = Math.max(1, Math.floor((elapsed / 1000) * this.cps()));
-      this.lastTs = ts;
-      let remaining = chars;
+    this.idx = 0;
 
-      while (remaining-- > 0 && this.idxToken < this.full.length) {
-        const t = this.full[this.idxToken];
-        const parts = this.visibleTokens();
-        const current = parts[this.idxToken]?.text ?? '';
-        const nextChar = t.text.charAt(this.idxChar);
-        if (!parts[this.idxToken]) parts.push({ text: nextChar, cls: t.cls });
-        else parts[this.idxToken] = { text: current + nextChar, cls: t.cls };
-        this.visibleTokens.set(parts);
-        this.idxChar++;
-
-        if (this.idxChar >= t.text.length) {
-          this.idxToken++; this.idxChar = 0;
-          if (this.idxToken < this.full.length && this.pauseMs() > 0) {
-            this.animId = requestAnimationFrame(() => {
-              setTimeout(() => { this.lastTs = performance.now(); this.animId = requestAnimationFrame(step); }, this.pauseMs());
-            });
-            return;
-          }
-        }
+    this.typeTimer = window.setInterval(() => {
+      if (this.idx >= this.stream.length) {
+        // done typing
+        this.cursorVisible.set(false);
+        if (this.typeTimer) clearInterval(this.typeTimer);
+        if (this.blinkTimer) clearInterval(this.blinkTimer);
+        return;
       }
 
-      if (this.idxToken < this.full.length) this.animId = requestAnimationFrame(step);
-      else this.cursorVisible.set(false);
-    };
-    this.animId = requestAnimationFrame(step);
+      const nextChar = this.stream[this.idx++];
+      // ❗ immutably append to trigger Angular re-render
+      this.visibleTokens.set([...this.visibleTokens(), nextChar]);
+    }, stepMs);
   }
 }

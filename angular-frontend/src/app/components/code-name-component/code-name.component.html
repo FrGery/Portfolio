@@ -1,6 +1,5 @@
 <!-- path: src/app/components/code-name/code-name.component.html -->
-<div class="code-line" [attr.aria-label]="plainText()" role="text">
-  <span *ngFor="let part of visibleTokens(); let i = index" [class]="part.cls">{{ part.text }}</span>
-  <span class="cursor" aria-hidden="true" [class.hidden]="!cursorVisible()"></span>
+<div class="code-area">
+  <!-- prettier-ignore -->
+  <pre class="code-block" [attr.aria-label]="plainText()" role="text">@for (part of visibleTokens(); track $index){<span [class]="part.cls">{{part.text}}</span>}<span class="cursor" aria-hidden="true" [class.hidden]="!cursorVisible()"></span></pre>
 </div>
-

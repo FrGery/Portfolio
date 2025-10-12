@@ -47,3 +47,26 @@
   transform: scale(1.08);
   filter: drop-shadow(0 0 6px rgba(183,255,154,.55));
 }
+.photo {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 1) A self-sized frame that scales responsively */
+.portrait-frame { position: relative; width: clamp(260px, 32vw, 420px); display: inline-block; }
+.portrait { width: 100%; height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,.35)); }
+
+/* Tune these % so the overlay hugs the Mac window area */
+.mac-overlay {
+  position: absolute;
+  left: 10%;   /* <- tweak */
+  right: 8%;   /* <- tweak */
+  top: 58%;    /* <- tweak */
+  bottom: 10%; /* <- tweak */
+  /* debug: outline: 1px dashed rgba(152,224,122,.6); */
+}
+
+/* app-code-name fills the overlay; code writes from top-left downward */
+.mac-overlay app-code-name,
+.mac-overlay .code-area { width: 100%; height: 100%; }
