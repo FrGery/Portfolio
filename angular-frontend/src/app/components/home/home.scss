@@ -133,31 +133,49 @@
 
 /* Mid-size phones (361–460px) — fluid, but anchored to your base sizes */
 /* Mid-size phones (361–460px) — fluid scaling, no warnings */
+/* Mid-size phones (361–460px) — fluid without any division */
 @media (max-width: 460px) and (min-width: 361px) {
   :root {
-    /* unitless progress: 0 at 361px, 1 at 460px */
-    --t: clamp(0, calc((100vw - 361px) / 99px), 1);
-    /* scale 0.85 → 1 across the range */
-    --scale: calc(0.85 + (1 - 0.85) * var(--t));
+    /* portrait width: 323px @361 → 380px @460  (Δ=57 over 99px ⇒ 0.575758) */
+    --portrait-w: clamp(
+      323px,
+      calc(323px + 0.575758 * (100vw - 361px)),
+      380px
+    );
 
-    --portrait-w: calc(380px * var(--scale));
     --ov-left: 9%;
     --ov-right: 9%;
     --ov-top: 61%;
     --ov-bottom: 10%;
 
-    --code-font: calc(10px * var(--scale));
-    --name-font: calc(1.3rem * var(--scale));
+    /* code font: 10px @361 → 12px @460 (Δ=2 ⇒ 0.020202) */
+    --code-font: clamp(
+      10px,
+      calc(10px + 0.020202 * (100vw - 361px)),
+      12px
+    );
+
+    /* name font: 18px @361 → 22px @460 (Δ=4 ⇒ 0.040404) */
+    --name-font: clamp(
+      18px,
+      calc(18px + 0.040404 * (100vw - 361px)),
+      22px
+    );
   }
 
   .portrait-frame { margin: 0 auto; width: var(--portrait-w); }
   .header-inner {
-    padding: calc(1.2rem * var(--scale)) 1rem;
-    gap: calc(0.8rem * var(--scale));
+    /* optional: scale paddings a touch */
+    padding: calc(1.2rem + 0.2rem * ((100vw - 361px) / 99)) 1rem; /* can remove if your linter nags */
+    gap: 1rem;
     text-align: center;
     justify-items: center;
   }
 }
+
+/* Ensure these rules actually apply to the text */
+.mac-overlay .code-block { font-size: var(--code-font) !important; line-height: 1.2; }
+.mac-overlay .name-big   { font-size: var(--name-font) !important; line-height: 1.15; }
 
 /* ───────── Ultra-small (≤360px) ───────── */
 @media (max-width: 360px) {
