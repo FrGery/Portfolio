@@ -1,8 +1,7 @@
 // path: src/app/components/home/home.component.ts
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CodeNameComponent} from '../code-name-component/code-name.component';
-
+import { CodeNameComponent } from '../code-name-component/code-name.component';
 @Component({
   selector: 'app-home',
   standalone: true,

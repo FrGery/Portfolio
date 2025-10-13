@@ -1,8 +1,9 @@
 // path: src/app/components/code-name/code-name.component.ts
-import { Component, OnDestroy, OnInit, input, signal, effect } from '@angular/core';
+// install once: npm i typewriter-effect
+import { Component, OnDestroy, AfterViewInit, ElementRef, ViewChild, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-type Token = { text: string; cls: string };
+// @ts-ignore
+import Typewriter from 'typewriter-effect/dist/core';
 
 @Component({
   selector: 'app-code-name',
@@ -11,94 +12,55 @@ type Token = { text: string; cls: string };
   templateUrl: './code-name.component.html',
   styleUrls: ['./code-name.component.scss'],
 })
-export class CodeNameComponent implements OnInit, OnDestroy {
-  /** Inputs */
+export class CodeNameComponent implements AfterViewInit, OnDestroy {
   name = input<string>('Friedrich Gergő');
-  cps = input<number>(45);            // characters per second
-  startDelayMs = input<number>(2000); // start delay
+  startDelayMs = input<number>(2000);  // wait before typing
+  typeDelayMs  = input<number>(22);    // per-char delay
+  cursor       = input<string>('▌');   // neon block
 
-  /** State */
-  visibleTokens = signal<Token[]>([]);
-  cursorVisible = signal(true);
+  @ViewChild('tw', { static: true }) twRef!: ElementRef<HTMLDivElement>;
+  private tw: Typewriter | null = null;
 
-  /** Internals */
-  private stream: Token[] = [];
-  private idx = 0;
-  private typeTimer: number | null = null;
-  private blinkTimer: number | null = null;
+  ngAfterViewInit(): void {
+    const html = this.buildHtml(this.name());
 
-  ngOnInit(): void {
-    this.stream = this.buildCharStream(this.name());
-
-    // Handle "prefers reduced motion"
+    // Reduced motion → render instantly, no cursor
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
-      this.visibleTokens.set([...this.stream]);
-      this.cursorVisible.set(false);
+      this.twRef.nativeElement.innerHTML = html;
+      this.twRef.nativeElement.classList.add('no-cursor');
       return;
     }
 
-    this.cursorVisible.set(false);
-    setTimeout(() => {
-      this.startTyping();
+    this.tw = new Typewriter(this.twRef.nativeElement, {
+      delay: this.typeDelayMs(),
+      cursor: this.cursor(),
+    });
 
-      // Start blinking cursor after typing begins
-      this.cursorVisible.set(true);
-      this.blinkTimer = window.setInterval(() => {
-        this.cursorVisible.update(v => !v);
-      }, 600);
-    }, this.startDelayMs());
+    this.tw
+      .pauseFor(this.startDelayMs())
+      .typeString(html)
+      .start();
   }
 
   ngOnDestroy(): void {
-    if (this.typeTimer) clearInterval(this.typeTimer);
-    if (this.blinkTimer) clearInterval(this.blinkTimer);
+    // TypewriterJS has no explicit destroy; clear timers by replacing node
+    if (this.tw) {
+      this.tw.stop();
+      this.tw = null;
+    }
   }
 
-  /** Text for accessibility */
-  plainText(): string {
-    return this.stream.map(c => c.text).join('');
+  private buildHtml(n: string): string {
+    // One string; <br> controls new lines. Colors via CSS classes.
+    return [
+      `<span class="kw">class</span> <span class="type">Developer</span><span class="punct">{</span>`,
+      `<br><span class="type">String</span> <span class="var">name</span> <span class="op">=</span>`,
+      `<br><span class="name-big">“${this.escape(n)}”</span>`,
+      `<br><span class="punct">}</span>`,
+    ].join('');
   }
 
-  /** Build tokens -> flat char stream */
-  private buildCharStream(n: string): Token[] {
-    const toks: Token[] = [
-      { text: 'class ', cls: 'kw' },
-      { text: 'Developer', cls: 'type' },
-      { text: '{\n', cls: 'punct' },
-      { text: 'String ', cls: 'type' },
-      { text: 'name ', cls: 'var' },
-      { text: '= \n', cls: 'op' },
-      { text: '"', cls: 'name-big' },
-      { text: n, cls: 'name-big' },
-      { text: '"\n', cls: 'name-big' },
-      { text: '}', cls: 'punct' },
-    ];
-
-    const out: Token[] = [];
-    for (const t of toks)
-      for (const ch of t.text)
-        out.push({ text: ch, cls: t.cls });
-    return out;
-  }
-
-  /** Typing animation loop */
-  private startTyping(): void {
-    const stepMs = Math.max(10, Math.floor(1000 / this.cps()));
-    this.visibleTokens.set([]);
-    this.idx = 0;
-
-    this.typeTimer = window.setInterval(() => {
-      if (this.idx >= this.stream.length) {
-        // done typing
-        this.cursorVisible.set(false);
-        if (this.typeTimer) clearInterval(this.typeTimer);
-        if (this.blinkTimer) clearInterval(this.blinkTimer);
-        return;
-      }
-
-      const nextChar = this.stream[this.idx++];
-      // ❗ immutably append to trigger Angular re-render
-      this.visibleTokens.set([...this.visibleTokens(), nextChar]);
-    }, stepMs);
+  private escape(s: string): string {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 }

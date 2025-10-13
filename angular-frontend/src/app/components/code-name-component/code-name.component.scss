@@ -1,83 +1,19 @@
 /* path: src/app/components/code-name/code-name.component.scss */
-.code-area {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.code-area { width:100%; height:100%; overflow:hidden; }
+.code-block { margin:0; width:100%; max-width:100%; white-space:normal; line-height:1.2;
+  font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  font-size:clamp(13px,1.5vw,18px);
 }
+.tw { display:inline-block; }
+.Typewriter__cursor { color:#98e07a; }
+.no-cursor .Typewriter__cursor { display:none; }
 
-.code-block {
-  margin: 0;
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  white-space: pre-wrap;   /* respect \n + allow wrap */
-  word-break: break-word;  /* long tokens can wrap */
-  overflow-wrap: anywhere;
-  line-height: 1.2;
-  font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.5vw, 18px);
-}
-
-.code-block span {
-  display: inline !important;
-  vertical-align: baseline;
-}
-
-/* token colors */
-.kw      { color: rgba(199,146,234,.7); }
-.type    { color: rgba(130,170,255,.7); }
-.var     { color: rgba(255,203,107,.7); }
-.op      { color: rgba(152,224,122,.7); }
-.punct   { color: rgba(207,211,221,.7); }
-.quote   { color: #98e07a; }
-.name-big{
-  color: #98e07a;
-  font-weight: 800;
-  font-size: clamp(1.9rem, 5vw, 2.6rem);
-  letter-spacing: .02em;
-}
-
-/* cursor */
-.cursor {
-  display: inline-block;
-  width: .6ch;
-  height: 1em;
-  background: #98e07a;
-  margin-left: 2px;
-  animation: blink .9s steps(1,end) infinite;
-}
-.cursor.hidden { opacity: 0; animation: none; }
-@keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
-
-/* path: src/app/components/home/home.scss (only the portrait/overlay part) */
-.portrait-frame {
-  position: relative;
-  width: clamp(260px, 32vw, 420px);
-  display: inline-block;
-}
-.portrait {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  filter: drop-shadow(0 10px 30px rgba(0,0,0,.35));
-}
-
-/* Overlay must be block-level and define the typing box */
-.mac-overlay {
-  position: absolute;
-  left: 10%;     /* ← tune to hug Mac window */
-  right: 10%;    /* ← tune */
-  top: 58%;      /* ← tune */
-  bottom: 10%;   /* ← tune */
-  display: block !important;
-  min-width: 0;
-  /* outline: 1px dashed rgba(152,224,122,.5); */ /* enable to debug */
-}
-
-/* Make app-code-name fill the overlay box */
-.mac-overlay app-code-name,
-.mac-overlay .code-area {
-  width: 100%;
-  height: 100%;
+/* pierce encapsulation so classes inside injected HTML are styled */
+:host ::ng-deep .tw .kw      { color: rgba(199,146,234,.7); }
+:host ::ng-deep .tw .type    { color: rgba(130,170,255,.7); }
+:host ::ng-deep .tw .var     { color: rgba(255,203,107,.7); }
+:host ::ng-deep .tw .op      { color: rgba(152,224,122,.7); }
+:host ::ng-deep .tw .punct   { color: rgba(207,211,221,.7); }
+:host ::ng-deep .tw .name-big{
+  color:#98e07a; font-weight:800; font-size:clamp(1.9rem,5vw,2.6rem); letter-spacing:.02em;
 }
