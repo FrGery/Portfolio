@@ -1,38 +1,12 @@
 /* path: src/app/components/home/home.scss */
 
-/* --- Background section --- */
-.hero {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
+/* ───────── Background ───────── */
+.hero { position: relative; height: 100vh; overflow: hidden; }
+.bg, .bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(106,231,92,.18), rgba(0,0,0,.30)); }
 
-.bg,
-.bg-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
-
-.scrim {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(106,231,92,0.18), rgba(0,0,0,0.3));
-}
-
-/* --- Header / layout --- */
-.site-header {
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-}
-
+/* ───────── Header / layout ───────── */
+.site-header { position: relative; z-index: 1; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.4); }
 .header-inner {
   display: grid;
   align-items: center;
@@ -40,86 +14,157 @@
   padding: 4rem 1.25rem;
   max-width: 1100px;
   margin: 0 auto;
-  grid-template-columns: 1.2fr 1fr; /* text left, image right */
+  grid-template-columns: 1.2fr 1fr; /* text | portrait */
 }
 
-.socials {
-  display: flex;
-  gap: .5rem;
-  margin-top: .75rem;
-}
+/* Socials */
+.socials { display: flex; gap: .5rem; margin-top: .75rem; }
+.socials .icon svg { width: 28px; height: 28px; fill: #98e07a; transition: fill .2s ease, transform .2s ease, filter .2s ease; filter: drop-shadow(0 0 4px rgba(152,224,122,.45)); }
+.socials .icon:hover svg { fill: #b7ff9a; transform: scale(1.08); filter: drop-shadow(0 0 6px rgba(183,255,154,.55)); }
 
-/* --- Social icons --- */
-.socials .icon svg {
-  width: 28px;
-  height: 28px;
-  fill: #98e07a;
-  transition: fill .2s ease, transform .2s ease, filter .2s ease;
-  filter: drop-shadow(0 0 4px rgba(152,224,122,.45));
-}
-.socials .icon:hover svg {
-  fill: #b7ff9a;
-  transform: scale(1.08);
-  filter: drop-shadow(0 0 6px rgba(183,255,154,.55));
-}
-
-/* --- Portrait & overlay --- */
-.portrait-frame {
-  position: relative;
-  display: inline-block;
-}
-
+/* ───────── Portrait + overlay ───────── */
+.portrait-frame { position: relative; display: inline-block; }
 .portrait {
-  width: clamp(336px, 44.8vw, 588px); /* 140% enlargement */
+  width: var(--portrait-w);
+  max-width: 100%;
   height: auto;
   display: block;
   object-fit: contain;
   filter: drop-shadow(0 10px 30px rgba(0,0,0,.35));
 }
 
-/* Position overlay exactly over Mac window area (tune %) */
+/* Overlay pinned to the Mac window content area */
 .mac-overlay {
-  text-align: left;
   position: absolute;
-
-  /* TUNE THESE four values until the dashed box hugs the gray window area */
-  left: 5%;
-  right: 5%;
-  top: 66%;         /* move down until it's below the title bar */
-  bottom: 3%;
-
-  /* 2) Padding so text isn’t glued to edges; top ~= title bar height */
-  padding: 14px 16px 12px;
-
-  /* 3) Clip anything that overflows the window box */
-  overflow: hidden;
-
-  /* enable while tuning, then remove */
-}
-
-/* Make the typing area fill the overlay */
-.mac-overlay app-code-name,
-.mac-overlay .code-area,
-.mac-overlay .code-block,
-.mac-overlay .tw {
-  width: 100%;
-  height: 100%;
   display: block;
+  text-align: left;
+  left: var(--ov-left);
+  right: var(--ov-right);
+  top: var(--ov-top);
+  bottom: var(--ov-bottom);
+  padding: 27px 1px 5px;
+  overflow: hidden;
 }
-
-/* Optional: slightly smaller “big name” INSIDE the window to avoid spill */
-.mac-overlay .name-big {
-  font-size: clamp(1.6rem, 3.8vw, 2.2rem);
+.mac-overlay .code-block {
+  font-size: var(--code-font) !important;
+  line-height: 1.2;
+}
+.mac-overlay .name-big   {
+  font-size: var(--name-font) !important;
   line-height: 1.15;
 }
 
-/* --- Responsive stacking --- */
-@media (max-width: 820px) {
+/* Fill overlay */
+.mac-overlay app-code-name,
+.mac-overlay .code-area,
+.mac-overlay .code-block,
+.mac-overlay .tw { width: 100%; height: 100%; display: block; }
+
+/* Typography inside overlay (keep consistent per bucket) */
+.mac-overlay .code-block { font-size: var(--code-font); line-height: 1.2; }
+.mac-overlay .name-big   { font-size: var(--name-font); line-height: 1.15; }
+
+/* ───────── Desktop (≥1024px) ───────── */
+:root {
+  --portrait-w: 560px;   /* desktop size */
+  --ov-left: 8%;
+  --ov-right: 8%;
+  --ov-top: 63%;
+  --ov-bottom: 8%;
+  --code-font: 20px;
+  --name-font: 2.3rem;
+}
+
+/* Keep portrait constant everywhere unless overridden */
+.portrait {
+  width: var(--portrait-w) !important;
+  max-width: none !important;
+}
+
+/* ───────── Tablet (≤1024px) ───────── */
+/* ❗ Do NOT change --portrait-w here so tablet = desktop size */
+@media (max-width: 1024px) {
+  :root {
+    /* keep portrait same as desktop → no --portrait-w override */
+    --ov-left: 9%;
+    --ov-right: 9%;
+    --ov-top: 62%;
+    --ov-bottom: 9%;
+    --code-font: 15px;
+    --name-font: 2.1rem;
+  }
+
   .header-inner {
     grid-template-columns: 1fr;
     text-align: center;
+    justify-items: center;
   }
-  .portrait {
-    width: clamp(260px, 80vw, 420px);
+
+  /* remove this: was forcing the frame width and causing a jump */
+  /* .portrait-frame { width: var(--portrait-w); } */
+
+  .portrait-frame { margin: 0 auto; }
+  .socials { justify-content: center; }
+}
+
+/* ───────── Phone (≤640px) ───────── */
+@media (max-width: 640px) {
+  :root {
+    --portrait-w: 420px;     /* smaller portrait */
+    --ov-left: 9%;
+    --ov-right: 9%;
+    --ov-top: 61%;
+    --ov-bottom: 10%;
+
+    /* ↓↓↓ Smaller text sizes ↓↓↓ */
+    --code-font: clamp(10px, 2.5vw, 12px);
+    --name-font: clamp(1.4rem, 5.5vw, 1.8rem);
   }
+
+  .header-inner {
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .portrait-frame { margin: 0 auto; }
+}
+
+/* Mid-size phones (361–460px) — fluid, but anchored to your base sizes */
+/* Mid-size phones (361–460px) — fluid scaling, no warnings */
+@media (max-width: 460px) and (min-width: 361px) {
+  :root {
+    /* unitless progress: 0 at 361px, 1 at 460px */
+    --t: clamp(0, calc((100vw - 361px) / 99px), 1);
+    /* scale 0.85 → 1 across the range */
+    --scale: calc(0.85 + (1 - 0.85) * var(--t));
+
+    --portrait-w: calc(380px * var(--scale));
+    --ov-left: 9%;
+    --ov-right: 9%;
+    --ov-top: 61%;
+    --ov-bottom: 10%;
+
+    --code-font: calc(10px * var(--scale));
+    --name-font: calc(1.3rem * var(--scale));
+  }
+
+  .portrait-frame { margin: 0 auto; width: var(--portrait-w); }
+  .header-inner {
+    padding: calc(1.2rem * var(--scale)) 1rem;
+    gap: calc(0.8rem * var(--scale));
+    text-align: center;
+    justify-items: center;
+  }
+}
+
+/* ───────── Ultra-small (≤360px) ───────── */
+@media (max-width: 360px) {
+  :root {
+    --portrait-w: 300px;
+    --code-font: 9px;
+    --name-font: 1.1rem;
+  }
+
 }

@@ -1,8 +1,15 @@
 /* path: src/app/components/code-name/code-name.component.scss */
-.code-area { width:100%; height:100%; overflow:hidden; }
-.code-block { margin:0; width:100%; max-width:100%; white-space:normal; line-height:1.2;
-  font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
-  font-size:clamp(13px,1.5vw,18px);
+.code-area { width: 100%; height: 100%; overflow: hidden; text-align: left; }
+
+.code-block {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  text-align: left;
+  white-space: normal;
+  line-height: 1.2;
+  font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 .tw { display:inline-block; }
 .Typewriter__cursor { color:#98e07a; }
@@ -17,3 +24,6 @@
 :host ::ng-deep .tw .name-big{
   color:#98e07a; font-weight:800; font-size:clamp(1.9rem,5vw,2.6rem); letter-spacing:.02em;
 }
+
+.name-big { color: #98e07a; font-weight: 800; letter-spacing: .02em; }
+

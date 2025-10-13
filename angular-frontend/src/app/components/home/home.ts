@@ -1,5 +1,5 @@
 // path: src/app/components/home/home.component.ts
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import {Component, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CodeNameComponent } from '../code-name-component/code-name.component';
 @Component({
@@ -8,12 +8,14 @@ import { CodeNameComponent } from '../code-name-component/code-name.component';
   imports: [CommonModule, CodeNameComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit, OnDestroy {
   lastFrameUrl = signal<string | null>(null);
   private v!: HTMLVideoElement;
   private reverseInterval?: number;
   private timers: number[] = [];
+
 
   ngOnInit(): void {
     this.v = document.querySelector<HTMLVideoElement>('#bgvid')!;
