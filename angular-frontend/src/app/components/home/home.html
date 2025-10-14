@@ -1,40 +1,62 @@
 <!-- path: src/app/components/home/home.html -->
 <section class="hero">
-  <img *ngIf="lastFrameUrl() as img" [src]="img" alt="" class="bg-img" />
+  <img *ngIf="lastFrameUrl() as img" [src]="img" alt="" class="bg-img"/>
   <video id="bgvid" class="bg" autoplay muted playsinline preload="auto">
-    <source src="assets/background.mp4" type="video/mp4" />
+    <source src="assets/background.mp4" type="video/mp4"/>
   </video>
   <div class="scrim" aria-hidden="true"></div>
 
   <header class="site-header">
-    <div class="header-inner">
-      <div class="intro">
+    <div class="header-inner home-grid">
+      <!-- LEFT: Profession -->
+      <div class="left-col">
+        <h2 class="profession">
+          FULL-STACK<br>DEVELOPER
+        </h2>
 
         <nav class="socials" aria-label="Social links">
-          <a class="icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
+          <a class="icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"
+             title="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/>
+            </svg>
           </a>
-          <a class="icon" href="https://github.com/FrGery" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.36-3.37-1.36-.46-1.19-1.13-1.5-1.13-1.5-.92-.64.07-.62.07-.62 1.02.07 1.56 1.06 1.56 1.06.9 1.58 2.36 1.12 2.93.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05.8-.23 1.66-.35 2.51-.35.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.95-2.35 4.82-4.58 5.07.36.32.69.94.69 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
+          <a class="icon" href="https://github.com/FrGery" target="_blank" rel="noopener" aria-label="GitHub"
+             title="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.36-3.37-1.36-.46-1.19-1.13-1.5-1.13-1.5-.92-.64.07-.62.07-.62 1.02.07 1.56 1.06 1.56 1.06.9 1.58 2.36 1.12 2.93.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05.8-.23 1.66-.35 2.51-.35.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.95-2.35 4.82-4.58 5.07.36.32.69.94.69 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/>
+            </svg>
           </a>
-          <a class="icon" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.941v5.665H9.351V9h3.413v1.561h.048c.476-.9 1.637-1.852 3.369-1.852 3.6 0 4.269 2.37 4.269 5.455v6.288zM5.337 7.433a2.063 2.063 0 1 1 0-4.127 2.063 2.063 0 0 1 0 4.127zM7.119 20.452H3.554V9h3.565v11.452z"/></svg>
+          <a class="icon" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"
+             title="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.941v5.665H9.351V9h3.413v1.561h.048c.476-.9 1.637-1.852 3.369-1.852 3.6 0 4.269 2.37 4.269 5.455v6.288zM5.337 7.433a2.063 2.063 0 1 1 0-4.127 2.063 2.063 0 0 1 0 4.127zM7.119 20.452H3.554V9h3.565v11.452z"/>
+            </svg>
           </a>
           <a class="icon" href="mailto:your.email@example.com" aria-label="Email" title="Email">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
           </a>
         </nav>
       </div>
 
-      <div class="portrait-frame">
-        <img src="assets/self.png" alt="Portrait" class="portrait" />
-        <div class="mac-overlay"><!-- this is the window area -->
-          <app-code-name
-            name="Friedrich Gergő"
-            [startDelayMs]="2000"
-            [typeDelayMs]="22"
-            cursor="▌">
-          </app-code-name>
+      <!-- RIGHT: Portrait + typed name -->
+      <div class="right-col">
+        <div class="portrait-frame">
+          <img src="assets/self2.png" alt="Portrait" class="portrait"/>
+          <div class="mac-overlay">
+            <app-code-name
+              name="Friedrich Gergő"
+              [startDelayMs]="2000"
+              [typeDelayMs]="22"
+              cursor="▌">
+            </app-code-name>
+          </div>
         </div>
       </div>
     </div>

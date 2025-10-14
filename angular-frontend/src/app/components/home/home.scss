@@ -1,188 +1,120 @@
 /* path: src/app/components/home/home.scss */
 
-/* ───────── Background ───────── */
-.hero { position: relative; height: 100vh; overflow: hidden; }
-.bg, .bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
-.scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(106,231,92,.18), rgba(0,0,0,.30)); }
+/* Background */
+.hero{position:relative;min-height:100dvh;overflow:visible}
+.bg,.bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(106,231,92,.18),rgba(0,0,0,.30))}
 
-/* ───────── Header / layout ───────── */
-.site-header { position: relative; z-index: 1; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.4); }
-.header-inner {
-  display: grid;
-  align-items: center;
-  gap: 2rem;
-  padding: 4rem 1.25rem;
-  max-width: 1100px;
-  margin: 0 auto;
-  grid-template-columns: 1.2fr 1fr; /* text | portrait */
+/* Vars */
+:root{
+  --portrait-w: 560px;   /* desktop & tablet same -> overlay stable */
+  --ov-left: 8%; --ov-right: 8%; --ov-top: 63%; --ov-bottom: 8%;
+  --code-font: 20px; --name-font: 2.3rem;
 }
 
-/* Socials */
-.socials { display: flex; gap: .5rem; margin-top: .75rem; }
-.socials .icon svg { width: 28px; height: 28px; fill: #98e07a; transition: fill .2s ease, transform .2s ease, filter .2s ease; filter: drop-shadow(0 0 4px rgba(152,224,122,.45)); }
-.socials .icon:hover svg { fill: #b7ff9a; transform: scale(1.08); filter: drop-shadow(0 0 6px rgba(183,255,154,.55)); }
-
-/* ───────── Portrait + overlay ───────── */
-.portrait-frame { position: relative; display: inline-block; }
-.portrait {
-  width: var(--portrait-w);
-  max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  filter: drop-shadow(0 10px 30px rgba(0,0,0,.35));
+/* Header grid (simple) */
+.header-inner{
+  display:grid; align-items:center; gap:2rem;
+  padding:4rem 1.25rem; max-width:1100px; margin:0 auto;
+  grid-template-columns: 1fr var(--portrait-w); /* title | fixed portrait */
 }
 
-/* Overlay pinned to the Mac window content area */
-.mac-overlay {
-  position: absolute;
-  display: block;
+/* Columns */
+.left-col{min-width:0; overflow:hidden; text-align:left}
+.right-col{min-width:0; display:flex; justify-content:flex-end}
+
+/* Portrait & overlay */
+.portrait-frame{position:relative; width:var(--portrait-w)}
+.portrait{width:100%; height:auto; object-fit:contain; filter:drop-shadow(0 10px 30px rgba(0,0,0,.35))}
+.mac-overlay{
+  position:absolute; left:var(--ov-left); right:var(--ov-right); top:var(--ov-top); bottom:var(--ov-bottom);
+  padding:27px 1px 5px; overflow:hidden; text-align:left;
+}
+
+/* Typing: single line, clipped */
+.mac-overlay .code-block{font-size:var(--code-font)!important; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.mac-overlay .name-big{font-size:var(--name-font)!important; line-height:1.15}
+
+/* Socials (unchanged) */
+.socials{display:flex;gap:.5rem;margin-top:.75rem}
+.socials .icon svg{width:28px;height:28px;fill:#98e07a;transition:fill .2s,transform .2s,filter .2s;filter:drop-shadow(0 0 4px rgba(152,224,122,.45))}
+.socials .icon:hover svg{fill:#b7ff9a;transform:scale(1.08);filter:drop-shadow(0 0 6px rgba(183,255,154,.55))}
+
+/* Title: Exo 2, dark gray + green backlight (elegant) */
+.profession {
+  margin: 0 0 1.25rem 0;
+  font-family: "The Seasons", "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  line-height: 1.1;
+  text-transform: uppercase;
   text-align: left;
-  left: var(--ov-left);
-  right: var(--ov-right);
-  top: var(--ov-top);
-  bottom: var(--ov-bottom);
-  padding: 27px 1px 5px;
-  overflow: hidden;
-}
-.mac-overlay .code-block {
-  font-size: var(--code-font) !important;
-  line-height: 1.2;
-}
-.mac-overlay .name-big   {
-  font-size: var(--name-font) !important;
-  line-height: 1.15;
-}
 
-/* Fill overlay */
-.mac-overlay app-code-name,
-.mac-overlay .code-area,
-.mac-overlay .code-block,
-.mac-overlay .tw { width: 100%; height: 100%; display: block; }
+  /* Responsive dual-line sizing */
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: rgb(175, 174, 174);
 
-/* Typography inside overlay (keep consistent per bucket) */
-.mac-overlay .code-block { font-size: var(--code-font); line-height: 1.2; }
-.mac-overlay .name-big   { font-size: var(--name-font); line-height: 1.15; }
+  /* Elegant subtle green backlight */
+  text-shadow:
+    0 0 4px rgba(152, 224, 122, 0.58),
+    0 0 10px rgba(152, 224, 122, 0.82),
+    0 2px 5px rgba(0, 0, 0, 0.3);
 
-/* ───────── Desktop (≥1024px) ───────── */
-:root {
-  --portrait-w: 560px;   /* desktop size */
-  --ov-left: 8%;
-  --ov-right: 8%;
-  --ov-top: 63%;
-  --ov-bottom: 8%;
-  --code-font: 20px;
-  --name-font: 2.3rem;
+  /* Prevent awkward line breaks */
+  white-space: normal;
+  word-break: keep-all;
+}
+.profession {
+  animation: glowPulse 5s ease-in-out infinite;
 }
 
-/* Keep portrait constant everywhere unless overridden */
-.portrait {
-  width: var(--portrait-w) !important;
-  max-width: none !important;
-}
-
-/* ───────── Tablet (≤1024px) ───────── */
-/* ❗ Do NOT change --portrait-w here so tablet = desktop size */
-@media (max-width: 1024px) {
-  :root {
-    /* keep portrait same as desktop → no --portrait-w override */
-    --ov-left: 9%;
-    --ov-right: 9%;
-    --ov-top: 62%;
-    --ov-bottom: 9%;
-    --code-font: 15px;
-    --name-font: 2.1rem;
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 4px rgba(152, 224, 122, 0.18),
+      0 0 10px rgba(152, 224, 122, 0.12),
+      0 2px 5px rgba(0, 0, 0, 0.3);
   }
+  50% {
+    text-shadow:
+      0 0 6px rgba(152, 224, 122, 0.26),
+      0 0 12px rgba(152, 224, 122, 0.18),
+      0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+}
 
-  .header-inner {
+/* Tablet: stack but KEEP same portrait width -> overlay stable */
+@media (max-width:1024px){
+  .header-inner{
     grid-template-columns: 1fr;
-    text-align: center;
-    justify-items: center;
+    grid-auto-rows:auto;
+    text-align:center; justify-items:center;
   }
-
-  /* remove this: was forcing the frame width and causing a jump */
-  /* .portrait-frame { width: var(--portrait-w); } */
-
-  .portrait-frame { margin: 0 auto; }
-  .socials { justify-content: center; }
+  .right-col{order:1; justify-content:center}
+  .left-col{order:2; text-align:center}
+  /* do NOT change --portrait-w here */
 }
 
-/* ───────── Phone (≤640px) ───────── */
-@media (max-width: 640px) {
-  :root {
-    --portrait-w: 420px;     /* smaller portrait */
-    --ov-left: 9%;
-    --ov-right: 9%;
-    --ov-top: 61%;
-    --ov-bottom: 10%;
-
-    /* ↓↓↓ Smaller text sizes ↓↓↓ */
-    --code-font: clamp(10px, 2.5vw, 12px);
-    --name-font: clamp(1.4rem, 5.5vw, 1.8rem);
-  }
-
-  .header-inner {
-    padding: 1.5rem 1rem;
-    gap: 1rem;
-    text-align: center;
-    justify-items: center;
-  }
-
-  .portrait-frame { margin: 0 auto; }
+/* Phone: shrink portrait (and fonts) */
+@media (max-width:640px){
+  :root{ --portrait-w: 420px; --code-font: 12px; --name-font: 1.6rem; }
+  .portrait-frame{width:var(--portrait-w)}
+  .profession{font-size:clamp(1.4rem,6.2vw,2.2rem)}
 }
 
-/* Mid-size phones (361–460px) — fluid, but anchored to your base sizes */
-/* Mid-size phones (361–460px) — fluid scaling, no warnings */
-/* Mid-size phones (361–460px) — fluid without any division */
-@media (max-width: 460px) and (min-width: 361px) {
-  :root {
-    /* portrait width: 323px @361 → 380px @460  (Δ=57 over 99px ⇒ 0.575758) */
-    --portrait-w: clamp(
-      323px,
-      calc(323px + 0.575758 * (100vw - 361px)),
-      380px
-    );
-
-    --ov-left: 9%;
-    --ov-right: 9%;
-    --ov-top: 61%;
-    --ov-bottom: 10%;
-
-    /* code font: 10px @361 → 12px @460 (Δ=2 ⇒ 0.020202) */
-    --code-font: clamp(
-      10px,
-      calc(10px + 0.020202 * (100vw - 361px)),
-      12px
-    );
-
-    /* name font: 18px @361 → 22px @460 (Δ=4 ⇒ 0.040404) */
-    --name-font: clamp(
-      18px,
-      calc(18px + 0.040404 * (100vw - 361px)),
-      22px
-    );
-  }
-
-  .portrait-frame { margin: 0 auto; width: var(--portrait-w); }
-  .header-inner {
-    /* optional: scale paddings a touch */
-    padding: calc(1.2rem + 0.2rem * ((100vw - 361px) / 99)) 1rem; /* can remove if your linter nags */
-    gap: 1rem;
-    text-align: center;
-    justify-items: center;
-  }
+/* Mid-size phones 361–460px: gently smaller */
+@media (max-width:460px) and (min-width:361px){
+  :root{ --portrait-w: 380px; --code-font: 10px; --name-font: 1.3rem; }
+  .portrait-frame{width:var(--portrait-w)}
 }
 
-/* Ensure these rules actually apply to the text */
-.mac-overlay .code-block { font-size: var(--code-font) !important; line-height: 1.2; }
-.mac-overlay .name-big   { font-size: var(--name-font) !important; line-height: 1.15; }
-
-/* ───────── Ultra-small (≤360px) ───────── */
-@media (max-width: 360px) {
-  :root {
-    --portrait-w: 300px;
-    --code-font: 9px;
-    --name-font: 1.1rem;
-  }
-
+/* Ultra-small ≤360px */
+@media (max-width:360px){
+  :root{ --portrait-w: 300px; --code-font: 9px; --name-font: 1.1rem; }
+  .portrait-frame{width:var(--portrait-w)}
+}
+/* enforce neon green typewriter cursor globally */
+.Typewriter__cursor {
+  color: #98e07a !important;
+  text-shadow: 0 0 4px rgba(152, 224, 122, 0.35);
 }
