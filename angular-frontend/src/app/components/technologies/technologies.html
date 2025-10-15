@@ -1,0 +1,38 @@
+<!-- path: src/app/components/technologies/technologies.html -->
+<section id="technologies" class="tech-section">
+  <div class="tech-container">
+    <h2 class="tech-title">Technologies</h2>
+
+    <div class="tech-grid">
+      <!-- Left panel -->
+      <article class="glass"
+               appReveal
+               [appRevealThreshold]="0.2"
+               appRevealRootMargin="0px 0px -8% 0px">
+        <header class="glass-head">
+          <h3>Main Technologies</h3>
+        </header>
+        <ul class="chip-list" role="list">
+          @for (tech of main; track tech) {
+            <li class="chip">{{ tech }}</li>
+          }
+        </ul>
+      </article>
+
+      <!-- Right panel -->
+      <article class="glass"
+               appReveal
+               [appRevealThreshold]="0.2"
+               [appRevealOnce]="true">
+        <header class="glass-head">
+          <h3>Additional Technologies</h3>
+        </header>
+        <ul class="chip-list" role="list">
+          @for (tech of additional; track tech) {
+            <li class="chip">{{ tech }}</li>
+          }
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
