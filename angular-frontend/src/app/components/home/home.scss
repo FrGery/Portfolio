@@ -52,34 +52,28 @@
 
   /* Responsive dual-line sizing */
   font-size: clamp(1.8rem, 4vw, 3rem);
-  color: rgb(175, 174, 174);
+  color: rgba(33, 42, 33, 0.87);
 
-  /* Elegant subtle green backlight */
-  text-shadow:
-    0 0 4px rgba(152, 224, 122, 0.58),
-    0 0 10px rgba(152, 224, 122, 0.82),
-    0 2px 5px rgba(0, 0, 0, 0.3);
-
-  /* Prevent awkward line breaks */
   white-space: normal;
   word-break: keep-all;
 }
 .profession {
   animation: glowPulse 5s ease-in-out infinite;
+
 }
 
 @keyframes glowPulse {
   0%, 100% {
     text-shadow:
-      0 0 4px rgba(152, 224, 122, 0.18),
-      0 0 10px rgba(152, 224, 122, 0.12),
-      0 2px 5px rgba(0, 0, 0, 0.3);
+      0 0 2px rgb(255, 255, 255),
+      0 0 3px rgb(93, 252, 1),
+      0 2px 3px rgb(255, 255, 255);
   }
   50% {
     text-shadow:
-      0 0 6px rgba(152, 224, 122, 0.26),
-      0 0 12px rgba(152, 224, 122, 0.18),
-      0 2px 5px rgba(0, 0, 0, 0.3);
+      0 0 6px rgba(74, 245, 3, 0.26),
+      0 0 3px rgba(238, 238, 238, 0.8),
+      0 2px 5px rgba(2, 1, 1, 0.88);
   }
 }
 
@@ -117,4 +111,31 @@
 .Typewriter__cursor {
   color: #98e07a !important;
   text-shadow: 0 0 4px rgba(152, 224, 122, 0.35);
+}
+
+.lottie-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.portrait-hex {
+  position: absolute;
+  z-index: -1;          /* behind the photo */
+  pointer-events: none; /* decorative */
+  inset: 0;             /* anchor to frame, then size+offset below */
+
+  /* Size and placement: tune these to match your graphic */
+  width: 90%;          /* slightly larger than the photo */
+  height: auto;
+  aspect-ratio: 1;      /* keep it square */
+  left: 50%;
+  top: 8%;
+  transform: translateX(-50%); /* center under portrait */
+
+  /* Ensure the inner SVG scales to the box */
+  :is(svg, canvas) { width: 100% !important; height: 100% !important; display: block; }
 }
