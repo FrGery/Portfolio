@@ -8,8 +8,7 @@
 /* ───────── BANNER (top, default) ───────── */
 .banner {
   position: relative;
-  color: #e0e0e0;
-  z-index: 1;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 .banner.hidden {
@@ -41,9 +40,7 @@
   width: 100%;
 }
 
-.banner-links li {
-  flex: 1 1 0;
-}
+.banner-links li { flex: 1 1 0; }
 
 .banner-links a {
   display: block;
@@ -52,7 +49,7 @@
   font-weight: 800;
   font-size: clamp(1rem, 1.1vw, 1.3rem);
   letter-spacing: 0.08em;
-  color: #e0e0e0;
+  color: rgba(169, 177, 194, 0.77);
   text-transform: uppercase;
 
   padding: clamp(10px, 1vw, 14px) clamp(14px, 1.2vw, 18px);
@@ -122,7 +119,7 @@
   transition: 0.3s;
 }
 
-/* ───────── STICKY NAV (appears after scroll) ───────── */
+/* ───────── STICKY NAVBAR (appears after scroll) ───────── */
 .glassy-navbar {
   position: fixed;
   top: 0;
@@ -133,53 +130,78 @@
   background: rgba(18, 18, 18, 0.7);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.65rem 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.glassy-navbar.show { transform: translateY(0); }
 
-.glassy-navbar.show {
-  transform: translateY(0);
-}
+/* Horizontal boxed layout like top banner, but thinner */
+@media (min-width: 1021px) {
+  .glassy-navbar {
+    padding: 8px clamp(16px, 2vw, 24px);
+    gap: clamp(12px, 2vw, 24px);
+  }
 
-.nav-link {
-  color: #e0e0e0;
-  text-decoration: none;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  margin-right: 1rem;
-}
+  .glassy-navbar .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 1.4vw, 18px);
+    flex: 1 1 auto;
+    min-width: 0;
+  }
 
-.nav-link:hover {
-  color: #b7ff9a;
-  text-shadow: 0 0 6px rgba(183, 255, 154, 0.5);
-}
+  .glassy-navbar .nav-link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-size: clamp(0.92rem, 0.95vw, 1.1rem);
+    padding: clamp(8px, 0.9vw, 10px) clamp(12px, 1.2vw, 16px);
+    border-radius: 10px;
+    color: rgba(164, 225, 139, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(7px) saturate(1.05);
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, transform 0.15s ease;
+  }
 
-.nav-link.active {
-  color: #98e07a;
-}
+  .glassy-navbar .nav-link:hover,
+  .glassy-navbar .nav-link.active {
+    color: #eafee0;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(152, 224, 122, 0.35);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.26),
+    0 0 8px rgba(152, 224, 122, 0.28);
+    transform: translateY(-1px);
+  }
 
-.nav-socials {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+  .glassy-navbar .nav-socials {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.2vw, 14px);
+    flex: 0 0 auto;
+  }
+  .glassy-navbar .nav-socials .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+  }
+  .glassy-navbar .nav-socials .icon svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 /* ───────── MOBILE (≤820px) ───────── */
 @media (max-width: 820px) {
-  .banner-inner {
-    grid-template-columns: 1fr auto auto;
-  }
-  .banner-links {
-    display: none;
-  }
-  .hamburger {
-    display: flex;
-  }
-  .glassy-navbar {
-    display: none;
-  }
+  .banner-inner { grid-template-columns: 1fr auto auto; }
+  .banner-links { display: none; }
+  .hamburger { display: flex; }
+  .glassy-navbar { display: none; } /* disable sticky nav on phones */
 }
 
 /* ───────── MOBILE OVERLAY MENU ───────── */
@@ -191,12 +213,10 @@
   visibility: hidden;
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
-
 .mobile-overlay.show {
   opacity: 1;
   visibility: visible;
 }
-
 .mobile-overlay .panel {
   position: absolute;
   top: 0;
@@ -212,10 +232,7 @@
   flex-direction: column;
   gap: 1rem;
 }
-
-.mobile-overlay.show .panel {
-  right: 0;
-}
+.mobile-overlay.show .panel { right: 0; }
 
 .mobile-links {
   display: flex;
@@ -223,24 +240,17 @@
   gap: 1rem;
   margin-top: 1rem;
 }
-
 .mobile-links a {
   color: #e0e0e0;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
 }
-
 .mobile-links a:hover {
   color: #98e07a;
   text-shadow: 0 0 6px rgba(152, 224, 122, 0.4);
 }
-
-.mobile-socials {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
+.mobile-socials { display: flex; gap: 10px; align-items: center; }
 
 .close {
   align-self: flex-end;
@@ -253,72 +263,4 @@
 }
 
 /* Prevent background scroll when menu is open */
-.no-scroll {
-  overflow: hidden !important;
-}
-
-/* ===== DESKTOP STYLING ENHANCEMENTS ===== */
-@media (min-width: 1021px) {
-  .banner-inner {
-    grid-template-columns: 1fr auto auto;
-    align-items: center;
-    column-gap: clamp(14px, 2.2vw, 28px);
-  }
-
-  .banner-links {
-    justify-content: space-between;
-    gap: clamp(10px, 1.6vw, 22px);
-    width: 100%;
-  }
-
-  .banner-links li {
-    flex: 1 1 0;
-  }
-
-  .banner-links a {
-    display: block;
-    text-align: center;
-    padding: clamp(10px, 1.2vw, 14px) clamp(12px, 1.6vw, 18px);
-    font-weight: 800;
-    font-size: clamp(1.05rem, 1.15vw, 1.35rem);
-    letter-spacing: 0.06em;
-    color: #e0e0e0;
-    text-decoration: none;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.045);
-    backdrop-filter: blur(8px) saturate(1.05);
-    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease,
-    box-shadow 0.15s ease, transform 0.15s ease;
-  }
-
-  .banner-links a:hover,
-  .banner-links a.active {
-    color: #eafee0;
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(152, 224, 122, 0.35);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28),
-    0 0 10px rgba(152, 224, 122, 0.32);
-    transform: translateY(-1px);
-  }
-
-  .banner-socials {
-    margin-left: clamp(8px, 1.6vw, 18px);
-    gap: clamp(10px, 1.2vw, 16px);
-  }
-
-  .banner-socials .icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-  }
-
-  .banner-socials .icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .hamburger {
-    display: none !important;
-  }
-}
+.no-scroll { overflow: hidden !important; }

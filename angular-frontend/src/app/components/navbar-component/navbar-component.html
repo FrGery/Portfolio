@@ -1,4 +1,4 @@
-<header class="banner" [class.hidden]="scrolled" role="navigation" aria-label="Primary">
+<header class="banner" [class.hidden]="scrolled" role="presentation" aria-label="Primary">
   <nav class="banner-inner">
     <ul class="banner-links">
       @for (m of menu; track m.link) {
@@ -21,17 +21,21 @@
   </nav>
 </header>
 
-<!-- STICKY NAV (appears after scroll) -->
-<nav class="navbar glassy-navbar" [class.show]="showSticky" aria-label="Sticky">
-  <div class="nav-left">
-    @for (m of menu; track m.link) {
-      <a class="nav-link" [routerLink]="m.link" routerLinkActive="active">{{ m.label }}</a>
+<nav class="glassy-navbar" [class.show]="showSticky">
+  <div class="nav-links">
+    @for (item of menu; track item) {
+      <a [routerLink]="item.link" class="nav-link" (click)="closeMenu()">
+        {{ item.label }}
+      </a>
     }
   </div>
+
   <div class="nav-socials">
-    @for (s of socials; track s.name) {
-      <a class="icon" [href]="s.url" target="_blank" rel="noopener" [attr.aria-label]="s.name" [title]="s.name">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="s.svg" /></svg>
+    @for (s of socials; track s) {
+      <a [href]="s.url" class="icon" target="_blank" rel="noopener" [attr.aria-label]="s.name">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path [attr.d]="s.svg"></path>
+        </svg>
       </a>
     }
   </div>
