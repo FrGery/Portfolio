@@ -1,4 +1,3 @@
-<!-- path: src/app/components/home/home.html -->
 <section class="hero">
   <!-- ✅ Lottie background -->
   <div class="lottie-bg" aria-hidden="true">
@@ -19,20 +18,6 @@
           FULL-STACK<br>DEVELOPER
         </h2>
 
-        <nav class="socials" aria-label="Social links">
-          @for (social of socialLinks; track social.name) {
-            <a class="icon"
-               [href]="social.url"
-               target="_blank"
-               rel="noopener"
-               [attr.aria-label]="social.name"
-               [attr.title]="social.name">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path [attr.d]="social.svg" />
-              </svg>
-            </a>
-          }
-        </nav>
       </div>
 
       <!-- RIGHT: Portrait + typed name -->
@@ -56,9 +41,10 @@
         </div>
       </div>
     </div>
+    <div class="technologies-section">
+    <app-technologies></app-technologies>
+  </div>
   </header>
-</section>
 
-<section class="technologies-section">
-  <app-technologies></app-technologies>
+
 </section>

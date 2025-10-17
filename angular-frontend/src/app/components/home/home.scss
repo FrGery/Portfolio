@@ -1,163 +1,163 @@
 /* path: src/app/components/home/home.scss */
 
-/* Background */
-.hero{position:relative;min-height:100dvh;overflow:visible}
-.bg,.bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(106,231,92,.18),rgba(0,0,0,.30))}
+/* ───────── Background (fixed) ───────── */
+.hero { position: relative; min-height: 100dvh; overflow: visible; }
 
-/* Vars */
-:root{
-  --portrait-w: 560px;   /* desktop & tablet same -> overlay stable */
-  --ov-left: 8%; --ov-right: 8%; --ov-top: 63%; --ov-bottom: 8%;
-  --code-font: 20px; --name-font: 2.3rem;
+.lottie-bg {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: -2; pointer-events: none;
+  :is(svg, canvas, ng-lottie) { width: 100% !important; height: 100% !important; display: block; }
 }
 
-/* Header grid (simple) */
-.header-inner{
-  display:grid; align-items:center; gap:2rem;
-  padding:4rem 1.25rem; max-width:1100px; margin:0 auto;
+.scrim {
+  position: fixed; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(106,231,92,.18), rgba(0,0,0,.30));
+}
+
+/* ───────── CSS Vars (desktop/tablet base) ───────── */
+:root {
+  --portrait-w: 560px;   /* desktop & tablet same → overlay stable */
+  --ov-left: 8%;
+  --ov-right: 8%;
+  --ov-top: 63%;
+  --ov-bottom: 8%;
+  --code-font: 20px;
+  --name-font: 2.3rem;
+}
+
+/* ───────── Header grid ───────── */
+.header-inner {
+  display: grid; align-items: center; gap: 2rem;
+  max-width: 1100px; margin: 0 auto;
   grid-template-columns: 1fr var(--portrait-w); /* title | fixed portrait */
 }
 
-/* Columns */
-.left-col{min-width:0; overflow:hidden; text-align:left}
-.right-col{min-width:0; display:flex; justify-content:flex-end}
+.left-col { min-width: 0; overflow: hidden; text-align: left; }
+.right-col { min-width: 0; display: flex; justify-content: flex-end; }
 
-/* Portrait & overlay */
-.portrait-frame{position:relative; width:var(--portrait-w)}
-.portrait{width:100%; height:auto; object-fit:contain; filter:drop-shadow(0 10px 30px rgba(0,0,0,.35))}
-.mac-overlay{
-  position:absolute; left:var(--ov-left); right:var(--ov-right); top:var(--ov-top); bottom:var(--ov-bottom);
-  padding:27px 1px 5px; overflow:hidden; text-align:left;
+/* ───────── Portrait & overlay ───────── */
+.portrait-frame { position: relative; width: var(--portrait-w); }
+.portrait { width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,.35)); }
+
+.mac-overlay {
+  position: absolute; left: var(--ov-left); right: var(--ov-right);
+  top: var(--ov-top); bottom: var(--ov-bottom);
+  padding: 27px 1px 5px; overflow: hidden; text-align: left;
 }
 
-/* Typing: single line, clipped */
-.mac-overlay .code-block{font-size:var(--code-font)!important; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.mac-overlay .name-big{font-size:var(--name-font)!important; line-height:1.15}
+/* Type area inside the Mac window */
+.mac-overlay .code-block {
+  font-size: var(--code-font) !important;
+  line-height: 1.2;
+  white-space: nowrap;       /* keep on one line */
+  overflow: hidden;
+  text-overflow: ellipsis;   /* clip gracefully if too long */
+}
+.mac-overlay .name-big {
+  font-size: var(--name-font) !important;
+  line-height: 1.15;
+}
 
-/* Socials (unchanged) */
+/* ───────── Socials (centered by default) ───────── */
 .socials {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-  justify-content: center;   /* ✅ keeps centered */
-  align-items: center;
-  flex-wrap: wrap;
-}.socials .icon svg{width:28px;height:28px;fill:#98e07a;transition:fill .2s,transform .2s,filter .2s;filter:drop-shadow(0 0 4px rgba(152,224,122,.45))}
-.socials .icon:hover svg{fill:#b7ff9a;transform:scale(1.08);filter:drop-shadow(0 0 6px rgba(183,255,154,.55))}
+  display: flex; gap: .5rem; margin-top: .75rem;
+  justify-content: center; align-items: center; flex-wrap: wrap;
+}
+.socials .icon svg {
+  width: 28px; height: 28px; fill: #98e07a;
+  transition: fill .2s, transform .2s, filter .2s;
+  filter: drop-shadow(0 0 4px rgba(152,224,122,.45));
+}
+.socials .icon:hover svg {
+  fill: #b7ff9a; transform: scale(1.08);
+  filter: drop-shadow(0 0 6px rgba(183,255,154,.55));
+}
 
-/* Title: Exo 2, dark gray + green backlight (elegant) */
+/* ───────── Profession title (merged + subtle glow) ───────── */
 .profession {
   margin: 0 0 1.25rem 0;
   font-family: "The Seasons", "Times New Roman", serif;
   font-weight: 600;
-  letter-spacing: 0.025em;
+  letter-spacing: .025em;
   line-height: 1.1;
   text-transform: uppercase;
   text-align: left;
-
-  /* Responsive dual-line sizing */
   font-size: clamp(1.8rem, 4vw, 3rem);
-  color: rgba(33, 42, 33, 0.87);
+  color: rgba(33,42,33,.87);
+  white-space: normal; word-break: keep-all;
 
-  white-space: normal;
-  word-break: keep-all;
-}
-.profession {
+  /* subtle animated backlight */
   animation: glowPulse 5s ease-in-out infinite;
-
 }
-
 @keyframes glowPulse {
-  0%, 100% {
+  0%,100% {
     text-shadow:
-      0 0 2px rgb(255, 255, 255),
-      0 0 3px rgb(93, 252, 1),
-      0 2px 3px rgb(255, 255, 255);
+      0 0 2px #fff,
+      0 0 3px rgba(93,252,1,.9),
+      0 2px 3px rgba(255,255,255,.85);
   }
   50% {
     text-shadow:
-      0 0 6px rgba(74, 245, 3, 0.26),
-      0 0 3px rgba(238, 238, 238, 0.8),
-      0 2px 5px rgba(2, 1, 1, 0.88);
+      0 0 6px rgba(74,245,3,.26),
+      0 0 3px rgba(238,238,238,.8),
+      0 2px 5px rgba(2,1,1,.88);
   }
 }
 
-/* Tablet: stack but KEEP same portrait width -> overlay stable */
-@media (max-width:1024px){
-  .header-inner{
-    grid-template-columns: 1fr;
-    grid-auto-rows:auto;
-    text-align:center; justify-items:center;
-  }
-  .right-col{order:1; justify-content:center}
-  .left-col{order:2; text-align:center}
-  /* do NOT change --portrait-w here */
-}
-
-/* Phone: shrink portrait (and fonts) */
-@media (max-width:640px){
-  :root{ --portrait-w: 420px; --code-font: 12px; --name-font: 1.6rem; }
-  .portrait-frame{width:var(--portrait-w)}
-  .profession{font-size:clamp(1.4rem,6.2vw,2.2rem)}
-}
-
-/* Mid-size phones 361–460px: gently smaller */
-@media (max-width:460px) and (min-width:361px){
-  :root{ --portrait-w: 380px; --code-font: 10px; --name-font: 1.3rem; }
-  .portrait-frame{width:var(--portrait-w)}
-}
-
-/* Ultra-small ≤360px */
-@media (max-width:360px){
-  :root{ --portrait-w: 300px; --code-font: 9px; --name-font: 1.1rem; }
-  .portrait-frame{width:var(--portrait-w)}
-}
 /* enforce neon green typewriter cursor globally */
-.Typewriter__cursor {
-  color: #98e07a !important;
-  text-shadow: 0 0 4px rgba(152, 224, 122, 0.35);
+.Typewriter__cursor { color: #98e07a !important; text-shadow: 0 0 4px rgba(152,224,122,.35); }
+
+/* ───────── Tablet (stack, portrait size unchanged) ───────── */
+@media (max-width: 1024px) {
+  .header-inner {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    text-align: center;
+    justify-items: center;
+  }
+  .right-col { order: 1; justify-content: center; }
+  .left-col  { order: 2; text-align: center; }
+  /* keep --portrait-w as desktop → overlay alignment stays correct */
 }
 
-.lottie-bg {
-  position: fixed;      /* ← was absolute */
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  pointer-events: none;
-
-  /* ensure inner element fills */
-  :is(svg, canvas, ng-lottie) { width: 100% !important; height: 100% !important; display: block; }
+/* ───────── Phone (≤640px): shrink portrait + fonts) ───────── */
+@media (max-width: 640px) {
+  :root {
+    --portrait-w: 420px;
+    --code-font: 12px;
+    --name-font: 1.6rem;
+  }
+  .portrait-frame { width: var(--portrait-w); }
+  .profession { font-size: clamp(1.4rem, 6.2vw, 2.2rem); }
 }
 
-/* Keep readability layer fixed as well */
-.scrim {
-  position: fixed;      /* ← was absolute */
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(106,231,92,.18), rgba(0,0,0,.30));
+/* Mid-size phones (361–460px) */
+@media (max-width: 460px) and (min-width: 361px) {
+  :root {
+    --portrait-w: 380px;
+    --code-font: 10px;
+    --name-font: 1.3rem;
+  }
+  .portrait-frame { width: var(--portrait-w); }
 }
 
-/* Content stays above fixed bg */
-.site-header, .technologies-section { position: relative; z-index: 1; }
+/* Ultra-small (≤360px) */
+@media (max-width: 360px) {
+  :root {
+    --portrait-w: 300px;
+    --code-font: 9px;
+    --name-font: 1.1rem;
+  }
+  .portrait-frame { width: var(--portrait-w); }
+}
 
-
-
+/* ───────── Hex Lottie behind portrait ───────── */
 .portrait-hex {
-  position: absolute;
-  z-index: -1;          /* behind the photo */
-  pointer-events: none; /* decorative */
-  inset: 0;             /* anchor to frame, then size+offset below */
-
-  /* Size and placement: tune these to match your graphic */
-  width: 90%;          /* slightly larger than the photo */
-  height: auto;
-  aspect-ratio: 1;      /* keep it square */
-  left: 50%;
-  top: 8%;
-  transform: translateX(-50%); /* center under portrait */
-
-  /* Ensure the inner SVG scales to the box */
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  width: 90%; height: auto; aspect-ratio: 1;
+  left: 50%; top: 8%; transform: translateX(-50%);
   :is(svg, canvas) { width: 100% !important; height: 100% !important; display: block; }
 }
+
+/* ───────── Keep content over the fixed background ───────── */
+.site-header, .technologies-section { position: relative; z-index: 1; }

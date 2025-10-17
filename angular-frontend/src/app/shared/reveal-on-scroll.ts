@@ -6,7 +6,7 @@ import { Directive, ElementRef, AfterViewInit, OnDestroy, Input } from '@angular
   standalone: true,
 })
 export class RevealOnScrollDirective implements AfterViewInit, OnDestroy {
-  @Input('appRevealThreshold') threshold = 0.15;
+  @Input('appRevealThreshold') threshold = 0.3;
   @Input('appRevealRootMargin') rootMargin = '0px';
   @Input('appRevealOnce') once = true;
   @Input('appRevealInitClass') initClass = 'will-reveal';

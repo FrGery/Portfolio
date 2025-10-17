@@ -1,0 +1,57 @@
+<header class="banner" [class.hidden]="scrolled" role="navigation" aria-label="Primary">
+  <nav class="banner-inner">
+    <ul class="banner-links">
+      @for (m of menu; track m.link) {
+        <li><a [routerLink]="m.link">{{ m.label }}</a></li>
+      }
+    </ul>
+
+    <div class="banner-socials">
+      @for (s of socials; track s.name) {
+        <a class="icon" [href]="s.url" target="_blank" rel="noopener" [attr.aria-label]="s.name" [title]="s.name">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="s.svg" /></svg>
+        </a>
+      }
+    </div>
+
+    <button class="hamburger" type="button" (click)="toggleMenu()"
+            aria-label="Open menu" aria-controls="mobileMenu" [attr.aria-expanded]="menuOpen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- STICKY NAV (appears after scroll) -->
+<nav class="navbar glassy-navbar" [class.show]="showSticky" aria-label="Sticky">
+  <div class="nav-left">
+    @for (m of menu; track m.link) {
+      <a class="nav-link" [routerLink]="m.link" routerLinkActive="active">{{ m.label }}</a>
+    }
+  </div>
+  <div class="nav-socials">
+    @for (s of socials; track s.name) {
+      <a class="icon" [href]="s.url" target="_blank" rel="noopener" [attr.aria-label]="s.name" [title]="s.name">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="s.svg" /></svg>
+      </a>
+    }
+  </div>
+</nav>
+
+<!-- MOBILE OVERLAY (≤820px) -->
+<div id="mobileMenu" class="mobile-overlay" [class.show]="menuOpen" (click)="closeMenu()">
+  <div class="panel" (click)="$event.stopPropagation()">
+    <button class="close" type="button" aria-label="Close" (click)="closeMenu()">×</button>
+    <nav class="mobile-links">
+      @for (m of menu; track m.link) {
+        <a [routerLink]="m.link" (click)="closeMenu()">{{ m.label }}</a>
+      }
+    </nav>
+    <div class="mobile-socials">
+      @for (s of socials; track s.name) {
+        <a class="icon" [href]="s.url" target="_blank" rel="noopener" [attr.aria-label]="s.name" [title]="s.name">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="s.svg" /></svg>
+        </a>
+      }
+    </div>
+  </div>
+</div>

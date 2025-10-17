@@ -12,16 +12,6 @@
   color: var(--text);
 }
 
-.header-inner {
-  display: grid;
-  align-items: center;
-  gap: 2rem;
-  padding: 4rem 1.25rem;
-  max-width: 1100px;
-  margin: 0 auto;
-  grid-template-columns: 1.2fr 1fr;
-}
-
 .intro {
   display: flex;
   flex-direction: column;
