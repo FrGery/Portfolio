@@ -1,17 +1,16 @@
 // path: src/app/components/home/home.component.ts
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 import type { AnimationItem } from 'lottie-web';
 import { CodeNameComponent } from '../code-name-component/code-name.component';
-import {TechnologiesComponent} from '../technologies/technologies.component';
+import { TechnologiesComponent } from '../technologies/technologies.component';
 import { trigger, transition, style, animate } from '@angular/animations';
-
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, LottieComponent, CodeNameComponent,TechnologiesComponent],
+  imports: [CommonModule, LottieComponent, CodeNameComponent, TechnologiesComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -23,14 +22,13 @@ import { trigger, transition, style, animate } from '@angular/animations';
       ]),
     ]),
   ],
-
 })
-export class HomeComponent implements OnDestroy {
+export class HomeComponent implements OnDestroy, AfterViewInit {
   /** Background (full screen) */
   lottieOptions: AnimationOptions<'svg'> = {
     path: 'assets/background.json',
-    loop: false,          // ⬅ we loop manually
-    autoplay: false,      // ⬅ we start manually
+    loop: false,          // we loop manually
+    autoplay: false,      // we start manually
     renderer: 'svg',
     rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
   };
@@ -38,8 +36,8 @@ export class HomeComponent implements OnDestroy {
   /** Hex behind portrait */
   hexOptions: AnimationOptions<'svg'> = {
     path: 'assets/flash_bg.json',
-    loop: false,          // ⬅ play once per cycle
-    autoplay: false,      // ⬅ start after bg completes
+    loop: false,          // play once per cycle
+    autoplay: false,      // start after bg completes
     renderer: 'svg',
     rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
   };
@@ -53,6 +51,34 @@ export class HomeComponent implements OnDestroy {
   /** Wire instances from template */
   onBgCreated = (a: AnimationItem) => { this.bg = a; this.tryStart(); };
   onHexCreated = (a: AnimationItem) => { this.hex = a; this.tryStart(); };
+
+  /** Reveal “naked sentences” on scroll */
+  ngAfterViewInit(): void {
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    if (!items.length) return;
+
+    if (this.reduce) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            const el = e.target as HTMLElement;
+            const delay = Number(el.dataset["delay"] ?? 0);
+            el.style.transitionDelay = `${delay}ms`;
+            el.classList.add('is-visible');
+            io.unobserve(el);
+          }
+        }
+      },
+      { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+
+    items.forEach(el => io.observe(el));
+  }
 
   ngOnDestroy(): void {
     if (this.cycleTimer) { clearTimeout(this.cycleTimer); this.cycleTimer = null; }

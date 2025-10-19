@@ -20,6 +20,7 @@ export class TechnologiesComponent {
     'HTML',
     'SCSS',
     'PostgreSQL',
+    'MySQL',
     'Git',
     'Docker'
   ];
@@ -31,9 +32,15 @@ export class TechnologiesComponent {
     'JUnit',
     'Flyway',
     'CI/CD (GitHub Actions)',
-    'RxJS',
     'Bootstrap',
     'Swagger / OpenAPI',
-    'Lottie'
+    'Lottie',
+    'Windows',
+    'Unix',
+    'Bash Scripting',
+    'AWS (EC2, S3)',
+    'Agile / Scrum',
+    'Spring Security',
+    'Maven',
   ];
 }

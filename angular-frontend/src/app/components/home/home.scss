@@ -1,22 +1,37 @@
 /* path: src/app/components/home/home.scss */
 
 /* ───────── Background (fixed) ───────── */
-.hero { position: relative; min-height: 100dvh; overflow: visible; }
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  overflow: visible;
+}
 
 .lottie-bg {
-  position: fixed; inset: 0; width: 100%; height: 100%;
-  z-index: -2; pointer-events: none;
-  :is(svg, canvas, ng-lottie) { width: 100% !important; height: 100% !important; display: block; }
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+
+  :is(svg, canvas, ng-lottie) {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
 }
 
 .scrim {
-  position: fixed; inset: 0; z-index: -1;
-  background: linear-gradient(180deg, rgba(106,231,92,.18), rgba(0,0,0,.30));
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(123, 168, 144, 0.49), rgba(89, 183, 69, 0.42));
 }
 
 /* ───────── CSS Vars (desktop/tablet base) ───────── */
 :root {
-  --portrait-w: 560px;   /* desktop & tablet same → overlay stable */
+  --portrait-w: 560px; /* desktop & tablet same → overlay stable */
   --ov-left: 8%;
   --ov-right: 8%;
   --ov-top: 63%;
@@ -27,32 +42,59 @@
 
 /* ───────── Header grid ───────── */
 .header-inner {
-  display: grid; align-items: center; gap: 2rem;
-  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
   grid-template-columns: 1fr var(--portrait-w); /* title | fixed portrait */
 }
 
-.left-col { min-width: 0; overflow: hidden; text-align: left; }
-.right-col { min-width: 0; display: flex; justify-content: flex-end; }
+.left-col {
+  min-width: 0;
+  overflow: hidden;
+  text-align: left;
+}
+
+.right-col {
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+}
 
 /* ───────── Portrait & overlay ───────── */
-.portrait-frame { position: relative; width: var(--portrait-w); }
-.portrait { width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,.35)); }
+.portrait-frame {
+  position: relative;
+  width: var(--portrait-w);
+}
+
+.portrait {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, .35));
+}
 
 .mac-overlay {
-  position: absolute; left: var(--ov-left); right: var(--ov-right);
-  top: var(--ov-top); bottom: var(--ov-bottom);
-  padding: 27px 1px 5px; overflow: hidden; text-align: left;
+  position: absolute;
+  left: var(--ov-left);
+  right: var(--ov-right);
+  top: var(--ov-top);
+  bottom: var(--ov-bottom);
+  padding: 27px 1px 5px;
+  overflow: hidden;
+  text-align: left;
 }
 
 /* Type area inside the Mac window */
 .mac-overlay .code-block {
   font-size: var(--code-font) !important;
   line-height: 1.2;
-  white-space: nowrap;       /* keep on one line */
+  white-space: nowrap; /* keep on one line */
   overflow: hidden;
-  text-overflow: ellipsis;   /* clip gracefully if too long */
+  text-overflow: ellipsis; /* clip gracefully if too long */
 }
+
 .mac-overlay .name-big {
   font-size: var(--name-font) !important;
   line-height: 1.15;
@@ -60,17 +102,26 @@
 
 /* ───────── Socials (centered by default) ───────── */
 .socials {
-  display: flex; gap: .5rem; margin-top: .75rem;
-  justify-content: center; align-items: center; flex-wrap: wrap;
+  display: flex;
+  gap: .5rem;
+  margin-top: .75rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
+
 .socials .icon svg {
-  width: 28px; height: 28px; fill: #98e07a;
+  width: 28px;
+  height: 28px;
+  fill: #98e07a;
   transition: fill .2s, transform .2s, filter .2s;
-  filter: drop-shadow(0 0 4px rgba(152,224,122,.45));
+  filter: drop-shadow(0 0 4px rgba(152, 224, 122, .45));
 }
+
 .socials .icon:hover svg {
-  fill: #b7ff9a; transform: scale(1.08);
-  filter: drop-shadow(0 0 6px rgba(183,255,154,.55));
+  fill: #b7ff9a;
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 6px rgba(183, 255, 154, .55));
 }
 
 /* ───────── Profession title (merged + subtle glow) ───────── */
@@ -83,29 +134,32 @@
   text-transform: uppercase;
   text-align: left;
   font-size: clamp(1.8rem, 4vw, 3rem);
-  color: rgba(33,42,33,.87);
-  white-space: normal; word-break: keep-all;
+  color: rgba(33, 42, 33, .87);
+  white-space: normal;
+  word-break: keep-all;
 
   /* subtle animated backlight */
   animation: glowPulse 5s ease-in-out infinite;
 }
+
 @keyframes glowPulse {
-  0%,100% {
-    text-shadow:
-      0 0 2px #fff,
-      0 0 3px rgba(93,252,1,.9),
-      0 2px 3px rgba(255,255,255,.85);
+  0%, 100% {
+    text-shadow: 0 0 2px #fff,
+    0 0 3px rgba(93, 252, 1, .9),
+    0 2px 3px rgba(255, 255, 255, .85);
   }
   50% {
-    text-shadow:
-      0 0 6px rgba(74,245,3,.26),
-      0 0 3px rgba(238,238,238,.8),
-      0 2px 5px rgba(2,1,1,.88);
+    text-shadow: 0 0 6px rgba(74, 245, 3, .26),
+    0 0 3px rgba(238, 238, 238, .8),
+    0 2px 5px rgba(2, 1, 1, .88);
   }
 }
 
 /* enforce neon green typewriter cursor globally */
-.Typewriter__cursor { color: #98e07a !important; text-shadow: 0 0 4px rgba(152,224,122,.35); }
+.Typewriter__cursor {
+  color: #98e07a !important;
+  text-shadow: 0 0 4px rgba(152, 224, 122, .35);
+}
 
 /* ───────── Tablet (stack, portrait size unchanged) ───────── */
 @media (max-width: 1024px) {
@@ -115,8 +169,14 @@
     text-align: center;
     justify-items: center;
   }
-  .right-col { order: 1; justify-content: center; }
-  .left-col  { order: 2; text-align: center; }
+  .right-col {
+    order: 1;
+    justify-content: center;
+  }
+  .left-col {
+    order: 2;
+    text-align: center;
+  }
   /* keep --portrait-w as desktop → overlay alignment stays correct */
 }
 
@@ -127,8 +187,12 @@
     --code-font: 12px;
     --name-font: 1.6rem;
   }
-  .portrait-frame { width: var(--portrait-w); }
-  .profession { font-size: clamp(1.4rem, 6.2vw, 2.2rem); }
+  .portrait-frame {
+    width: var(--portrait-w);
+  }
+  .profession {
+    font-size: clamp(1.4rem, 6.2vw, 2.2rem);
+  }
 }
 
 /* Mid-size phones (361–460px) */
@@ -138,7 +202,9 @@
     --code-font: 10px;
     --name-font: 1.3rem;
   }
-  .portrait-frame { width: var(--portrait-w); }
+  .portrait-frame {
+    width: var(--portrait-w);
+  }
 }
 
 /* Ultra-small (≤360px) */
@@ -148,16 +214,119 @@
     --code-font: 9px;
     --name-font: 1.1rem;
   }
-  .portrait-frame { width: var(--portrait-w); }
+  .portrait-frame {
+    width: var(--portrait-w);
+  }
 }
 
 /* ───────── Hex Lottie behind portrait ───────── */
 .portrait-hex {
-  position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  width: 90%; height: auto; aspect-ratio: 1;
-  left: 50%; top: 8%; transform: translateX(-50%);
-  :is(svg, canvas) { width: 100% !important; height: 100% !important; display: block; }
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  width: 90%;
+  height: auto;
+  aspect-ratio: 1;
+  left: 50%;
+  top: 8%;
+  transform: translateX(-50%);
+
+  :is(svg, canvas) {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
 }
 
 /* ───────── Keep content over the fixed background ───────── */
-.site-header, .technologies-section { position: relative; z-index: 1; }
+.site-header, .technologies-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* ───────── Introduction (Ubuntu + Glass Box) ───────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+.intro-section,
+.introduction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  margin: clamp(64px, 10vh, 128px) auto;
+  padding: 0 clamp(16px, 4vw, 24px);
+}
+
+/* Glass box container */
+.intro-box {
+  background: rgba(255, 255, 255, 0.23);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-radius: 22px;
+  padding: clamp(28px, 4vw, 48px) clamp(32px, 5vw, 64px);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+
+}
+
+.intro-box.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Text inside the box */
+.intro-text {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: rgba(243, 247, 240, 0.95);
+  text-align: center;
+}
+
+/* Paragraphs */
+.intro-text p {
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  margin-bottom: clamp(14px, 2vh, 22px);
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* Highlight key terms */
+.intro-text strong {
+  color: #b7ff9a;
+  font-weight: 600;
+  text-shadow:
+    0 0 8px rgba(152, 224, 122, 0.4),
+    0 0 14px rgba(152, 224, 122, 0.25);
+}
+
+/* Hover glow (optional subtle lift effect) */
+.intro-box:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.26);
+  box-shadow:
+    0 5px 10px rgba(213, 212, 212, 0.14),
+    0 0 15px rgba(255, 255, 255, 0.06);
+}
+
+/* Mobile tuning */
+@media (max-width: 640px) {
+  .intro-box {
+    padding: clamp(22px, 5vw, 32px);
+    border-radius: 16px;
+  }
+
+  .intro-text p {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+}
