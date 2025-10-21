@@ -59,7 +59,6 @@
   font-size: clamp(1rem, 1.1vw, 1.3rem);
   letter-spacing: .08em;
   color: rgba(164, 225, 139, .7);
-  text-transform: uppercase;
   padding: clamp(10px, 1vw, 14px) clamp(14px, 1.2vw, 18px);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.32);
@@ -209,6 +208,8 @@
 
 /* ───────── STICKY NAVBAR ───────── */
 .glassy-navbar {
+  font-family: "Ubuntu", sans-serif;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -396,4 +397,121 @@
     opacity: 0;
     transform: translate(-50%, 10px);
   }
+}
+/* ───────── BANNER (top, transparent with glowing buttons) ───────── */
+.banner {
+  position: relative;
+  background: transparent; /* no big box */
+  border: none;
+  box-shadow: none;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+}
+
+/* Inner layout */
+.banner-inner {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  padding: 0.85rem 1.75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Menu links */
+.banner-links {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 20px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.banner-links li {
+  flex: 1 1 0;
+}
+
+/* ✅ Each button = same box style as intro-box, glowing green */
+.banner-links a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: clamp(1rem, 1.1vw, 1.3rem);
+  letter-spacing: 0.08em;
+  color: rgba(226, 239, 224, 0.85);
+
+  padding: clamp(10px, 1vw, 14px) clamp(14px, 1.2vw, 18px);
+  border-radius: 12px;
+  border: 1px solid rgba(152, 224, 122, 0.45);
+  background: rgba(33, 44, 33, 0.74);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow:
+    0 0 50px rgba(66, 131, 40, 0.65),
+    0 0 60px rgba(48, 108, 24, 0.45),
+    0 4px 16px rgba(0, 0, 0, 0.45);
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.banner-links a:hover,
+.banner-links a.active {
+  color: #e8ffd9;
+  background: rgba(57, 84, 57, 0.74);
+  border-color: rgba(152, 224, 122, 0.55);
+  box-shadow:
+    0 0 50px rgba(66, 131, 40, 0.65),
+    0 0 60px rgba(48, 108, 24, 0.45),
+    0 4px 16px rgba(0, 0, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Social icons — same glow style */
+.banner-socials {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: clamp(10px, 1.2vw, 18px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.icon {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid rgba(152, 224, 122, 0.45);
+  background: rgba(33, 44, 33, 0.74);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 40px rgba(66, 131, 40, 0.65),
+    0 0 50px rgba(48, 108, 24, 0.45),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #98e07a;
+  filter: drop-shadow(0 0 4px rgba(152, 224, 122, 0.45));
+}
+
+.icon:hover {
+  transform: translateY(-1px);
+  background: rgba(57, 84, 57, 0.74);
+  box-shadow:
+    0 0 50px rgba(66, 131, 40, 0.65),
+    0 0 60px rgba(48, 108, 24, 0.45),
+    0 4px 16px rgba(0, 0, 0, 0.45);
 }

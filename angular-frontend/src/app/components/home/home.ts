@@ -1,11 +1,11 @@
 // path: src/app/components/home/home.component.ts
-import { Component, OnDestroy, ViewEncapsulation, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LottieComponent, AnimationOptions } from 'ngx-lottie';
-import type { AnimationItem } from 'lottie-web';
-import { CodeNameComponent } from '../code-name-component/code-name.component';
-import { TechnologiesComponent } from '../technologies/technologies.component';
-import { trigger, transition, style, animate } from '@angular/animations';
+import {AfterViewInit, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AnimationOptions, LottieComponent} from 'ngx-lottie';
+import type {AnimationItem} from 'lottie-web';
+import {CodeNameComponent} from '../code-name-component/code-name.component';
+import {TechnologiesComponent} from '../technologies/technologies.component';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +17,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
   animations: [
     trigger('heroFade', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(40px)' }),
-        animate('900ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        style({opacity: 0, transform: 'translateY(40px)'}),
+        animate('900ms ease-out', style({opacity: 1, transform: 'translateY(0)'})),
       ]),
     ]),
   ],
@@ -26,11 +26,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class HomeComponent implements OnDestroy, AfterViewInit {
   /** Background (full screen) */
   lottieOptions: AnimationOptions<'svg'> = {
-    path: 'assets/background.json',
+    path: 'assets/lottie.json',
     loop: false,          // we loop manually
     autoplay: false,      // we start manually
     renderer: 'svg',
-    rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
+    rendererSettings: {preserveAspectRatio: 'xMidYMid slice'},
   };
 
   /** Hex behind portrait */
@@ -39,7 +39,7 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     loop: false,          // play once per cycle
     autoplay: false,      // start after bg completes
     renderer: 'svg',
-    rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
+    rendererSettings: {preserveAspectRatio: 'xMidYMid meet'},
   };
 
   private bg?: AnimationItem;
@@ -49,39 +49,74 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
   private starting = false;
 
   /** Wire instances from template */
-  onBgCreated = (a: AnimationItem) => { this.bg = a; this.tryStart(); };
-  onHexCreated = (a: AnimationItem) => { this.hex = a; this.tryStart(); };
+  onBgCreated = (a: AnimationItem) => {
+    this.bg = a;
+    this.tryStart();
+  };
+  onHexCreated = (a: AnimationItem) => {
+    this.hex = a;
+    this.tryStart();
+  };
 
-  /** Reveal “naked sentences” on scroll */
   ngAfterViewInit(): void {
-    const items = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
-    if (!items.length) return;
+    const box = document.getElementById('introBox');
+    if (!box) return;
 
+    const lines = Array.from(box.querySelectorAll<HTMLElement>('.reveal'));
+    if (!lines.length) return;
+
+    // If user prefers reduced motion → just show all instantly
     if (this.reduce) {
-      items.forEach(el => el.classList.add('is-visible'));
+      lines.forEach(el => el.classList.add('shown'));
       return;
     }
 
+    // IntersectionObserver reveals each line ONCE when it comes into view
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
             const el = e.target as HTMLElement;
-            const delay = Number(el.dataset["delay"] ?? 0);
-            el.style.transitionDelay = `${delay}ms`;
-            el.classList.add('is-visible');
-            io.unobserve(el);
+
+            // small stagger for natural flow
+            const idx = Number(el.dataset['i'] ?? 0);
+            const stagger = 60; // ms between lines
+
+            setTimeout(() => {
+              el.classList.add('shown');
+            }, idx * stagger);
+
+            io.unobserve(el); // reveal once only
           }
         }
       },
-      { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+      {
+        root: null,
+        rootMargin: '0px 0px -25% 0px',
+        threshold: 0.25,
+
+      }
     );
 
-    items.forEach(el => io.observe(el));
+    // assign index for stagger timing
+    lines.forEach((el, i) => {
+      el.dataset['i'] = String(i);
+      io.observe(el);
+    });
+
+    // Cleanup observer when component destroyed
+    const prevDestroy = this.ngOnDestroy?.bind(this);
+    this.ngOnDestroy = () => {
+      io.disconnect();
+      prevDestroy?.();
+    };
   }
 
   ngOnDestroy(): void {
-    if (this.cycleTimer) { clearTimeout(this.cycleTimer); this.cycleTimer = null; }
+    if (this.cycleTimer) {
+      clearTimeout(this.cycleTimer);
+      this.cycleTimer = null;
+    }
     // detach listeners (defensive)
     this.bg?.removeEventListener?.('complete', this.noop);
     this.hex?.removeEventListener?.('complete', this.noop);
@@ -99,15 +134,18 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     }
 
     // kick off the loop
-    this.runCycle().catch(() => {});
+    this.runCycle().catch(() => {
+    });
   }
 
   /** One full cycle: bg → hex → wait 3s → repeat */
   private async runCycle() {
     while (!this.reduce) {
       // reset both to frame 0
-      this.bg?.stop();  this.bg?.goToAndStop(0, true);
-      this.hex?.stop(); this.hex?.goToAndStop(0, true);
+      this.bg?.stop();
+      this.bg?.goToAndStop(0, true);
+      this.hex?.stop();
+      this.hex?.goToAndStop(0, true);
 
       // play background, wait until complete
       await this.playOnce(this.bg!);
@@ -123,7 +161,10 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
   /** Play an item from 0 and resolve on 'complete' */
   private playOnce(anim: AnimationItem): Promise<void> {
     return new Promise<void>((resolve) => {
-      const handler = () => { anim.removeEventListener('complete', handler); resolve(); };
+      const handler = () => {
+        anim.removeEventListener('complete', handler);
+        resolve();
+      };
       anim.addEventListener('complete', handler);
       anim.goToAndPlay(0, true);
     });
@@ -136,5 +177,6 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
   }
 
   // dummy for removeEventListener in ngOnDestroy
-  private noop = () => {};
+  private noop = () => {
+  };
 }

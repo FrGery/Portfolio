@@ -28,6 +28,7 @@ export class NavbarComponent {
   menu: MenuItem[] = [
     { label: 'Home',          link: '/' },
     { label: 'Technologies',  link: '/technologies' },
+    { label: 'My Story',  link: '/mystory' },
     { label: 'Projects',      link: '/projects' },
     { label: 'Chef Career',   link: '/chef' },
   ];

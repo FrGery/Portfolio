@@ -16,8 +16,8 @@
   margin: 0 0 1.25rem;
   font-size: clamp(1.4rem, 3.2vw, 2rem);
   font-weight: 700;
-  color: rgba(232, 233, 238, 0.85);
-  text-shadow: 0 2px 6px rgba(14, 239, 205, 0.63);
+  color: rgba(68, 112, 58, 0.85);
+  text-shadow: 0 2px 6px rgba(121, 194, 61, 0.63);
 }
 
 /* Responsive grid: 2 cols → 1 col */
@@ -38,11 +38,15 @@
   position: relative;
   padding: 18px;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(61, 73, 59, 0.27));
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .35),
-  inset 0 1px 0 rgba(255, 255, 255, .06);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(33, 44, 33, 0.74);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow:
+    0 0 20px rgba(66, 131, 40, 0.65),
+    0 0 20px rgba(48, 108, 24, 0.45),
+    0 4px 16px rgba(0, 0, 0, 0.45);
+
+
   opacity: 0;
   transform: translateY(16px); /* enters with IO */
   transition: opacity .45s ease, transform .45s ease, box-shadow .2s ease, border-color .2s ease;
@@ -54,7 +58,11 @@
 }
 
 .glass:hover {
-  box-shadow: 0 5px 10px rgba(235, 238, 234, 0.4)
+  background: rgba(33, 44, 33, 0.72);
+  box-shadow:
+  0 0 20px rgba(50, 100, 30, 0.63),
+  0 0 30px rgba(37, 84, 18, 0.65),
+  0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
 .glass-head {
