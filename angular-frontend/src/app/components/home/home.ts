@@ -6,11 +6,12 @@ import type {AnimationItem} from 'lottie-web';
 import {CodeNameComponent} from '../code-name-component/code-name.component';
 import {TechnologiesComponent} from '../technologies/technologies.component';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {MyStoryComponent} from '../my-story/my-story.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, LottieComponent, CodeNameComponent, TechnologiesComponent],
+  imports: [CommonModule, LottieComponent, CodeNameComponent, TechnologiesComponent,MyStoryComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -33,7 +34,6 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     rendererSettings: {preserveAspectRatio: 'xMidYMid slice'},
   };
 
-  /** Hex behind portrait */
   hexOptions: AnimationOptions<'svg'> = {
     path: 'assets/flash_bg.json',
     loop: false,          // play once per cycle
@@ -93,8 +93,7 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
       {
         root: null,
         rootMargin: '0px 0px -25% 0px',
-        threshold: 0.25,
-
+        threshold: 0.25
       }
     );
 

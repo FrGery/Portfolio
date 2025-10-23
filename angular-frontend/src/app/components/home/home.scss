@@ -288,14 +288,14 @@
 }
 
 /* Line-by-line reveal */
-.reveal {
+.intro-box .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 320ms ease, transform 320ms ease, filter 320ms ease;
   will-change: opacity, transform, filter;
 }
 
-.reveal.shown {
+.intro-box .reveal.shown {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);

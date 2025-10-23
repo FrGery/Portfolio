@@ -100,6 +100,11 @@
   -webkit-backdrop-filter: blur(6px);
   white-space: nowrap;
 }
+.chip:hover {
+  background: rgba(152, 224, 122, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.11);
+
+}
 
 /* Dense mode on small screens */
 @media (max-width: 480px) {
