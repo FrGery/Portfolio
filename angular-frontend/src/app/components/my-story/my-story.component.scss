@@ -20,7 +20,7 @@
   margin-inline: auto;
 
   /* glass/grey look */
-  background: linear-gradient(180deg, rgba(9, 38, 9, 0.62) 0%, rgba(39, 68, 39, 0.27) 100%);
+  background: linear-gradient(180deg, rgba(9, 38, 9, 0.62) 0%, rgba(39, 68, 39, 0.82) 100%);
   border: 2px solid rgba(63, 63, 63, 0.72);
   border-radius: 18px;
   backdrop-filter: blur(12px) saturate(1.05);
@@ -46,8 +46,8 @@
 
   /* Theme / controls */
   --swiper-theme-color: rgba(152, 224, 122, 0.75);
-  --swiper-pagination-color: #436e31;
-  --swiper-pagination-bullet-inactive-color: rgba(30, 68, 14, 0.89);
+  --swiper-pagination-color: rgba(182, 215, 166, 0.83);
+  --swiper-pagination-bullet-inactive-color: rgba(218, 231, 213, 0.47);
   --swiper-pagination-bottom: 10px;
 
   /* hide overflow so only active slide is visible */
@@ -74,8 +74,8 @@
   align-items: center;
 
   /* subtle tonal panel inside the shell (no rounded corners needed) */
-  background: rgba(47, 84, 32, 0.35);
-  border: 1px solid rgba(152, 224, 122, 0.45);
+  background: rgba(235, 243, 235, 0.14);
+  border: 1px solid rgba(196, 199, 193, 0.45);
   border-radius: 16px;
 
   padding: clamp(24px, 5vw, 56px) clamp(18px, 6vw, 64px);
