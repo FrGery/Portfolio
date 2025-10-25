@@ -42,8 +42,17 @@
       </div>
     </div>
   </header>
-  <div class="intro-section">
-  <div class="intro-box reveal" id="introBox">
+  <div class="intro-section"
+  >
+  <div class="intro-box box-reveal"
+       appReveal
+       [appRevealThreshold]="0.2"
+       appRevealRootMargin="0px 0px -10% 0px"
+       [appRevealOnce]="true"
+       appRevealInitClass="box-reveal"
+       appRevealInClass="box-shown"
+       id="introBox">
+
     <div class="intro-text">
       <p class="reveal">Hi, I’m Gergő - Welcome to my page!</p>
       <p class="reveal">I’m a JUNIOR Full-Stack Developer working mainly with Java, Spring Boot, and Angular</p>
@@ -58,5 +67,7 @@
   <app-technologies></app-technologies>
 </section>
 <section class="my-story-section">
-  <app-my-story></app-my-story>
+
+  <app-my-story
+  ></app-my-story>
 </section>

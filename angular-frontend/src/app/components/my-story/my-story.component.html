@@ -2,9 +2,14 @@
   <h2 class="title">My Story</h2>
 
   <!-- Outer glass/grey shell (the big box) -->
-  <div class="story-shell">
+  <div class="story-shell reveal"
+       appReveal
+       [appRevealThreshold]="0.18"
+       appRevealRootMargin="0px 0px -10% 0px"
+       [appRevealOnce]="true">
 
-    <!-- Swiper Web Component (slidesPerView=1; neighbours hidden) -->
+
+  <!-- Swiper Web Component (slidesPerView=1; neighbours hidden) -->
     <swiper-container
       class="story-swiper"
       slides-per-view="1"

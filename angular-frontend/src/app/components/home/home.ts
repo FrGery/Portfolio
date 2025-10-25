@@ -7,11 +7,12 @@ import {CodeNameComponent} from '../code-name-component/code-name.component';
 import {TechnologiesComponent} from '../technologies/technologies.component';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {MyStoryComponent} from '../my-story/my-story.component';
+import {RevealOnScrollDirective} from '../../shared/reveal-on-scroll';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, LottieComponent, CodeNameComponent, TechnologiesComponent,MyStoryComponent],
+  imports: [CommonModule, LottieComponent, CodeNameComponent, TechnologiesComponent,MyStoryComponent,RevealOnScrollDirective],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None,

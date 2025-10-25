@@ -241,3 +241,18 @@
     0 0 10px rgba(152, 224, 122, 0.25);
   transform: translateY(-1px);
 }
+/* start hidden */
+.story-shell.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 420ms ease, transform 420ms ease;
+  will-change: opacity, transform;
+}
+
+/* visible */
+.story-shell.shown {
+  opacity: 1;
+  transform: none;
+}
+.story-shell.will-reveal { opacity: 0; transform: translateY(22px); transition: opacity .42s, transform .42s; }
+.story-shell.in          { opacity: 1; transform: none; }
