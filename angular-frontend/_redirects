@@ -1,8 +1,1 @@
-[build]
-  command = "npm ci && npm run build"
-  publish = "dist/angular-frontend/browser"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+/* /index.html 200
