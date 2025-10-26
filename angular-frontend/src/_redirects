@@ -1,5 +1,1 @@
-# from repo root
-mkdir -p angular-frontend/src
-git add angular-frontend/src/_redirects
-git commit -m "Add _redirects into Angular src so Angular CLI can include it as an asset"
-git push
+/* /index.html 200
