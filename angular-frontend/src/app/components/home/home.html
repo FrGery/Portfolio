@@ -1,3 +1,4 @@
+<!-- path: src/app/components/home/home.html -->
 <section class="hero">
   <!-- ✅ Lottie background -->
   <div class="lottie-bg" aria-hidden="true">
@@ -17,7 +18,6 @@
         <h2 class="profession">
           &nbsp;&nbsp;&nbsp;FULL-STACK<br>DEVELOPER
         </h2>
-
       </div>
 
       <!-- RIGHT: Portrait + typed name -->
@@ -42,32 +42,32 @@
       </div>
     </div>
   </header>
-  <div class="intro-section"
-  >
-  <div class="intro-box box-reveal"
-       appReveal
-       [appRevealThreshold]="0.2"
-       appRevealRootMargin="0px 0px -10% 0px"
-       [appRevealOnce]="true"
-       appRevealInitClass="box-reveal"
-       appRevealInClass="box-shown"
-       id="introBox">
 
-    <div class="intro-text">
-      <p class="reveal">Hi, I’m Gergő - Welcome to my page!</p>
-      <p class="reveal">I’m a JUNIOR Full-Stack Developer working mainly with Java, Spring Boot, and Angular</p>
-      <p class="reveal">I Build apps, Solve problems, Learn more every day - PROGRESS drives me.</p>
-      <p class="reveal">⬇ See more technologies i use daily below ⬇</p>
+  <!-- ✅ Intro section uses AOS (fade-up) instead of custom directive -->
+  <div class="intro-section">
+    <div
+      id="introBox"
+      class="intro-box"
+      data-aos="fade-up"
+      data-aos-duration="650"
+      data-aos-anchor=".site-header"
+      data-aos-anchor-placement="bottom-bottom"
+      data-aos-offset="80"
+    >
+      <div class="intro-text">
+        <p data-aos="fade-up" data-aos-delay="0">Hi, I’m Gergő - Welcome to my page!</p>
+        <p data-aos="fade-up" data-aos-delay="120">I’m a JUNIOR Full-Stack Developer working mainly with Java, Spring Boot, and Angular</p>
+        <p data-aos="fade-up" data-aos-delay="240">I Build apps, Solve problems, Learn more every day - PROGRESS drives me.</p>
+        <p data-aos="fade-up" data-aos-delay="360">⬇ See more technologies i use daily below ⬇</p>
+      </div>
     </div>
   </div>
-  </div>
-
 </section>
+
 <section class="technologies-section" id="technologies">
   <app-technologies></app-technologies>
 </section>
-<section class="my-story-section" id="my-story">
 
-  <app-my-story
-  ></app-my-story>
+<section class="my-story-section" id="my-story">
+  <app-my-story></app-my-story>
 </section>

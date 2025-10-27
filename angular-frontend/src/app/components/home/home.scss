@@ -31,7 +31,7 @@
 
 /* ───────── CSS Vars (desktop/tablet base) ───────── */
 :root {
-  --portrait-w: 560px;  /* desktop & tablet same → overlay stable */
+  --portrait-w: 560px; /* desktop & tablet same → overlay stable */
   --ov-left: 8%;
   --ov-right: 8%;
   --ov-top: 63%;
@@ -63,10 +63,7 @@
 }
 
 /* ───────── Portrait & overlay ───────── */
-.portrait-frame {
-  position: relative;
-  width: var(--portrait-w);
-}
+.portrait-frame { position: relative; width: var(--portrait-w); }
 
 .portrait {
   width: 100%;
@@ -90,10 +87,11 @@
 .mac-overlay .code-block {
   font-size: var(--code-font) !important;
   line-height: 1.2;
-  white-space: nowrap;       /* keep on one line */
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;   /* clip gracefully if too long */
+  text-overflow: ellipsis;
 }
+
 .mac-overlay .name-big {
   font-size: var(--name-font) !important;
   line-height: 1.15;
@@ -108,6 +106,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 .socials .icon svg {
   width: 28px;
   height: 28px;
@@ -115,13 +114,14 @@
   transition: fill .2s, transform .2s, filter .2s;
   filter: drop-shadow(0 0 4px rgba(152, 224, 122, .45));
 }
+
 .socials .icon:hover svg {
   fill: #b7ff9a;
   transform: scale(1.08);
   filter: drop-shadow(0 0 6px rgba(183, 255, 154, .55));
 }
 
-/* ───────── Profession title (subtle animated backlight) ───────── */
+/* ───────── Profession title (merged + subtle glow) ───────── */
 .profession {
   margin: 0 0 1.25rem 0;
   font-family: "The Seasons", "Times New Roman", serif;
@@ -139,16 +139,10 @@
 
 @keyframes glowPulse {
   0%, 100% {
-    text-shadow:
-      0 0 2px #fff,
-      0 0 3px rgba(93, 252, 1, .9),
-      0 2px 3px rgba(255, 255, 255, .85);
+    text-shadow: 0 0 2px #fff, 0 0 3px rgba(93, 252, 1, .9), 0 2px 3px rgba(255, 255, 255, .85);
   }
   50% {
-    text-shadow:
-      0 0 6px rgba(74, 245, 3, .26),
-      0 0 3px rgba(238, 238, 238, .8),
-      0 2px 5px rgba(2, 1, 1, .88);
+    text-shadow: 0 0 6px rgba(74, 245, 3, .26), 0 0 3px rgba(238, 238, 238, .8), 0 2px 5px rgba(2, 1, 1, .88);
   }
 }
 
@@ -156,6 +150,92 @@
 .Typewriter__cursor {
   color: #98e07a !important;
   text-shadow: 0 0 4px rgba(152, 224, 122, .35);
+}
+
+/* ───────── Introduction (Ubuntu + Glass Box) ───────── */
+.intro-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  margin: clamp(64px, 10vh, 128px) auto;
+  padding: 0 clamp(16px, 4vw, 24px);
+}
+
+.intro-box {
+  background: rgba(33, 44, 33, 0.74);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-radius: 22px;
+  padding: clamp(28px, 4vw, 48px) clamp(32px, 5vw, 64px);
+  border: 1px solid rgba(152, 224, 122, 0.59);
+  box-shadow:
+    0 0 60px rgba(66, 131, 40, 0.79),
+    0 0 60px rgba(48, 108, 24, 0.70),
+    0 6px 28px rgba(0, 0, 0, 0.71);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.intro-text {
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: rgba(243, 247, 240, 0.95);
+  text-align: center;
+}
+
+.intro-text p {
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  margin-bottom: clamp(14px, 2vh, 22px);
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* ───────── Keep content over the fixed background ───────── */
+.site-header, .technologies-section { position: relative; z-index: 1; }
+
+/* ───────── Tablet (stack, portrait size unchanged) ───────── */
+@media (max-width: 1024px) {
+  .header-inner {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    text-align: center;
+    justify-items: center;
+  }
+  .right-col { order: 1; justify-content: center; }
+  .left-col { order: 2; text-align: center; }
+}
+
+/* ───────── Phone (≤640px): shrink portrait + fonts) ───────── */
+@media (max-width: 640px) {
+  :root {
+    --portrait-w: 420px;
+    --code-font: 12px;
+    --name-font: 1.6rem;
+  }
+  .portrait-frame { width: var(--portrait-w); }
+  .profession { font-size: clamp(1.4rem, 6.2vw, 2.2rem); }
+}
+
+/* Mid-size phones (361–460px) */
+@media (max-width: 460px) and (min-width: 361px) {
+  :root {
+    --portrait-w: 380px;
+    --code-font: 10px;
+    --name-font: 1.3rem;
+  }
+  .portrait-frame { width: var(--portrait-w); }
+}
+
+/* Ultra-small (≤360px) */
+@media (max-width: 360px) {
+  :root {
+    --portrait-w: 300px;
+    --code-font: 9px;
+    --name-font: 1.1rem;
+  }
+  .portrait-frame { width: var(--portrait-w); }
 }
 
 /* ───────── Hex Lottie behind portrait ───────── */
@@ -170,171 +250,10 @@
   left: 50%;
   top: 8%;
   transform: translateX(-50%);
+
   :is(svg, canvas) {
     width: 100% !important;
     height: 100% !important;
     display: block;
-  }
-}
-
-/* ───────── Keep content over the fixed background ───────── */
-.site-header,
-.technologies-section {
-  position: relative;
-  z-index: 1;
-}
-
-/* ───────── Introduction (Ubuntu + Green Glass box) ───────── */
-.intro-section,
-.introduction {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  margin: clamp(64px, 10vh, 128px) auto;
-  padding: 0 clamp(16px, 4vw, 24px);
-}
-
-.intro-box {
-  background: rgba(33, 44, 33, 0.74);
-  border: 1px solid rgba(152, 224, 122, 0.59);
-  border-radius: 22px;
-  padding: clamp(28px, 4vw, 48px) clamp(32px, 5vw, 64px);
-  backdrop-filter: blur(14px) saturate(1.2);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  box-shadow:
-    0 0 60px rgba(66, 131, 40, 0.79),
-    0 0 60px rgba(48, 108, 24, 0.70),
-    0 6px 28px rgba(0, 0, 0, 0.71);
-  transition:
-    opacity 600ms cubic-bezier(.22,.61,.36,1),
-    transform 600ms cubic-bezier(.22,.61,.36,1);
-  will-change: opacity, transform;
-  backface-visibility: hidden;
-  transform: translate3d(0,0,0); /* default when shown (no classes) */
-}
-
-/* hidden state applied initially */
-.intro-box.box-reveal {
-  opacity: 0;
-  transform: translate3d(0, 40px, 0);
-}
-
-/* shown state */
-.intro-box.box-shown {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-/* If the directive wasn’t used, show normally */
-.intro-box:not(.box-reveal):not(.box-shown) {
-  opacity: 1;
-  transform: translate3d(0,0,0);
-}
-
-/* Intro text & per-line reveal */
-.intro-text {
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-  color: rgba(243, 247, 240, 0.95);
-  text-align: center;
-}
-.intro-text p {
-  font-size: clamp(1.4rem, 2.8vw, 2rem);
-  margin-bottom: clamp(14px, 2vh, 22px);
-  text-shadow:
-    0 0 6px rgba(255, 255, 255, 0.1),
-    0 2px 4px rgba(0, 0, 0, 0.35);
-}
-.intro-text strong {
-  color: #b7ff9a;
-  font-weight: 600;
-  text-shadow:
-    0 0 8px rgba(152, 224, 122, 0.4),
-    0 0 14px rgba(152, 224, 122, 0.25);
-}
-
-/* line-by-line reveal inside the box (your existing logic adds .shown) */
-.intro-box .reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 320ms ease, transform 320ms ease, filter 320ms ease;
-  will-change: opacity, transform, filter;
-}
-.intro-box .reveal.shown {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-}
-
-/* ───────── Responsive ───────── */
-@media (max-width: 1024px) {
-  .header-inner {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    text-align: center;
-    justify-items: center;
-  }
-  .right-col {
-    order: 1;
-    justify-content: center;
-  }
-  .left-col {
-    order: 2;
-    text-align: center;
-  }
-}
-
-@media (max-width: 640px) {
-  :root {
-    --portrait-w: 420px;
-    --code-font: 12px;
-    --name-font: 1.6rem;
-  }
-  .portrait-frame {
-    width: var(--portrait-w);
-  }
-  .profession {
-    font-size: clamp(1.4rem, 6.2vw, 2.2rem);
-  }
-  .intro-box {
-    padding: clamp(22px, 5vw, 32px);
-    border-radius: 16px;
-  }
-  .intro-text p {
-    font-size: clamp(1.2rem, 5vw, 1.6rem);
-  }
-}
-
-@media (max-width: 460px) and (min-width: 361px) {
-  :root {
-    --portrait-w: 380px;
-    --code-font: 10px;
-    --name-font: 1.3rem;
-  }
-  .portrait-frame {
-    width: var(--portrait-w);
-  }
-}
-
-@media (max-width: 360px) {
-  :root {
-    --portrait-w: 300px;
-    --code-font: 9px;
-    --name-font: 1.1rem;
-  }
-  .portrait-frame {
-    width: var(--portrait-w);
-  }
-}
-
-/* ───────── Reduced motion ───────── */
-@media (prefers-reduced-motion: reduce) {
-  .intro-box.box-reveal,
-  .intro-box .reveal {
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
