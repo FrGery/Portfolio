@@ -42,5 +42,6 @@ export class TechnologiesComponent {
     'Agile / Scrum',
     'Spring Security',
     'Maven',
+    'Postman'
   ];
 }
