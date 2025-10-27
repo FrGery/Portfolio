@@ -12,7 +12,7 @@ import {RevealOnScrollDirective} from '../../shared/reveal-on-scroll';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, LottieComponent, CodeNameComponent, TechnologiesComponent,MyStoryComponent,RevealOnScrollDirective],
+  imports: [CommonModule, LottieComponent, CodeNameComponent, TechnologiesComponent, MyStoryComponent, RevealOnScrollDirective],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -48,6 +48,9 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
   private reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
   private cycleTimer: number | null = null;
   private starting = false;
+
+  /** NEW: guard to stop the loop during destroy */
+  private killed = false;
 
   /** Wire instances from template */
   onBgCreated = (a: AnimationItem) => {
@@ -112,14 +115,17 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     };
   }
 
+  // UPDATED: safe teardown, no removeEventListener calls
   ngOnDestroy(): void {
+    this.killed = true;
+
     if (this.cycleTimer) {
       clearTimeout(this.cycleTimer);
       this.cycleTimer = null;
     }
-    // detach listeners (defensive)
-    this.bg?.removeEventListener?.('complete', this.noop);
-    this.hex?.removeEventListener?.('complete', this.noop);
+
+    try { this.bg?.stop?.();  this.bg?.destroy?.(); } catch {}
+    try { this.hex?.stop?.(); this.hex?.destroy?.(); } catch {}
   }
 
   /** Start once both animations are ready */
@@ -134,27 +140,26 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     }
 
     // kick off the loop
-    this.runCycle().catch(() => {
-    });
+    this.runCycle().catch(() => {});
   }
 
   /** One full cycle: bg → hex → wait 3s → repeat */
   private async runCycle() {
-    while (!this.reduce) {
+    while (!this.reduce && !this.killed) {
       // reset both to frame 0
       this.bg?.stop();
       this.bg?.goToAndStop(0, true);
       this.hex?.stop();
       this.hex?.goToAndStop(0, true);
 
-      // play background, wait until complete
+      if (this.killed) break;
       await this.playOnce(this.bg!);
 
-      // then play hex once, wait
+      if (this.killed) break;
       await this.playOnce(this.hex!);
 
-      // pause 3s, then loop
-      await this.wait(3000);
+      if (this.killed) break;
+      await this.wait(2000);
     }
   }
 
@@ -176,7 +181,6 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     });
   }
 
-  // dummy for removeEventListener in ngOnDestroy
-  private noop = () => {
-  };
+  // left as-is; no longer used in ngOnDestroy
+  private noop = () => {};
 }
