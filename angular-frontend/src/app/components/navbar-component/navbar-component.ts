@@ -1,9 +1,10 @@
 // path: src/app/components/navbar/navbar.component.ts
-import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import {Component, HostListener, Inject, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
-type MenuItem = { label: string; link: string };
+type MenuItem = { label: string; target: string };
 type Social = { name: string; url: string; svg: string };
 
 @Component({
@@ -15,6 +16,7 @@ type Social = { name: string; url: string; svg: string };
   encapsulation: ViewEncapsulation.None,
 })
 export class NavbarComponent {
+  constructor(private router: Router, @Inject(DOCUMENT) private doc: Document) {}
   readonly emailAddress = 'f2gergo@gmail.com';
   showCopied = false;
   readonly THRESHOLD = 180;     // px: when banner hides
@@ -26,13 +28,25 @@ export class NavbarComponent {
   private stickyTimer: number | null = null;
 
   menu: MenuItem[] = [
-    { label: 'Home',          link: '/' },
-    { label: 'Technologies',  link: '/technologies' },
-    { label: 'My Story',  link: '/mystory' },
-    { label: 'Projects',      link: '/projects' },
-    { label: 'Chef Career',   link: '/chef' },
+    { label: 'Home',         target: 'banner' },
+    { label: 'Technologies', target: 'technologies' },
+    { label: 'My Story',     target: 'my-story' },
+    { label: 'Projects',     target: 'projects' },
+    { label: 'Chef Career',  target: 'chef' },
   ];
-
+  async scrollTo(targetId: string) {
+    const el = this.doc.getElementById(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // If user is not on the homepage, navigate first, then scroll
+      await this.router.navigate(['/']);
+      setTimeout(() => {
+        this.doc.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+    this.closeMenu();
+  }
   socials: Social[] = [
    // { name: 'Facebook', url: 'https://facebook.com/', svg: 'M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z' },
     { name: 'GitHub',   url: 'https://github.com/FrGery', svg: 'M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.36-3.37-1.36-.46-1.19-1.13-1.5-1.13-1.5-.92-.64.07-.62.07-.62 1.02.07 1.56 1.06 1.56 1.06.9 1.58 2.36 1.12 2.93.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05.8-.23 1.66-.35 2.51-.35.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.95-2.35 4.82-4.58 5.07.36.32.69.94.69 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z' },
