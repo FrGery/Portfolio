@@ -151,8 +151,8 @@
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, .18);
-  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(128, 225, 87, 0.56);
+  background: rgba(40, 63, 31, 0.3);
   backdrop-filter: blur(10px);
   cursor: pointer;
   transition: transform .15s, box-shadow .15s, background .15s;
@@ -164,9 +164,9 @@
 }
 
 .hamburger-btn:focus-visible {
-  outline: 2px solid rgba(152, 224, 122, .6);
+  outline: 2px solid rgba(91, 136, 72, 0.66);
   outline-offset: 2px;
-  box-shadow: 0 0 0 3px rgba(152, 224, 122, .25);
+  box-shadow: 0 0 0 3px rgba(35, 77, 18, 0.48);
 }
 
 .hamburger-btn .bar {
