@@ -28,7 +28,6 @@ import AOS from 'aos';
   ],
 })
 export class HomeComponent implements OnDestroy, AfterViewInit {
-  /** Background (full screen) */
   lottieOptions: AnimationOptions<'svg'> = {
     path: 'assets/lottie.json',
     loop: false,          // we loop manually
@@ -37,7 +36,6 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
   };
 
-  /** Hex behind portrait */
   hexOptions: AnimationOptions<'svg'> = {
     path: 'assets/flash_bg.json',
     loop: false,          // play once per cycle
@@ -52,10 +50,8 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
   private cycleTimer: number | null = null;
   private starting = false;
 
-  /** NEW: guard to stop the loop during destroy */
   private killed = false;
 
-  /** Wire instances from template */
   onBgCreated = (a: AnimationItem) => { this.bg = a; this.tryStart(); };
   onHexCreated = (a: AnimationItem) => { this.hex = a; this.tryStart(); };
 

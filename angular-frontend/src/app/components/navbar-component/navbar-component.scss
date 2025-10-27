@@ -160,7 +160,8 @@
 
 .hamburger-btn:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, .1);
+  background: rgba(74, 98, 54, 0.7);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3), 0 0 3px rgba(152, 224, 122, .25);
 }
 
 .hamburger-btn:focus-visible {

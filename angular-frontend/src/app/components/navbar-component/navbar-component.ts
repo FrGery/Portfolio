@@ -1,11 +1,12 @@
 // path: src/app/components/navbar/navbar.component.ts
-import { Component, HostListener, Inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, HostListener, Inject, ViewEncapsulation, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
-type ScrollItem = { label: string; type: 'scroll'; target: string };
-type RouteItem  = { label: string; type: 'route';  route: string };
-type MenuItem   = ScrollItem | RouteItem;
+type MenuItem =
+  | { type: 'scroll'; label: string; target: string }
+  | { type: 'route';  label: string; route: string };
 
 type Social = { name: string; url: string; svg: string };
 
@@ -17,27 +18,28 @@ type Social = { name: string; url: string; svg: string };
   styleUrls: ['./navbar-component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   constructor(private router: Router, @Inject(DOCUMENT) private doc: Document) {}
 
   readonly emailAddress = 'f2gergo@gmail.com';
   showCopied = false;
-
   readonly THRESHOLD = 180;
   readonly STICKY_DELAY = 250;
+  readonly MENU_STEP = 150;
+  readonly SOCIAL_STEP = 500;
 
   scrolled = false;
   showSticky = false;
   menuOpen = false;
   private stickyTimer: number | null = null;
 
-  // 👇 Mixed menu: three scroll targets on Home, two real routes
+  // ✅ Your mixed scroll/route menu
   menu: MenuItem[] = [
-    { label: 'Home',         type: 'scroll', target: 'top' },
-    { label: 'Technologies', type: 'scroll', target: 'technologies' },
-    { label: 'My Story',     type: 'scroll', target: 'my-story' },
-    { label: 'Projects',     type: 'route',  route: '/projects' },
-    { label: 'Chef Career',  type: 'route',  route: '/cook' },
+    { type: 'scroll', label: 'Home',         target: 'top' },
+    { type: 'scroll', label: 'Technologies', target: 'technologies' },
+    { type: 'scroll', label: 'My Story',     target: 'my-story' },
+    { type: 'route',  label: 'Projects',     route: '/projects' },
+    { type: 'route',  label: 'Chef Career',  route: '/chef' },
   ];
 
   socials: Social[] = [
@@ -46,6 +48,39 @@ export class NavbarComponent {
     { name: 'Email',    url: 'mailto:f2gergo@gmail.com', svg: 'M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z' },
   ];
 
+  // ⬇️ NEW: randomized delays per item (ms)
+  menuDelays: number[] = [];
+  socialDelays: number[] = [];
+
+  ngOnInit(): void {
+    // Build a random order, then assign step delays 200–300ms apart
+    const randOrder = (n: number) => [...Array(n).keys()].sort(() => Math.random() - 0.5);
+
+    const step = () => Math.floor(200 + Math.random() * 100); // 200–300
+    const buildDelays = (n: number) => {
+      const order = randOrder(n);
+      const del = new Array(n).fill(0);
+      let acc = 0;
+      for (const idx of order) {
+        acc += step();
+        del[idx] = acc;
+      }
+      return del;
+    };
+
+    this.menuDelays = buildDelays(this.menu.length);
+    this.socialDelays = buildDelays(this.socials.length);
+  }
+
+  // helpers for template
+  getMenuDelay(i: number): number {
+    return i * this.MENU_STEP;
+  }
+  getSocialDelay(i: number): number {
+    const base = this.menu.length * this.MENU_STEP;
+    return base + i * this.SOCIAL_STEP;
+  }
+  // ----- existing behavior unchanged below -----
   @HostListener('window:scroll')
   onScroll(): void {
     const y = window.scrollY || document.documentElement.scrollTop || 0;
@@ -63,40 +98,29 @@ export class NavbarComponent {
     }
   }
 
-  // ROUTE click (no href!)
-  onRouteClick(route: string) {
-    this.router.navigate([route]).then(() => this.closeMenu());
-  }
-
-  // SCROLL click (href="#", preventDefault in template)
-  async onScrollClick(targetId: string) {
-    // If not on home, go there first
-    if (this.router.url !== '/' && this.router.url !== '/home') {
-      await this.router.navigate(['/home']);
-      // allow the view to render
-      setTimeout(() => this.scrollInto(targetId), 50);
-    } else {
-      this.scrollInto(targetId);
-    }
-    this.closeMenu();
-  }
-
-  private scrollInto(targetId: string) {
-    const el = this.doc.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
     document.documentElement.classList.toggle('no-scroll', this.menuOpen);
     document.body.classList.toggle('no-scroll', this.menuOpen);
   }
+
   closeMenu(): void {
     this.menuOpen = false;
     document.documentElement.classList.remove('no-scroll');
     document.body.classList.remove('no-scroll');
+  }
+
+  async onScrollClick(targetId: string) {
+    const el = this.doc.getElementById(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      await this.router.navigate(['/']);
+      setTimeout(() => {
+        this.doc.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+    this.closeMenu();
   }
 
   copyEmail(): void {
