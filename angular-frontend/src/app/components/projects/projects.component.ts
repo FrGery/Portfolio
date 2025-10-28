@@ -61,32 +61,46 @@ Finally, I handled several <strong>bug tickets</strong> throughout development �
 
   // 2) Exam-prep intro blurb
   examIntro = `
-    Below are two fast, focused projects built in ~6 hours each to sharpen problem-solving under time pressure.
-    The goal wasn’t pixel-perfect UI, but <strong>clarity of logic</strong>, <strong>data flow</strong>, and <strong>clean code</strong>.
+   The following projects were created as part of exam preparation exercises. Each was a timed challenge —
+   I had only 6 hours to build a complete web application from scratch. While they may not look like fully polished
+    professional products, they are functional, responsive, and written with clean, maintainable code, featuring practical,
+    user-friendly UI.
   `;
 
   // 3) Exam-prep projects
   examProjects: Project[] = [
     {
-      title: 'Budget Calculator – 6-hour Exam Prep',
+      title: 'Budget Calculator',
       description: `
-        Track expenses and income with live totals. Emphasis on state management,
-        form handling, and edge cases. Built with <strong>Angular</strong>.
+        A lightweight app to manage personal expenses: create categories, add expenses, browse a detailed itemized list,
+        and view a cumulative pie chart for quick visual insight. <br/><br/>
+        In the backend, the application features multi-layered
+        validation built with Spring Boot and a logically structured MySQL database with properly connected relational
+        tables.
       `,
       images: [
-        'https://res.cloudinary.com/demo/image/upload/w_1400,q_auto,f_auto/sample.jpg',
-        'https://res.cloudinary.com/demo/image/upload/w_1400,q_auto,f_auto/sample.jpg',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1761645626/Screenshot_2025-10-28_at_11.00.17_r7905c.png',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1760823675/Screenshot_2025-10-18_at_23.37.55_l3m6cx.png',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1760823676/Screenshot_2025-10-18_at_23.38.14_l5nrvv.png',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1760823675/Screenshot_2025-10-18_at_23.38.05_rakjmr.png ',
       ],
     },
     {
-      title: 'Art Gallery – 6-hour Exam Prep',
+      title: 'Art Gallery',
       description: `
-        A minimalist gallery browsing experience. Efficient lists, keyboard nav,
-        and a11y-friendly layout. Built with <strong>Angular</strong> + utility CSS.
+        Art Gallery is a web application for browsing and showcasing artwork — like a digital version of a real-world gallery.
+Users can create and categorize their own Techniques and Art pieces, all of which are stored locally in the database.
+<br/><br/>
+The main focus of this project was image file handling and responsive layout management — primarily implemented with Flexbox,
+later enhanced using complementary CSS methods for a more dynamic and adaptive design.
+<br/><br/>
+(Right — it might look a bit funny at the moment, since it’s currently using mock images for demonstration.)
       `,
       images: [
-        'https://res.cloudinary.com/demo/image/upload/w_1400,q_auto,f_auto/sample.jpg',
-        'https://res.cloudinary.com/demo/image/upload/w_1400,q_auto,f_auto/sample.jpg',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1760824642/Screenshot_2025-10-18_at_23.56.02_uxfugf.png',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1760824643/Screenshot_2025-10-18_at_23.56.40_pzo1db.png',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1760824642/Screenshot_2025-10-18_at_23.56.30_azhepv.png',
+        'https://res.cloudinary.com/df6cyiedk/image/upload/v1760824643/Screenshot_2025-10-18_at_23.56.17_yorfrp.png',
       ],
     },
   ];
