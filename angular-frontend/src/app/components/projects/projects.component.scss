@@ -44,6 +44,7 @@
 }
 /* ───────── Project intro block (under page title) ───────── */
 .projects-intro {
+  padding: clamp(20px, 3vw, 28px);
   margin: 0 auto clamp(28px, 6vh, 48px);
 
   /* glassy green, consistent with .project-shell */
@@ -83,20 +84,24 @@
     text-shadow: 0 0 8px rgba(152, 224, 122, 0.4);
   }
 
-  .highlight-skill {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 10px;
-    font-size: .95em;
-    line-height: 1;
-    color: #e8f5e6;
-    background: rgba(109, 154, 90, 0.49);
-    border: 1px solid rgba(152, 224, 122, .22);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .06);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    font-weight: 500;
-  }
+}
+.highlight-skill {
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: clamp(.78rem, 1.8vw, .9rem);
+  line-height: 1;
+  color: #e8f5e6;
+  background: rgba(152, 224, 122, .10);
+  border: 1px solid rgba(152, 224, 122, .22);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+.highlight-skill:hover {
+  background: rgba(152, 224, 122, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.11);
+
 }
 
 /* mobile tweak */
