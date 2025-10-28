@@ -30,7 +30,10 @@ export class ProjectsComponent implements AfterViewInit {
     rendererSettings: {preserveAspectRatio: 'xMidYMid slice'},
   };
 
-  // 1) Featured real-life project
+  openSnakeGame() {
+    window.open('assets/snake/index.html', '_blank');
+  }
+
   featured: Project = {
     title: 'Feedback App – Real, Ongoing projects',
     description: `

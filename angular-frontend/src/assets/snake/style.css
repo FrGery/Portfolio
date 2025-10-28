@@ -1,0 +1,76 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/assets/snake/nokia.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+#game-container {
+  background-color: rgba(255, 255, 255, 0.71);
+  padding: 5px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+#score {
+  margin-bottom: 16px;
+  font-family: monospace;
+  font-size: 20px;
+  color: black;
+}
+
+canvas {
+  background-color: rgb(255, 255, 255);
+  border: 2px solid black;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  background-color: #3c8a3f;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+button:active {
+  background-color: rgba(71, 138, 72, 0.49);
+}
+
+#game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+  font-size: 24px;
+  z-index: 10;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.hidden {
+  display: none;
+}
+
+#game-over.hidden {
+  display: none !important;
+}
