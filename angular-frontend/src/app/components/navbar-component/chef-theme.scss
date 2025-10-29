@@ -1,0 +1,125 @@
+/* ===============================
+   Chef theme – warm/amber palette
+   Scope: only when <app-navbar> has .chef-theme
+   =============================== */
+app-navbar.chef-theme {
+
+  /* Banner strip & sticky bar backplates */
+  .banner-inner,
+  .glassy-navbar {
+    background: linear-gradient(180deg, rgba(56, 47, 40, .75), rgba(56, 47, 40, .55));
+    border-color: rgba(205, 160, 110, .38);
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, .35),
+      0 0 60px rgba(210, 158, 96, .18); /* warm glow */
+  }
+
+  /* Main nav “pills” */
+  .banner-links a,
+  .glassy-navbar .nav-link {
+    background: rgba(62, 49, 40, .75);
+    border-color: rgba(210, 158, 96, .35);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 225, 190, .06),
+      0 6px 18px rgba(0, 0, 0, .35),
+      0 0 22px rgba(215, 160, 90, .22); /* kill green */
+    color: #efe3d4;
+    text-shadow: 0 1px 0 rgba(0,0,0,.28);
+  }
+
+  .banner-links a:hover,
+  .glassy-navbar .nav-link:hover {
+    background: rgba(72, 58, 48, .82);
+    border-color: rgba(230, 182, 120, .55);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 235, 205, .08),
+      0 8px 22px rgba(0,0,0,.38),
+      0 0 28px rgba(230, 180, 110, .30);
+  }
+
+  .banner-links a:focus-visible,
+  .glassy-navbar .nav-link:focus-visible {
+    outline: 2px solid rgba(235, 190, 130, .7);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px rgba(235, 190, 130, .25);
+  }
+
+  /* Social icons (right side + mobile overlay) */
+  .icon,
+  .email-btn {
+    border-color: rgba(235, 190, 130, .32);
+    background: rgba(60, 52, 44, .42);
+    filter: none;                   /* remove inherited green glow */
+  }
+  .icon{
+    box-shadow:
+      0 0 40px rgba(235, 190, 130, 0.44),
+      0 0 50px rgba(182, 137, 78, 0.44),
+      0 4px 12px rgba(0, 0, 0, 0.45);
+  }
+
+  .icon svg,
+  .email-btn svg {
+    fill: #f0d8b8;                  /* warm icon color */
+    filter: drop-shadow(0 0 4px rgba(255, 196, 120, .38));  /* amber halo */
+  }
+
+  .icon:hover,
+  .email-btn:hover {
+    background: rgba(70, 60, 50, .55);
+    box-shadow: 0 6px 18px rgba(0,0,0,.30), 0 0 10px rgba(230, 175, 110, .25);
+  }
+
+  .icon:focus-visible,
+  .email-btn:focus-visible {
+    outline: 2px solid rgba(235, 190, 130, .7);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(235, 190, 130, .25);
+  }
+
+  /* Email “flash” animation – switch to amber */
+  .email-btn.flash svg {
+    animation: flashAmber .5s ease-out;
+  }
+  @keyframes flashAmber {
+    0%   { fill: #ffe2b6; filter: drop-shadow(0 0 6px rgba(255, 205, 140, .85)); }
+    50%  { fill: #ffd29a; filter: drop-shadow(0 0 10px rgba(255, 195, 120, .95)); }
+    100% { fill: #f0d8b8; filter: drop-shadow(0 0 4px rgba(255, 196, 120, .38)); }
+  }
+
+  /* Hamburger (mobile) */
+  .hamburger-btn {
+    border-color: rgba(210, 158, 96, .45);
+    background: rgba(62, 49, 40, .4);
+  }
+  .hamburger-btn:hover {
+    background: rgba(72, 58, 48, .7);
+    box-shadow: 0 3px 5px rgba(0,0,0,.3), 0 0 3px rgba(225, 175, 110, .25);
+  }
+  .hamburger-btn .bar {
+    background: #f3e2cf;
+    box-shadow: 0 0 6px rgba(230, 180, 110, .35);
+  }
+
+  /* MOBILE OVERLAY PANEL */
+  .mobile-overlay .panel {
+    background: rgba(60, 52, 44, .44) !important; /* override any green */
+    color: #efe3d4;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow:
+      0 30px 60px rgba(0,0,0,.45),
+      0 0 60px rgba(220, 170, 105, .18);
+  }
+  .mobile-overlay .mobile-links a {
+    color: #f0e5d6;
+  }
+  .mobile-overlay .mobile-links a:hover {
+    color: #ffe7c8;
+  }
+  .mobile-overlay .icon,
+  .mobile-overlay .email-btn {
+    background: rgba(60, 52, 44, .5);
+    border-color: rgba(235, 190, 130, .32);
+  }
+}
