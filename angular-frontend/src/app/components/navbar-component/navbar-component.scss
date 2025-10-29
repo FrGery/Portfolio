@@ -516,3 +516,46 @@
     0 0 60px rgba(48, 108, 24, 0.45),
     0 4px 16px rgba(0, 0, 0, 0.45);
 }
+
+/* ===== Overrides: make navbar backplates full-width while keeping inner content centered ===== */
+/* Place at end to override earlier constraints */
+
+/* Top banner backplate spans full viewport width */
+.banner-inner {
+  display: block;           /* was grid earlier; now acts as full-bleed backplate */
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0.85rem 1.75rem;
+}
+
+/* New inner container holds the previous grid and max-width */
+.banner-container {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Sticky navbar: keep bar full-bleed, center content inside */
+.glassy-navbar {
+  left: 0;
+  right: 0;
+  display: block;          /* let inner container center itself */
+  width: 100%;
+}
+.glassy-navbar .nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(12px, 2vw, 24px);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Mobile adjustments for new container */
+@media (max-width: 640px) {
+  .banner-container { grid-template-columns: 1fr auto; }
+}
