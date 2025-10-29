@@ -558,4 +558,11 @@
 /* Mobile adjustments for new container */
 @media (max-width: 640px) {
   .banner-container { grid-template-columns: 1fr auto; }
+  /* Phone view: make the banner backplate fully transparent so the hamburger floats */
+  .banner-inner {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.6rem 0.8rem; /* keep comfortable tap area without looking like a bar */
+  }
 }

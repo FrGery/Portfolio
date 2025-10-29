@@ -123,3 +123,13 @@ app-navbar.chef-theme {
     border-color: rgba(235, 190, 130, .32);
   }
 }
+
+
+/* Phone view: neutralize chef-theme backplates so the hamburger floats */
+@media (max-width: 640px) {
+  app-navbar.chef-theme .banner-inner {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
