@@ -3,13 +3,14 @@ import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
+import {RouterLink} from '@angular/router';
 
 type ChefImage = { src: string; alt: string; caption?: string };
 
 @Component({
   selector: 'app-cook',
   standalone: true,
-  imports: [CommonModule, LottieComponent],
+  imports: [CommonModule, LottieComponent, RouterLink],
   templateUrl: './cook-component.html',
   styleUrls: ['./cook-component.scss'],
   encapsulation: ViewEncapsulation.None,

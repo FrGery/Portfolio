@@ -46,13 +46,22 @@
     </div>
 
     <!-- Clickable photo strip -->
-    <section class="photo-strip" data-aos="fade-up" data-aos-delay="180" aria-label="Chef gallery">
-      <figure *ngFor="let img of images; let i = index">
-        <button type="button" class="photo-btn" (click)="openLightbox(i)" aria-label="Open photo">
-          <img [src]="img.src" [alt]="img.alt">
-        </button>
-        <figcaption>{{ img.caption }}</figcaption>
-      </figure>
+    <!-- === Clickable photo cards gallery === -->
+    <section class="photo-gallery" data-aos="fade-up" data-aos-delay="180" aria-label="Chef gallery">
+      <article
+        class="photo-card"
+        *ngFor="let img of images; let i = index"
+        (click)="openLightbox(i)"
+        tabindex="0"
+        (keydown.enter)="openLightbox(i)"
+      >
+        <div class="media">
+          <img [src]="img.src" [alt]="img.alt" />
+        </div>
+        <div class="meta">
+          <p>{{ img.caption }}</p>
+        </div>
+      </article>
     </section>
 
     <!-- Transferable skills -->
