@@ -18,7 +18,7 @@ export class TechnologiesComponent {
     'TypeScript',
     'HTML',
     'SCSS',
-    'PostgreSQL',
+    'PostgresSQL',
     'MySQL',
     'Git',
     'Docker'
@@ -41,6 +41,7 @@ export class TechnologiesComponent {
     'Agile / Scrum',
     'Spring Security',
     'Maven',
-    'Postman'
+    'Postman',
+    'Flyway'
   ];
 }
