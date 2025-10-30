@@ -1,5 +1,6 @@
+<!-- path: src/app/components/cook-component/cook-component.html -->
 <section class="cook-hero">
-  <!-- Lottie background (fixed) -->
+  <!-- fixed lottie background -->
   <div class="lottie-bg" aria-hidden="true">
     <ng-lottie
       [options]="lottieOptions"
@@ -9,7 +10,130 @@
   </div>
   <div class="scrim" aria-hidden="true"></div>
 
-  <div class="cook-wrap">
-    <!-- Cook content goes here -->
+  <div class="cook-wrap" id="cook-top">
+    <!-- Lead card -->
+    <article class="chef-card lead" data-aos="fade-up">
+      <h1 class="chef-title">From Kitchen Heat to Clean Code</h1>
+      <p class="lead-copy">
+        I spent <strong>13+ years</strong> in professional kitchens — from <strong>cook</strong> to <strong>sous-chef</strong>, competing nationally, mentoring juniors, and running services where timing and teamwork are everything.
+        Today I apply the same <strong>discipline, precision, and calm under pressure</strong> to software.
+      </p>
+    </article>
+
+    <!-- Two-up story -->
+    <div class="chef-grid" data-aos="fade-up" data-aos-delay="120">
+      <article class="chef-card">
+        <h3>Friedmann Restaurant</h3>
+        <ul class="bullets">
+          <li>Grew from <em>junior cook</em> → <strong>Chef</strong></li>
+          <li>Led stations, trained newcomers, kept quality consistent</li>
+          <li>Planned mise en place, optimized prep & service flow</li>
+          <li>Handled pressure during peak hours with clear comms</li>
+        </ul>
+      </article>
+
+      <article class="chef-card">
+        <h3>Competitions & Highlights</h3>
+        <ul class="badges">
+          <li>National competitions</li>
+          <li>Menu development</li>
+          <li>Cost control</li>
+          <li>Kitchen mentoring</li>
+        </ul>
+        <p class="small-note">High standards and time boxing map 1:1 to agile delivery.</p>
+      </article>
+    </div>
+
+    <!-- Compact photo strip (replace src with your Cloudinary links) -->
+    <!-- Clickable photo cards (open Cloudinary in new tab) -->
+    <section class="photo-cards" data-aos="fade-up" data-aos-delay="180" aria-label="Chef gallery">
+      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/se%CC%81fba%CC%81l_nhk2vj.jpg"
+         target="_blank" rel="noopener" aria-label="Open full photo: plating in service">
+        <div class="media">
+          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/se%CC%81fba%CC%81l_nhk2vj.jpg" alt="Plating in service">
+        </div>
+        <div class="meta">
+          <h4>Plating in service</h4>
+          <p>Peak hour on the pass — timing, focus, and consistency.</p>
+        </div>
+      </a>
+
+      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/okes1_uvqnx6.jpg"
+         target="_blank" rel="noopener" aria-label="Open full photo: competition dish">
+        <div class="media">
+          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/okes1_uvqnx6.jpg" alt="Competition dish">
+        </div>
+        <div class="meta">
+          <h4>Competition dish</h4>
+          <p>Refined plating and tight time boxing — just like sprint demos.</p>
+        </div>
+      </a>
+
+      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/farsang_kupa_cnhaab.jpg"
+         target="_blank" rel="noopener" aria-label="Open full photo: Farsang Cup">
+        <div class="media">
+          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/farsang_kupa_cnhaab.jpg" alt="Farsang Cup">
+        </div>
+        <div class="meta">
+          <h4>Farsang Cup</h4>
+          <p>National competition — teamwork under pressure.</p>
+        </div>
+      </a>
+
+      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg"
+         target="_blank" rel="noopener" aria-label="Open full photo: Magyarország étele">
+        <div class="media">
+          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg" alt="Magyarország étele">
+        </div>
+        <div class="meta">
+          <h4>Magyarország étele</h4>
+          <p>Menu development, cost control, quality assurance.</p>
+        </div>
+      </a>
+      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg"
+         target="_blank" rel="noopener" aria-label="Open full photo: Magyarország étele">
+        <div class="media">
+          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg" alt="Magyarország étele">
+        </div>
+        <div class="meta">
+          <h4>Magyarország étele</h4>
+          <p>Menu development, cost control, quality assurance.</p>
+        </div>
+      </a>
+      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg"
+         target="_blank" rel="noopener" aria-label="Open full photo: Magyarország étele">
+        <div class="media">
+          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg" alt="Magyarország étele">
+        </div>
+        <div class="meta">
+          <h4>Magyarország étele</h4>
+          <p>Menu development, cost control, quality assurance.</p>
+        </div>
+      </a>
+    </section>
+
+    <!-- Transferable skills -->
+    <section class="chef-card skills" data-aos="fade-up" data-aos-delay="220">
+      <h3>What I bring to software</h3>
+      <div class="pill-row">
+        <span class="pill">Leadership</span>
+        <span class="pill">Communication</span>
+        <span class="pill">Organization</span>
+        <span class="pill">Mentoring</span>
+        <span class="pill">Precision</span>
+        <span class="pill">Efficiency</span>
+        <span class="pill">Time boxing</span>
+        <span class="pill">Quality first</span>
+      </div>
+    </section>
+
+    <!-- Closing / CTA -->
+    <section class="chef-card cta" data-aos="fade-up" data-aos-delay="260">
+      <p>
+        Still love cooking — but my next chapter is building **reliable, maintainable software** with the same
+        care I brought to every service.
+      </p>
+      <a class="cta-btn" routerLink="/projects">See my Projects</a>
+    </section>
   </div>
 </section>
