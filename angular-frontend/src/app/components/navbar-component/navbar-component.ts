@@ -90,17 +90,22 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Boot AOS once (safe no-op if called again)
-    if (!(window as any).__aosBooted) {
+    const boot = () => {
+      if ((window as any).__aosBooted) return;
       AOS.init({
         once: true,
         duration: 700,
         easing: 'ease-out',
-        offset: 80
+        offset: 80,
       });
       (window as any).__aosBooted = true;
-      // first refresh after initial paint
       setTimeout(() => AOS.refreshHard(), 0);
+    };
+
+    if (document.readyState === 'complete') {
+      boot();
+    } else {
+      window.addEventListener('load', boot, { once: true });
     }
   }
 
