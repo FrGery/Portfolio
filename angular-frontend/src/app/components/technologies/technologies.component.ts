@@ -1,11 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RevealOnScrollDirective} from '../../shared/reveal-on-scroll';
 
 @Component({
   selector: 'app-technologies',
   standalone: true,
-  imports: [CommonModule, RevealOnScrollDirective],
+  imports: [CommonModule],
   templateUrl: './technologies.html',
   styleUrls: ['./technologies.scss'],
   encapsulation: ViewEncapsulation.None,
