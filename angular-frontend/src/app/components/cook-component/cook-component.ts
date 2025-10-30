@@ -16,12 +16,10 @@ type ChefImage = { src: string; alt: string; caption?: string };
   encapsulation: ViewEncapsulation.None,
 })
 export class CookComponent {
-  // Allow easy future tweaks for background speed
-  backgroundSpeed = 0.5;
+  backgroundSpeed = 0.3;
 
-  // Lottie background specific for the Cook page
   lottieOptions: AnimationOptions<'svg'> = {
-    path: 'assets/chef-background.json',
+    path: 'assets/Fumaa.json',
     loop: true,
     autoplay: true,
     renderer: 'svg',
