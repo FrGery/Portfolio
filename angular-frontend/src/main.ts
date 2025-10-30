@@ -1,4 +1,3 @@
-// path: src/main.ts
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
@@ -10,16 +9,12 @@ bootstrapApplication(App, {
   ...appConfig,
   providers: [
     ...(appConfig.providers ?? []),
-
-    // Enables Angular animations globally
     provideAnimations(),
-
-    // 👇 Add router scroll restoration & anchor scrolling
     provideRouter(
       routes,
       withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled', // scrolls to top when navigating to new route
-        anchorScrolling: 'enabled',           // supports #anchors
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
       })
     ),
   ],

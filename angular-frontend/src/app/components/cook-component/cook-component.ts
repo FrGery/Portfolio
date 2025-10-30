@@ -35,34 +35,38 @@ export class CookComponent {
   // 👇 Lightbox data (kept your links)
   images: ChefImage[] = [
     {
-      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/se%CC%81fba%CC%81l_nhk2vj.jpg',
-      alt: 'Plating in service',
-      caption: 'Plating during service — timing, precision, teamwork.',
-    },
-    {
-      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/okes1_uvqnx6.jpg',
-      alt: 'Competition dish',
-      caption: 'Competition dish — focus on detail and consistency.',
+      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761856079/cook2012_oqgmii.jpg',
+      alt: '2012',
+      caption: '2012 - ' +
+        'Everything has to start somewhere. I stepped into the world of hospitality quite early, and before I knew it, I was helping out at real catering events.',
     },
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/farsang_kupa_cnhaab.jpg',
-      alt: 'Hot pass',
-      caption: 'Hot pass — communication under pressure.',
+      alt: 'Farsang kupa',
+      caption: '2015 — Carnival Cup, Tata\n' +
+        'My first real dive into fine dining. I joined as a chef’s assistant, helping my mentor — a Master Chef — and working side by side with some of Hungary’s top chefs.',
     },
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg',
-      alt: 'Prep work',
-      caption: 'Prep work — mise en place and clean execution.',
+      alt: 'Magyarország étele',
+      caption: '2018 — Food of Hungary\n' +
+        'One of the first national competitions I participated in. I didn’t win gold, but making it into the national top 12 was already a huge milestone.',
     },
     {
-      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg',
-      alt: 'Prep work',
-      caption: 'Prep work — mise en place and clean execution.',
+      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/okes1_uvqnx6.jpg',
+      alt: 'OKÉS',
+      caption: '2018- "OKÉS" competiton (National Public Catering Contest). This time national first place. On the side of my actual chef',
     },
     {
-      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg',
+      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/se%CC%81fba%CC%81l_nhk2vj.jpg',
+      alt: 'ChefBAll',
+      caption: '2020 — Chef’s Ball, Hotel Benczúr\n' +
+        'This was a milestone for me — I officially became a Sous-Chef. It was my first Chef’s Ball, where I worked alongside around 40 renowned chefs. We cooked for three days straight to prepare for this incredible event.',
+    },
+    {
+      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761856079/backendcook_enfwya.jpg',
       alt: 'Prep work',
-      caption: 'Prep work — mise en place and clean execution.',
+      caption: '2022- Working on the backend. It’s not always fine dining for a cook — and I loved every part of it.',
     },
   ];
 
