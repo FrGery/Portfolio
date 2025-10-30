@@ -1,10 +1,12 @@
-/* Background & layout for Cook page */
+/* === Cook Page (clean) =============================================== */
+
+/* Page frame */
 .cook-hero {
   position: relative;
   min-height: 100dvh;
 }
 
-/* Reuse the same fixed Lottie background pattern */
+/* Fixed background (Lottie) */
 .lottie-bg {
   position: fixed;
   inset: 0;
@@ -18,24 +20,15 @@
   }
 }
 
-/* Optional color scrim over the animation */
+/* Warm tint over background */
 .scrim {
   position: fixed;
   inset: 0;
   z-index: -1;
-  /* Slight warm tint to match chef theme */
-  background: linear-gradient(180deg, rgba(210, 158, 96, 0.22), rgba(56, 47, 40, 0.10));
+  background: linear-gradient(180deg, rgba(210,158,96,.22), rgba(56,47,40,.10));
 }
 
-/* Page content wrapper sits above background */
-.cook-wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 28px);
-}
-
+/* Content wrapper */
 .cook-wrap {
   position: relative;
   z-index: 1;
@@ -44,18 +37,17 @@
   padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 28px);
 }
 
-/* warm glass card */
+/* === Warm glass cards ================================================ */
+
 .chef-card {
-  background: linear-gradient(180deg, rgba(47, 40, 34, 0.68), rgba(47, 40, 34, 0.42));
-  border: 1px solid rgba(181, 140, 90, 0.45);
+  background: linear-gradient(180deg, rgba(47,40,34,.68), rgba(47,40,34,.42));
+  border: 1px solid rgba(181,140,90,.45);
   border-radius: 18px;
   backdrop-filter: blur(12px) saturate(1.08);
   -webkit-backdrop-filter: blur(12px) saturate(1.08);
   padding: clamp(18px, 3.5vw, 28px);
   color: #f2e9de;
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.35),
-    0 0 24px rgba(181, 140, 90, 0.14); /* soft copper aura */
+  box-shadow: 0 10px 28px rgba(0,0,0,.35), 0 0 24px rgba(181,140,90,.14);
   transition: transform .18s ease, box-shadow .18s ease;
 
   &:hover { transform: translateY(-2px); }
@@ -79,10 +71,10 @@
   margin: 0;
   font-size: clamp(1.02rem, 2.3vw, 1.18rem);
   line-height: 1.65;
-  color: rgba(242, 233, 222, .95);
+  color: rgba(242,233,222,.95);
 }
 
-/* two-up grid */
+/* Two-up grid */
 .chef-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -96,7 +88,7 @@
   .chef-grid { grid-template-columns: 1fr; }
 }
 
-/* lists & badges */
+/* Lists & badges */
 .bullets {
   margin: 0;
   padding-left: 1.1em;
@@ -109,7 +101,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
-  margin: .25rem 0 0 0;
+  margin: .25rem 0 0;
   padding: 0;
 
   li {
@@ -118,8 +110,8 @@
     padding: .4rem .6rem;
     border-radius: 999px;
     color: #2f2822;
-    background: rgba(255, 232, 205, .9);
-    border: 1px solid rgba(181, 140, 90, .45);
+    background: rgba(255,232,205,.9);
+    border: 1px solid rgba(181,140,90,.45);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
   }
 }
@@ -127,45 +119,62 @@
 .small-note {
   margin: .75rem 0 0;
   font-size: .9rem;
-  color: rgba(255, 244, 232, .78);
+  color: rgba(255,244,232,.78);
 }
 
-/* compact gallery strip */
+/* === Photo gallery (3 → 2 → 1 cols) ================================= */
+
 .photo-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(8px, 1.6vw, 14px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2.8vw, 18px);
+  justify-items: center;
   margin: clamp(16px, 3vw, 24px) 0 clamp(20px, 4vw, 36px);
 
   figure {
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
     margin: 0;
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .photo-btn {
+    all: unset;
+    display: block;
+    width: 100%;
+    cursor: zoom-in;
     border-radius: 14px;
-    border: 1px solid rgba(181, 140, 90, 0.45);
-    background: rgba(30, 24, 20, .4);
+    overflow: hidden;
+    border: 1px solid rgba(181,140,90,.45);
+    background: rgba(40,36,32,.25);
     box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 
-    img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .35s ease, filter .35s ease;
-    }
+    &:hover   { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0,0,0,.4); }
+    &:focus-visible { outline: 2px solid rgba(255,200,140,.7); outline-offset: 3px; }
+  }
 
-    &:hover img { transform: scale(1.04); filter: contrast(1.05) saturate(1.02); }
+  img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  figcaption {
+    color: rgba(245,236,226,.88);
+    font-size: .95rem;
   }
 }
 
-@media (max-width: 900px) {
-  .photo-strip { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 520px) {
-  .photo-strip { grid-template-columns: 1fr; }
-}
+@media (max-width: 900px) { .photo-strip { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .photo-strip { grid-template-columns: 1fr; } }
 
-/* skill pills */
+/* === Skills pills ===================================================== */
+
 .skills { text-align: center; }
+
 .pill-row {
   display: flex;
   flex-wrap: wrap;
@@ -173,6 +182,7 @@
   justify-content: center;
   margin-top: .25rem;
 }
+
 .pill {
   padding: .45rem .7rem;
   border-radius: 999px;
@@ -180,12 +190,13 @@
   font-size: .95rem;
   letter-spacing: .01em;
   color: #fffcf7;
-  background: rgba(84, 64, 49, .6);
-  border: 1px solid rgba(181, 140, 90, .5);
+  background: rgba(84,64,49,.6);
+  border: 1px solid rgba(181,140,90,.5);
   text-shadow: 0 1px 0 rgba(0,0,0,.25);
 }
 
-/* CTA */
+/* === CTA =============================================================== */
+
 .chef-card.cta {
   text-align: center;
 
@@ -194,92 +205,96 @@
     margin-top: .9rem;
     padding: .7rem 1.1rem;
     border-radius: 12px;
-    border: 1px solid rgba(181, 140, 90, .6);
+    border: 1px solid rgba(181,140,90,.6);
     color: #2d241d;
     background: linear-gradient(180deg, #ffe7c6, #ffcf9e);
     text-decoration: none;
     font-weight: 700;
     transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
 
-    &:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 22px rgba(0,0,0,.28);
-    }
+    &:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0,0,0,.28); }
+    &:focus-visible { outline: 2px solid #ffd7a4; outline-offset: 3px; }
   }
 }
 
-/* Clickable photo cards */
-.photo-cards {
+/* === Lightbox ========================================================= */
+
+.no-scroll { overflow: hidden !important; }
+
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: clamp(12px, 2.2vw, 18px);
-  margin: clamp(16px, 3vw, 24px) 0 clamp(20px, 4vw, 36px);
+  place-items: center;
+  background: rgba(12,10,9,.78);
+  backdrop-filter: blur(4px) saturate(1.05);
+  -webkit-backdrop-filter: blur(4px) saturate(1.05);
+  animation: lbFade .16s ease-out;
 }
 
-.photo-cards .card {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  overflow: hidden;
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
 
-  /* warm glass card shell (matches chef cards) */
-  background: linear-gradient(180deg, rgba(47, 40, 34, 0.68), rgba(47, 40, 34, 0.42));
-  border: 1px solid rgba(181, 140, 90, 0.45);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(0,0,0,.32), 0 0 18px rgba(181,140,90,.12);
-  backdrop-filter: blur(10px) saturate(1.05);
-  -webkit-backdrop-filter: blur(10px) saturate(1.05);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(0,0,0,.36), 0 0 22px rgba(181,140,90,.16);
-    border-color: rgba(181,140,90,.62);
-  }
-
-  &:focus-visible {
-    outline: 2px solid #ffd7a4;
-    outline-offset: 3px;
-  }
-}
-
-.photo-cards .media {
+.lightbox {
   position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    transition: transform .35s ease, filter .35s ease;
-  }
+  width: min(96vw, 1100px);
+  max-height: 92vh;
+  display: grid;
+  grid-template-rows: auto 40px;
+  gap: 10px;
+  padding: clamp(10px, 2vw, 16px);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(28,24,21,.85), rgba(28,24,21,.7));
+  border: 1px solid rgba(255,231,200,.12);
+  box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 40px rgba(255,200,140,.2);
 }
 
-.photo-cards .card:hover .media img {
-  transform: scale(1.04);
-  filter: contrast(1.05) saturate(1.03);
+.lb-image {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,.45);
 }
 
-.photo-cards .meta {
-  padding: 12px 14px 14px;
-  border-top: 1px solid rgba(181,140,90,.35);
-  color: #f2e9de;
+.lb-caption {
+  color: rgba(255,240,220,.95);
+  font-size: .98rem;
+  text-align: center;
+}
 
-  h4 {
-    margin: 0 0 .35rem 0;
-    font-weight: 800;
-    font-size: 1.05rem;
-    letter-spacing: .01em;
-    color: #fff3e5;
-    text-shadow: 0 1px 0 rgba(0,0,0,.25);
-  }
+/* Controls */
+.lb-close,
+.lb-prev,
+.lb-next {
+  position: absolute;
+  height: 42px;
+  width: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,231,200,.25);
+  background: rgba(40,36,32,.5);
+  color: rgba(255,240,220,.95);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+  user-select: none;
+}
 
-  p {
-    margin: 0;
-    font-size: .98rem;
-    line-height: 1.55;
-    color: rgba(242,233,222,.92);
-  }
+.lb-close { top: 10px; right: 10px; font-size: 20px; line-height: 1; }
+.lb-prev, .lb-next { top: 50%; transform: translateY(-50%); font-size: 28px; line-height: 1; }
+.lb-prev { left: 10px; }
+.lb-next { right: 10px; }
+
+.lb-close:hover,
+.lb-prev:hover,
+.lb-next:hover {
+  background: rgba(58,48,42,.7);
+  box-shadow: 0 6px 18px rgba(0,0,0,.35), 0 0 10px rgba(255,200,140,.25);
+}
+
+@media (max-width: 640px) {
+  .lb-prev, .lb-next { height: 38px; width: 38px; font-size: 24px; }
+  .lb-close { height: 38px; width: 38px; font-size: 18px; }
 }

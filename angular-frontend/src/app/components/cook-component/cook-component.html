@@ -1,4 +1,5 @@
 <!-- path: src/app/components/cook-component/cook-component.html -->
+
 <section class="cook-hero">
   <!-- fixed lottie background -->
   <div class="lottie-bg" aria-hidden="true">
@@ -44,72 +45,14 @@
       </article>
     </div>
 
-    <!-- Compact photo strip (replace src with your Cloudinary links) -->
-    <!-- Clickable photo cards (open Cloudinary in new tab) -->
-    <section class="photo-cards" data-aos="fade-up" data-aos-delay="180" aria-label="Chef gallery">
-      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/se%CC%81fba%CC%81l_nhk2vj.jpg"
-         target="_blank" rel="noopener" aria-label="Open full photo: plating in service">
-        <div class="media">
-          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/se%CC%81fba%CC%81l_nhk2vj.jpg" alt="Plating in service">
-        </div>
-        <div class="meta">
-          <h4>Plating in service</h4>
-          <p>Peak hour on the pass — timing, focus, and consistency.</p>
-        </div>
-      </a>
-
-      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/okes1_uvqnx6.jpg"
-         target="_blank" rel="noopener" aria-label="Open full photo: competition dish">
-        <div class="media">
-          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/okes1_uvqnx6.jpg" alt="Competition dish">
-        </div>
-        <div class="meta">
-          <h4>Competition dish</h4>
-          <p>Refined plating and tight time boxing — just like sprint demos.</p>
-        </div>
-      </a>
-
-      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/farsang_kupa_cnhaab.jpg"
-         target="_blank" rel="noopener" aria-label="Open full photo: Farsang Cup">
-        <div class="media">
-          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/farsang_kupa_cnhaab.jpg" alt="Farsang Cup">
-        </div>
-        <div class="meta">
-          <h4>Farsang Cup</h4>
-          <p>National competition — teamwork under pressure.</p>
-        </div>
-      </a>
-
-      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg"
-         target="_blank" rel="noopener" aria-label="Open full photo: Magyarország étele">
-        <div class="media">
-          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg" alt="Magyarország étele">
-        </div>
-        <div class="meta">
-          <h4>Magyarország étele</h4>
-          <p>Menu development, cost control, quality assurance.</p>
-        </div>
-      </a>
-      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg"
-         target="_blank" rel="noopener" aria-label="Open full photo: Magyarország étele">
-        <div class="media">
-          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg" alt="Magyarország étele">
-        </div>
-        <div class="meta">
-          <h4>Magyarország étele</h4>
-          <p>Menu development, cost control, quality assurance.</p>
-        </div>
-      </a>
-      <a class="card" href="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg"
-         target="_blank" rel="noopener" aria-label="Open full photo: Magyarország étele">
-        <div class="media">
-          <img src="https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg" alt="Magyarország étele">
-        </div>
-        <div class="meta">
-          <h4>Magyarország étele</h4>
-          <p>Menu development, cost control, quality assurance.</p>
-        </div>
-      </a>
+    <!-- Clickable photo strip -->
+    <section class="photo-strip" data-aos="fade-up" data-aos-delay="180" aria-label="Chef gallery">
+      <figure *ngFor="let img of images; let i = index">
+        <button type="button" class="photo-btn" (click)="openLightbox(i)" aria-label="Open photo">
+          <img [src]="img.src" [alt]="img.alt">
+        </button>
+        <figcaption>{{ img.caption }}</figcaption>
+      </figure>
     </section>
 
     <!-- Transferable skills -->
@@ -130,10 +73,31 @@
     <!-- Closing / CTA -->
     <section class="chef-card cta" data-aos="fade-up" data-aos-delay="260">
       <p>
-        Still love cooking — but my next chapter is building **reliable, maintainable software** with the same
+        Still love cooking — but my next chapter is building <strong>reliable, maintainable software</strong> with the same
         care I brought to every service.
       </p>
       <a class="cta-btn" routerLink="/projects">See my Projects</a>
     </section>
   </div>
 </section>
+
+<!-- ✅ LIGHTBOX OVERLAY -->
+<div class="lightbox-backdrop" *ngIf="lightboxOpen" (click)="closeLightbox()" aria-modal="true" role="dialog">
+  <div class="lightbox" (click)="$event.stopPropagation()">
+    <button type="button" class="lb-close" (click)="closeLightbox()" aria-label="Close">×</button>
+
+    <button type="button" class="lb-prev" (click)="prev()" aria-label="Previous">
+      ‹
+    </button>
+
+    <img class="lb-image" [src]="images[currentIndex].src" [alt]="images[currentIndex].alt" />
+
+    <div class="lb-caption">
+      {{ images[currentIndex].caption || images[currentIndex].alt }}
+    </div>
+
+    <button type="button" class="lb-next" (click)="next()" aria-label="Next">
+      ›
+    </button>
+  </div>
+</div>
