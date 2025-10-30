@@ -1,1 +1,103 @@
-<p>cook-component works!</p>
+<!-- path: src/app/components/cook-component/cook-component.html -->
+
+<section class="cook-hero">
+  <!-- fixed lottie background -->
+  <div class="lottie-bg" aria-hidden="true">
+    <ng-lottie
+      [options]="lottieOptions"
+      [styles]="{ width: '100%', height: '100%' }"
+      (animationCreated)="onLottieCreated($event)">
+    </ng-lottie>
+  </div>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <div class="cook-wrap" id="cook-top">
+    <!-- Lead card -->
+    <article class="chef-card lead" data-aos="fade-up">
+      <h1 class="chef-title">From Kitchen Heat to Clean Code</h1>
+      <p class="lead-copy">
+        I spent <strong>13+ years</strong> in professional kitchens — from <strong>cook</strong> to <strong>sous-chef</strong>, competing nationally, mentoring juniors, and running services where timing and teamwork are everything.
+        Today I apply the same <strong>discipline, precision, and calm under pressure</strong> to software.
+      </p>
+    </article>
+
+    <!-- Two-up story -->
+    <div class="chef-grid" data-aos="fade-up" data-aos-delay="120">
+      <article class="chef-card">
+        <h3>Friedmann Restaurant</h3>
+        <ul class="bullets">
+          <li>Grew from <em>junior cook</em> → <strong>Chef</strong></li>
+          <li>Led stations, trained newcomers, kept quality consistent</li>
+          <li>Planned mise en place, optimized prep & service flow</li>
+          <li>Handled pressure during peak hours with clear comms</li>
+        </ul>
+      </article>
+
+      <article class="chef-card">
+        <h3>Competitions & Highlights</h3>
+        <ul class="badges">
+          <li>National competitions</li>
+          <li>Menu development</li>
+          <li>Cost control</li>
+          <li>Kitchen mentoring</li>
+        </ul>
+        <p class="small-note">High standards and time boxing map 1:1 to agile delivery.</p>
+      </article>
+    </div>
+
+    <!-- Clickable photo strip -->
+    <section class="photo-strip" data-aos="fade-up" data-aos-delay="180" aria-label="Chef gallery">
+      <figure *ngFor="let img of images; let i = index">
+        <button type="button" class="photo-btn" (click)="openLightbox(i)" aria-label="Open photo">
+          <img [src]="img.src" [alt]="img.alt">
+        </button>
+        <figcaption>{{ img.caption }}</figcaption>
+      </figure>
+    </section>
+
+    <!-- Transferable skills -->
+    <section class="chef-card skills" data-aos="fade-up" data-aos-delay="220">
+      <h3>What I bring to software</h3>
+      <div class="pill-row">
+        <span class="pill">Leadership</span>
+        <span class="pill">Communication</span>
+        <span class="pill">Organization</span>
+        <span class="pill">Mentoring</span>
+        <span class="pill">Precision</span>
+        <span class="pill">Efficiency</span>
+        <span class="pill">Time boxing</span>
+        <span class="pill">Quality first</span>
+      </div>
+    </section>
+
+    <!-- Closing / CTA -->
+    <section class="chef-card cta" data-aos="fade-up" data-aos-delay="260">
+      <p>
+        Still love cooking — but my next chapter is building <strong>reliable, maintainable software</strong> with the same
+        care I brought to every service.
+      </p>
+      <a class="cta-btn" routerLink="/projects">See my Projects</a>
+    </section>
+  </div>
+</section>
+
+<!-- ✅ LIGHTBOX OVERLAY -->
+<div class="lightbox-backdrop" *ngIf="lightboxOpen" (click)="closeLightbox()" aria-modal="true" role="dialog">
+  <div class="lightbox" (click)="$event.stopPropagation()">
+    <button type="button" class="lb-close" (click)="closeLightbox()" aria-label="Close">×</button>
+
+    <button type="button" class="lb-prev" (click)="prev()" aria-label="Previous">
+      ‹
+    </button>
+
+    <img class="lb-image" [src]="images[currentIndex].src" [alt]="images[currentIndex].alt" />
+
+    <div class="lb-caption">
+      {{ images[currentIndex].caption || images[currentIndex].alt }}
+    </div>
+
+    <button type="button" class="lb-next" (click)="next()" aria-label="Next">
+      ›
+    </button>
+  </div>
+</div>

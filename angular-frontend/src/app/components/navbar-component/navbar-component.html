@@ -2,114 +2,118 @@
 
 <header class="banner" [class.hidden]="scrolled" role="presentation" aria-label="Primary" id="top">
   <nav class="banner-inner">
-    <!-- Menu links (top banner, ordered AOS) -->
-    <ul class="banner-links">
-      @for (m of menu; track m.label; let i = $index) {
-        <li>
-          @if (m.type === 'scroll') {
-            <a href="#"
-               data-aos="zoom-in"
-               data-aos-duration="450"
-               data-aos-easing="ease-out"
-               [attr.data-aos-delay]="getMenuDelay(i)"
-               (click)="onScrollClick(m.target); $event.preventDefault()">
-              {{ m.label }}
-            </a>
+    <div class="banner-container">
+      <!-- Menu links (top banner, ordered AOS) -->
+      <ul class="banner-links">
+        @for (m of menu; track m.label; let i = $index) {
+          <li>
+            @if (m.type === 'scroll') {
+              <a href="#"
+                 data-aos="zoom-in"
+                 data-aos-duration="450"
+                 data-aos-easing="ease-out"
+                 [attr.data-aos-delay]="getMenuDelay(i)"
+                 (click)="onScrollClick(m.target); $event.preventDefault()">
+                {{ m.label }}
+              </a>
+            } @else {
+              <a [routerLink]="m.route"
+                 data-aos="zoom-in"
+                 data-aos-duration="450"
+                 data-aos-easing="ease-out"
+                 [attr.data-aos-delay]="getMenuDelay(i)"
+                 (click)="closeMenu()">
+                {{ m.label }}
+              </a>
+            }
+          </li>
+        }
+      </ul>
+
+      <!-- Social buttons (top banner, start after menu sequence) -->
+      <div class="banner-socials">
+        @for (s of socials; track s.name; let i = $index) {
+          @if (s.name === 'Email') {
+            <button class="icon email-btn" type="button"
+                    data-aos="zoom-in"
+                    data-aos-duration="450"
+                    data-aos-easing="ease-out"
+                    [attr.data-aos-delay]="getSocialDelay(i)"
+                    aria-label="Copy email to clipboard"
+                    title="Copy email"
+                    (click)="copyEmail()">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path [attr.d]="s.svg" />
+              </svg>
+            </button>
           } @else {
-            <a [routerLink]="m.route"
+            <a class="icon" [href]="s.url" target="_blank" rel="noopener"
                data-aos="zoom-in"
                data-aos-duration="450"
                data-aos-easing="ease-out"
-               [attr.data-aos-delay]="getMenuDelay(i)"
-               (click)="closeMenu()">
-              {{ m.label }}
+               [attr.data-aos-delay]="getSocialDelay(i)"
+               [attr.aria-label]="s.name" [title]="s.name">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path [attr.d]="s.svg" />
+              </svg>
             </a>
           }
-        </li>
-      }
-    </ul>
-
-    <!-- Social buttons (top banner, start after menu sequence) -->
-    <div class="banner-socials">
-      @for (s of socials; track s.name; let i = $index) {
-        @if (s.name === 'Email') {
-          <button class="icon email-btn" type="button"
-                  data-aos="zoom-in"
-                  data-aos-duration="450"
-                  data-aos-easing="ease-out"
-                  [attr.data-aos-delay]="getSocialDelay(i)"
-                  aria-label="Copy email to clipboard"
-                  title="Copy email"
-                  (click)="copyEmail()">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path [attr.d]="s.svg" />
-            </svg>
-          </button>
-        } @else {
-          <a class="icon" [href]="s.url" target="_blank" rel="noopener"
-             data-aos="zoom-in"
-             data-aos-duration="450"
-             data-aos-easing="ease-out"
-             [attr.data-aos-delay]="getSocialDelay(i)"
-             [attr.aria-label]="s.name" [title]="s.name">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path [attr.d]="s.svg" />
-            </svg>
-          </a>
         }
-      }
-    </div>
+      </div>
 
-    <!-- Mobile hamburger (instant) -->
-    <button
-      type="button"
-      class="hamburger-btn"
-      aria-label="Open menu"
-      [attr.aria-expanded]="menuOpen"
-      (click)="toggleMenu()">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+      <!-- Mobile hamburger (instant) -->
+      <button
+        type="button"
+        class="hamburger-btn"
+        aria-label="Open menu"
+        [attr.aria-expanded]="menuOpen"
+        (click)="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
   </nav>
 </header>
 
 <!-- Sticky navbar (NO AOS here) -->
 <nav class="glassy-navbar" [class.show]="showSticky">
-  <div class="nav-links">
-    @for (m of menu; track m.label) {
-      @if (m.type === 'scroll') {
-        <a href class="nav-link" (click)="onScrollClick(m.target); $event.preventDefault()">
-          {{ m.label }}
-        </a>
-      } @else {
-        <a [routerLink]="m.route" class="nav-link" (click)="closeMenu()">
-          {{ m.label }}
-        </a>
+  <div class="nav-container">
+    <div class="nav-links">
+      @for (m of menu; track m.label) {
+        @if (m.type === 'scroll') {
+          <a href class="nav-link" (click)="onScrollClick(m.target); $event.preventDefault()">
+            {{ m.label }}
+          </a>
+        } @else {
+          <a [routerLink]="m.route" class="nav-link" (click)="closeMenu()">
+            {{ m.label }}
+          </a>
+        }
       }
-    }
-  </div>
+    </div>
 
-  <div class="nav-socials">
-    @for (s of socials; track s.name) {
-      @if (s.name === 'Email') {
-        <button class="icon email-btn" type="button"
-                aria-label="Copy email to clipboard"
-                title="Copy email"
-                (click)="copyEmail()">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path [attr.d]="s.svg"></path>
-          </svg>
-        </button>
-      } @else {
-        <a [href]="s.url" class="icon" target="_blank" rel="noopener"
-           [attr.aria-label]="s.name" [title]="s.name">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path [attr.d]="s.svg"></path>
-          </svg>
-        </a>
+    <div class="nav-socials">
+      @for (s of socials; track s.name) {
+        @if (s.name === 'Email') {
+          <button class="icon email-btn" type="button"
+                  aria-label="Copy email to clipboard"
+                  title="Copy email"
+                  (click)="copyEmail()">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="s.svg"></path>
+            </svg>
+          </button>
+        } @else {
+          <a [href]="s.url" class="icon" target="_blank" rel="noopener"
+             [attr.aria-label]="s.name" [title]="s.name">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="s.svg"></path>
+            </svg>
+          </a>
+        }
       }
-    }
+    </div>
   </div>
 </nav>
 

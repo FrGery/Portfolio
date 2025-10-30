@@ -1,1 +1,144 @@
-<p>projects works!</p>
+<section class="projects-hero">
+  <!-- Lottie background (fixed) -->
+  <div class="lottie-bg" aria-hidden="true">
+    <ng-lottie
+      [options]="lottieOptions"
+      [styles]="{ width: '100%', height: '100%' }">
+    </ng-lottie>
+  </div>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <div class="projects-wrap">
+    <h1 class="page-title" data-aos="fade-up">Projects</h1>
+
+    <div class="projects-intro" data-aos="fade-up" data-aos-delay="150">
+      <p>
+        Each project you’ll find here represents a step in my journey as a developer.
+        As a <span class="highlight-green">Junior Developer</span>, I may not have thousands of completed projects yet —
+        but the ones I do have are worth showing.
+      </p>
+
+      <p>
+        All of my work is built with <span class="highlight-skill">Spring Boot</span> and <span class="highlight-skill">Angular</span>,
+        using <span class="highlight-skill">PostgreSQL</span> or sometimes <span class="highlight-skill">MySQL</span> as
+        the database.
+        Everything is containerized with <span class="highlight-skill">Docker</span>.
+        For testing, I rely on <span class="highlight-skill">JUnit</span>, <span class="highlight-skill">Mockito</span>,
+        <span class="highlight-skill">Postman</span>, and <span class="highlight-skill">Swagger</span>.
+      </p>
+
+      <p>
+        I also work with <span class="highlight-skill">JavaScript</span> and <span
+        class="highlight-skill">TypeScript</span>.
+        For the sake of clarity and maintainability, I often use well-established third-party libraries
+        created by developers with much more experience than me.
+      </p>
+      <p>
+        I’d describe myself as a <span class="highlight-green">backend-heavy developer</span> —
+        Java, Spring, and SQL are where I feel most at home.
+        The logic behind the backend has always been more natural to me.
+      </p>
+
+      <p>
+        If I had to break it down, I’d say my focus is about <strong>70% backend</strong> and <strong>30%
+        frontend</strong>.
+        Well... at least it was until I built this very portfolio site. 😄
+        After that experience, I might say it’s more like <strong>60–40%</strong> now.
+      </p>
+
+      <p>
+        Most of my projects — and everything I’m allowed to share — are available publicly on my
+        GitHub.
+      </p>
+    </div>
+
+    <!-- ========== Featured real-life project ========== -->
+    <article class="project-shell" data-aos="fade-up">
+      <header class="project-header">
+        <h2 class="project-title">{{ featured.title }}</h2>
+        <p class="project-desc" [innerHTML]="featured.description"></p>
+      </header>
+
+      <swiper-container
+        class="project-swiper"
+        slides-per-view="1"
+        space-between="12"
+        centered-slides="false"
+        loop="false"
+        auto-height="true"
+        pagination="true"
+        navigation="true"
+        keyboard="true"
+        style="width: 100%; height: auto;"
+      >
+        @for (url of featured.images; track url) {
+          <swiper-slide>
+            <img [src]="url" alt="Project image" loading="lazy"/>
+          </swiper-slide>
+        }
+      </swiper-container>
+    </article>
+
+    <!-- ========== Separator / intro for exam-prep ========== -->
+    <div class="section-sep" data-aos="fade-up">
+      <div class="sep-inner">
+        <h3>⬇Exam-Preparation Projects⬇</h3>
+        <p [innerHTML]="examIntro"></p>
+      </div>
+    </div>
+
+    <!-- ========== Exam-prep projects ========== -->
+    @for (p of examProjects; track p.title) {
+      <article class="project-shell" data-aos="fade-up">
+        <header class="project-header">
+          <h2 class="project-title">{{ p.title }}</h2>
+          <p class="project-desc" [innerHTML]="p.description"></p>
+        </header>
+
+        <swiper-container
+          class="project-swiper"
+          slides-per-view="1"
+          space-between="12"
+          centered-slides="false"
+          loop="false"
+          auto-height="true"
+          pagination="true"
+          navigation="true"
+          keyboard="true"
+          style="width: 100%; height: auto;"
+        >
+          @for (url of p.images; track url) {
+            <swiper-slide>
+              <img [src]="url" alt="Project image" loading="lazy"/>
+            </swiper-slide>
+          }
+        </swiper-container>
+      </article>
+    }
+  </div>
+
+  <div class="project-shell" data-aos="fade-up">
+    <div class="project-header">
+      <h2 class="project-title">Snake Game</h2>
+      <p class="project-desc">
+        Fancy a game? 🐍 <br/>
+        ⚠️WARNING: Arrow keys are needed!
+        <br/><br/>
+        A simple but nostalgic browser Snake game — coded in vanilla JavaScript,
+        wrapped neatly into this Angular app for fun.
+        <br/><br/>
+        This is how we first learned JavaScript back at the Bootcamp — and it was so much fun that I just had to share it!      </p>
+    </div>
+
+    <div class="project-actions">
+      <button
+        class="play-btn"
+        (click)="openSnakeGame()"
+        data-aos="zoom-in"
+        data-aos-delay="150"
+        title="Play Snake in a new tab 🐍">
+        ▶️ Play the Game
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+.snake-iframe-wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at center, #202b20, #0f170f);
+  padding: 24px;
+}
+
+.snake-frame {
+  width: 600px;
+  height: 700px;
+  border: none;
+  border-radius: 20px;
+  box-shadow:
+    0 0 40px rgba(5, 17, 1, 0.62),
+    0 0 60px rgba(77, 124, 69, 0.82);
+  overflow: hidden;
+}

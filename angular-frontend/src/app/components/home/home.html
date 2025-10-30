@@ -1,6 +1,4 @@
-<!-- path: src/app/components/home/home.html -->
 <section class="hero">
-  <!-- ✅ Lottie background -->
   <div class="lottie-bg" aria-hidden="true">
     <ng-lottie
       [options]="lottieOptions"
@@ -13,14 +11,9 @@
 
   <header class="site-header" @heroFade id="top">
     <div class="header-inner home-grid">
-      <!-- LEFT: Profession -->
       <div class="left-col">
-        <h2 class="profession">
-          &nbsp;&nbsp;&nbsp;FULL-STACK<br>DEVELOPER
-        </h2>
+        <h2 class="profession">&nbsp;&nbsp;&nbsp;FULL-STACK<br>DEVELOPER</h2>
       </div>
-
-      <!-- RIGHT: Portrait + typed name -->
       <div class="right-col">
         <div class="portrait-frame">
           <ng-lottie
@@ -43,22 +36,23 @@
     </div>
   </header>
 
-  <!-- ✅ Intro section uses AOS (fade-up) instead of custom directive -->
   <div class="intro-section">
     <div
       id="introBox"
       class="intro-box"
       data-aos="fade-up"
-      data-aos-duration="650"
-      data-aos-anchor=".site-header"
-      data-aos-anchor-placement="bottom-bottom"
-      data-aos-offset="80"
-    >
+      data-aos-duration="700"
+      data-aos-easing="ease-out"
+      data-aos-offset="140"
+      data-aos-once="true">
+
       <div class="intro-text">
         <p data-aos="fade-up" data-aos-delay="0">Hi, I’m Gergő - Welcome to my page!</p>
-        <p data-aos="fade-up" data-aos-delay="120">I’m a JUNIOR Full-Stack Developer working mainly with Java, Spring Boot, and Angular</p>
-        <p data-aos="fade-up" data-aos-delay="240">I Build apps, Solve problems, Learn more every day - PROGRESS drives me.</p>
-        <p data-aos="fade-up" data-aos-delay="360">⬇ See more technologies i use daily below ⬇</p>
+        <p data-aos="fade-up" data-aos-delay="150">I’m a JUNIOR Full-Stack Developer working mainly with Java, Spring
+          Boot, and Angular</p>
+        <p data-aos="fade-up" data-aos-delay="300">I Build apps, Solve problems, Learn more every day - PROGRESS drives
+          me.</p>
+        <p data-aos="fade-up" data-aos-delay="450">⬇ See more technologies i use daily below ⬇</p>
       </div>
     </div>
   </div>
