@@ -7,8 +7,9 @@ import { CodeNameComponent } from '../code-name-component/code-name.component';
 import { TechnologiesComponent } from '../technologies/technologies.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { MyStoryComponent } from '../my-story/my-story.component';
+
+// ⬇️ NEW: AOS
 import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-home',
@@ -29,16 +30,16 @@ import 'aos/dist/aos.css';
 export class HomeComponent implements OnDestroy, AfterViewInit {
   lottieOptions: AnimationOptions<'svg'> = {
     path: 'assets/lottie.json',
-    loop: false,
-    autoplay: false,
+    loop: false,          // we loop manually
+    autoplay: false,      // we start manually
     renderer: 'svg',
     rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
   };
 
   hexOptions: AnimationOptions<'svg'> = {
     path: 'assets/flash_bg.json',
-    loop: false,
-    autoplay: false,
+    loop: false,          // play once per cycle
+    autoplay: false,      // start after bg completes
     renderer: 'svg',
     rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
   };
@@ -48,49 +49,26 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
   private reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
   private cycleTimer: number | null = null;
   private starting = false;
-  private aosBooted = false;
+
   private killed = false;
 
-  onBgCreated = (a: AnimationItem) => {
-    this.bg = a;
-    this.tryStart();
-  };
-
-  onHexCreated = (a: AnimationItem) => {
-    this.hex = a;
-    this.tryStart();
-  };
+  onBgCreated = (a: AnimationItem) => { this.bg = a; this.tryStart(); };
+  onHexCreated = (a: AnimationItem) => { this.hex = a; this.tryStart(); };
 
   ngAfterViewInit(): void {
-    // Delay the initial AOS setup slightly so Angular paints once first.
-    setTimeout(() => {
-      if (!this.aosBooted) {
-        AOS.init({
-          once: true,
-          duration: 700,
-          easing: 'ease-out',
-          offset: 80,
-          startEvent: 'DOMContentLoaded',
-        });
-        this.aosBooted = true;
-      }
-    }, 300);
+    // AOS is initialized globally (Navbar). If already booted, just ensure measurements are fresh.
+    if ((window as any).__aosBooted) {
+      setTimeout(() => AOS.refreshHard(), 0);
+    }
   }
 
+  // UPDATED: safe teardown
   ngOnDestroy(): void {
     this.killed = true;
-    if (this.cycleTimer) {
-      clearTimeout(this.cycleTimer);
-      this.cycleTimer = null;
-    }
-    try {
-      this.bg?.stop?.();
-      this.bg?.destroy?.();
-    } catch {}
-    try {
-      this.hex?.stop?.();
-      this.hex?.destroy?.();
-    } catch {}
+
+    if (this.cycleTimer) { clearTimeout(this.cycleTimer); this.cycleTimer = null; }
+    try { this.bg?.stop?.();  this.bg?.destroy?.(); } catch {}
+    try { this.hex?.stop?.(); this.hex?.destroy?.(); } catch {}
   }
 
   /** Start once both animations are ready */
@@ -104,36 +82,31 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
       return;
     }
 
-    // Wait for the header Lotties to render, THEN refresh AOS
-    setTimeout(() => {
-      AOS.refreshHard();
-    }, 900);
-
+    // kick off the loop
     this.runCycle().catch(() => {});
   }
 
+  /** One full cycle: bg → hex → wait 2s → repeat */
   private async runCycle() {
     while (!this.reduce && !this.killed) {
-      this.bg?.stop();
-      this.bg?.goToAndStop(0, true);
-      this.hex?.stop();
-      this.hex?.goToAndStop(0, true);
+      this.bg?.stop();  this.bg?.goToAndStop(0, true);
+      this.hex?.stop(); this.hex?.goToAndStop(0, true);
 
       if (this.killed) break;
       await this.playOnce(this.bg!);
+
       if (this.killed) break;
       await this.playOnce(this.hex!);
+
       if (this.killed) break;
       await this.wait(2000);
     }
   }
 
+  /** Play an item from 0 and resolve on 'complete' */
   private playOnce(anim: AnimationItem): Promise<void> {
     return new Promise<void>((resolve) => {
-      const handler = () => {
-        anim.removeEventListener('complete', handler);
-        resolve();
-      };
+      const handler = () => { anim.removeEventListener('complete', handler); resolve(); };
       anim.addEventListener('complete', handler);
       anim.goToAndPlay(0, true);
     });
