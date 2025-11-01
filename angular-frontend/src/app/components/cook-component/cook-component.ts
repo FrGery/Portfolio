@@ -1,10 +1,18 @@
+// path: src/app/components/cook-component/cook-component.ts
 import {Component, HostListener, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
 import {RouterLink} from '@angular/router';
 
-type ChefImage = { src: string; alt: string; caption?: string };
+type ChefImage = {
+  src: string;
+  alt: string;
+  title: string;
+  date: string;
+  place: string;
+  desc: string;
+};
 
 @Component({
   selector: 'app-cook',
@@ -22,51 +30,66 @@ export class CookComponent {
     loop: true,
     autoplay: true,
     renderer: 'svg',
-    rendererSettings: {preserveAspectRatio: 'xMidYMid slice'},
+    rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
   };
 
   onLottieCreated(animation: AnimationItem) {
     animation.setSpeed(this.backgroundSpeed);
   }
 
+  // 👇 Structured cards: title, date, place, desc
   images: ChefImage[] = [
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761856079/cook2012_oqgmii.jpg',
-      alt: '2012',
-      caption: '2012 - ' +
-        'Everything has to start somewhere. I stepped into the world of hospitality quite early, and before I knew it, I was helping out at real catering events.',
+      alt: '2012 – first catering work',
+      title: 'First Steps in Catering',
+      date: '2012',
+      place: 'Budapest',
+      desc: 'Everything has to start somewhere. I stepped into hospitality early and soon helped at real catering events.'
     },
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/farsang_kupa_cnhaab.jpg',
-      alt: 'Farsang kupa',
-      caption: '2015 — Carnival Cup, Tata\n' +
-        'My first real dive into fine dining. I joined as a chef’s assistant, helping my mentor — a Master Chef — and working side by side with some of Hungary’s top chefs.',
+      alt: 'Carnival Cup – Tata',
+      title: 'Carnival Cup',
+      date: '2015',
+      place: 'Tata',
+      desc: 'My first real dive into fine dining. I joined as a chef’s assistant, helping my mentor — a Master Chef — and working side by side with some of Hungary’s top chefs.'
     },
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/magyarorszagetele_r3r8qa.jpg',
-      alt: 'Magyarország étele',
-      caption: '2018 — Food of Hungary\n' +
-        'One of the first national competitions I participated in. I didn’t win gold, but making it into the national top 12 was already a huge milestone.',
+      alt: 'Magyarország étele – national top 12',
+      title: 'Food of Hungary',
+      date: '2018',
+      place: 'Hungary (national)',
+      desc: 'My first national competition experience. No gold medal this time — but reaching the national top 12 was an incredible achievement and motivation to push further.'
     },
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/okes1_uvqnx6.jpg',
-      alt: 'OKÉS',
-      caption: '2018- "OKÉS" competiton (National Public Catering Contest). This time national first place. On the side of my actual chef',
+      alt: 'OKÉS – National Public Catering Contest',
+      title: 'OKÉS (Public Catering)',
+      date: '2018',
+      place: 'Hungary (national)',
+      desc: 'This one was special — I competed alongside my head chef, and together we earned first place.'
     },
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1762026180/5D83041D-D630-4BE0-90FD-2CC489CBBED0_1_201_a_qf5fus.jpg',
-      alt: 'ChefBAll',
-      caption: '2020 — Chef’s Ball, Hotel Benczúr\n' +
-        'This was a milestone for me — I officially became a Sous-Chef. It was my first Chef’s Ball, where I worked alongside around 40 renowned chefs. We cooked for three days straight to prepare for this incredible event.',
+      alt: 'Chef’s Ball – Hotel Benczúr',
+      title: 'Chef’s Ball',
+      date: '2020',
+      place: 'Hotel Benczúr',
+      desc: 'It was my first Chef’s Ball, where I worked alongside around 40 renowned chefs. We cooked for three days straight to prepare for this incredible event.'
     },
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761856079/backendcook_enfwya.jpg',
-      alt: 'Prep work',
-      caption: '2022- Working on the backend. It’s not always fine dining for a cook — and I loved every part of it.',
+      alt: 'Back-of-house prep',
+      title: 'Backend-prep',
+      date: '2022',
+      place: 'Budaörs',
+      desc: 'Working on the backend. It’s not always fine dining for a cook — and I loved every part of it.'
     },
   ];
 
-  // Lightbox state
+  // Lightbox (shows image only)
   lightboxOpen = false;
   currentIndex = 0;
 
@@ -75,7 +98,6 @@ export class CookComponent {
     this.lightboxOpen = true;
     document.documentElement.classList.add('no-scroll');
     document.body.classList.add('no-scroll');
-
     this.preload(this.currentIndex + 1);
     this.preload(this.currentIndex - 1);
   }
@@ -104,7 +126,6 @@ export class CookComponent {
     img.src = src;
   }
 
-  // Keyboard accessibility
   @HostListener('document:keydown', ['$event'])
   onKey(e: KeyboardEvent) {
     if (!this.lightboxOpen) return;
