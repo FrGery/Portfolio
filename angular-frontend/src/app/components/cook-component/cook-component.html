@@ -15,7 +15,9 @@
     <article class="chef-card lead" data-aos="fade-up">
       <h1 class="chef-title">From Kitchen Heat to Clean Code</h1>
       <p class="lead-copy">
-        I spent <strong>13+ years</strong> in professional kitchens — from <strong>cook</strong> to <strong>sous-chef</strong>, competing nationally, mentoring juniors, and running services where timing and teamwork are everything.
+        I spent <strong>13+ years</strong> in professional kitchens — from <strong>cook</strong> to
+        <strong>sous-chef</strong>, competing nationally, mentoring juniors, and running services where timing and
+        teamwork are everything.
         Today I apply the same <strong>discipline, precision, and calm under pressure</strong> to software.
       </p>
     </article>
@@ -25,25 +27,47 @@
       <article class="chef-card">
         <h3>My Culinary Journey</h3>
         <ul class="bullets">
-          <li>2009 – I was 14 when I first tried myself as a cook’s assistant. It was a summer job — small steps into a big world.</li>
+          <li>2009 – I was 14 when I first tried myself as a cook’s assistant. It was a summer job — small steps into a
+            big world.
+          </li>
           <li>2011 – I officially became a student worker at Friedmann House Restaurant.</li>
-          <li>2015 – I worked at a small bistro with just one other cook. When he got sick, I managed the kitchen alone for two weeks — deep water at age 20.</li>
-          <li>2017 – While attending Budapest Business School, I completed my internship at Holiday Inn Hotel Budaörs.</li>
-          <li>2019 – I fell in love with coffee. As a side project, I mastered barista arts and earned my certification.</li>
+          <li>2015 – I worked at a small bistro with just one other cook. When he got sick, I managed the kitchen alone
+            for two weeks — deep water at age 20.
+          </li>
+          <li>2017 – While attending Budapest Business School, I completed my internship at Holiday Inn Hotel Budaörs.
+          </li>
+          <li>2019 – I fell in love with coffee. As a side project, I mastered barista arts and earned my
+            certification.
+          </li>
           <li>2020 – I became the Lead of the Cold Kitchen at Friedmann Restaurant, while still cooking full-time.</li>
-          <li>2022 – I was promoted to Sous-Chef. Still leading the Cold Kitchen — and still making latte art for guests whenever time allowed.</li>
+          <li>2022 – I was promoted to Sous-Chef. Still leading the Cold Kitchen — and still making latte art for guests
+            whenever time allowed.
+          </li>
         </ul>
       </article>
 
       <article class="chef-card">
-        <h3>Competitions & Highlights</h3>
-        <ul class="badges">
-          <li>National competitions</li>
-          <li>Menu development</li>
-          <li>Cost control</li>
-          <li>Kitchen mentoring</li>
+        <h3>Same Mindset, Different Tools</h3>
+        <ul class="bullets">
+          <li>💻 <strong>Coding</strong> → Chopping everything into perfect pieces 🔪</li>
+          <li>⚙️ <strong>Engineering</strong> → Organizing the workflow so it runs smoothly 🍳</li>
+          <li>🧠 <strong>Agile</strong> → Managing and collaborating with my kitchen team (those were literally sprints!)
+            👥
+          </li>
+          <li>🌐 <strong>Fullstack</strong> → Handling the back of the kitchen, keeping it clean, and communicating with
+            the front — delivering the perfect dish 🍽️
+          </li>
+          <li>👨‍🏫 <strong>Mentoring Juniors</strong> → Training new cook assistants with patience and humor 👨‍🍳</li>
         </ul>
-        <p class="small-note">High standards and time boxing map 1:1 to agile delivery.</p>
+        <p class="small-note">
+          🔁 Different tools, same mindset — build, improve, and deliver with passion.
+        </p>
+        <ul class="badges"
+            data-aos="fade-up" data-aos-delay="160">
+          <li><strong>I’m looking for a team where I can bring the same passion, dedication, and keep pushing my growth forward.
+          </strong></li>
+        </ul>
+
       </article>
     </div>
 
@@ -54,7 +78,7 @@
         *ngFor="let img of images; let i = index"
       >
         <button class="media" type="button" (click)="openLightbox(i)" aria-label="Open image">
-          <img [src]="img.src" [alt]="img.alt" />
+          <img [src]="img.src" [alt]="img.alt"/>
         </button>
 
         <div class="meta">
@@ -87,7 +111,8 @@
     <!-- Closing / CTA -->
     <section class="chef-card cta" data-aos="fade-up" data-aos-delay="260">
       <p>
-        Still love cooking — but my next chapter is building <strong>reliable, maintainable software</strong> with the same
+        Still love cooking — but my next chapter is building <strong>reliable, maintainable software</strong> with the
+        same
         care I brought to every service.
       </p>
       <a class="cta-btn" routerLink="/projects">See my Projects</a>
@@ -101,7 +126,7 @@
     <button type="button" class="lb-close" (click)="closeLightbox()" aria-label="Close">×</button>
     <button type="button" class="lb-prev" (click)="prev()" aria-label="Previous">‹</button>
 
-    <img class="lb-image" [src]="images[currentIndex].src" [alt]="images[currentIndex].alt" />
+    <img class="lb-image" [src]="images[currentIndex].src" [alt]="images[currentIndex].alt"/>
 
     <button type="button" class="lb-next" (click)="next()" aria-label="Next">›</button>
   </div>
