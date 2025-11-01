@@ -27,7 +27,7 @@
           <h3>Additional Technologies</h3>
         </header>
         <ul class="chip-list" role="list">
-          @for (tech of additional; track tech) {
+          @for (tech of additional; track $index) {
             <li class="chip">{{ tech }}</li>
           }
         </ul>
