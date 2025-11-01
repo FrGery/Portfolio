@@ -1,8 +1,7 @@
-// path: src/app/components/cook-component/cook-component.ts
-import { Component, ViewEncapsulation, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AnimationOptions, LottieComponent } from 'ngx-lottie';
-import { AnimationItem } from 'lottie-web';
+import {Component, HostListener, ViewEncapsulation} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AnimationOptions, LottieComponent} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
 import {RouterLink} from '@angular/router';
 
 type ChefImage = { src: string; alt: string; caption?: string };
@@ -16,21 +15,20 @@ type ChefImage = { src: string; alt: string; caption?: string };
   encapsulation: ViewEncapsulation.None,
 })
 export class CookComponent {
-  backgroundSpeed = 0.3;
+  backgroundSpeed = 0.1;
 
   lottieOptions: AnimationOptions<'svg'> = {
     path: 'assets/Fumaa.json',
     loop: true,
     autoplay: true,
     renderer: 'svg',
-    rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
+    rendererSettings: {preserveAspectRatio: 'xMidYMid slice'},
   };
 
   onLottieCreated(animation: AnimationItem) {
     animation.setSpeed(this.backgroundSpeed);
   }
 
-  // 👇 Lightbox data (kept your links)
   images: ChefImage[] = [
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761856079/cook2012_oqgmii.jpg',
@@ -56,7 +54,7 @@ export class CookComponent {
       caption: '2018- "OKÉS" competiton (National Public Catering Contest). This time national first place. On the side of my actual chef',
     },
     {
-      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761772261/se%CC%81fba%CC%81l_nhk2vj.jpg',
+      src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1762026180/5D83041D-D630-4BE0-90FD-2CC489CBBED0_1_201_a_qf5fus.jpg',
       alt: 'ChefBAll',
       caption: '2020 — Chef’s Ball, Hotel Benczúr\n' +
         'This was a milestone for me — I officially became a Sous-Chef. It was my first Chef’s Ball, where I worked alongside around 40 renowned chefs. We cooked for three days straight to prepare for this incredible event.',
@@ -77,7 +75,7 @@ export class CookComponent {
     this.lightboxOpen = true;
     document.documentElement.classList.add('no-scroll');
     document.body.classList.add('no-scroll');
-    // (optional) pre-load neighbors for snappier next/prev
+
     this.preload(this.currentIndex + 1);
     this.preload(this.currentIndex - 1);
   }
