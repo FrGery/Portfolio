@@ -1,7 +1,5 @@
-// path: src/app/components/code-name/code-name.component.ts
-// install once: npm i typewriter-effect
-import { Component, OnDestroy, AfterViewInit, ElementRef, ViewChild, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {AfterViewInit, Component, ElementRef, input, OnDestroy, ViewChild} from '@angular/core';
+import {CommonModule} from '@angular/common';
 // @ts-ignore
 import Typewriter from 'typewriter-effect/dist/core';
 
@@ -14,17 +12,17 @@ import Typewriter from 'typewriter-effect/dist/core';
 })
 export class CodeNameComponent implements AfterViewInit, OnDestroy {
   name = input<string>('Friedrich Gergő');
-  startDelayMs = input<number>(2000);  // wait before typing
-  typeDelayMs  = input<number>(22);    // per-char delay
-  cursor       = input<string>('▌');   // neon block
+  startDelayMs = input<number>(2000);
+  typeDelayMs = input<number>(22);
+  cursor = input<string>('▌');
 
-  @ViewChild('tw', { static: true }) twRef!: ElementRef<HTMLDivElement>;
+  @ViewChild('tw', {static: true}) twRef!: ElementRef<HTMLDivElement>;
   private tw: Typewriter | null = null;
 
   ngAfterViewInit(): void {
     const html = this.buildHtml(this.name());
 
-    // Reduced motion → render instantly, no cursor
+
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
       this.twRef.nativeElement.innerHTML = html;
       this.twRef.nativeElement.classList.add('no-cursor');
@@ -43,7 +41,7 @@ export class CodeNameComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // TypewriterJS has no explicit destroy; clear timers by replacing node
+
     if (this.tw) {
       this.tw.stop();
       this.tw = null;
@@ -51,7 +49,7 @@ export class CodeNameComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildHtml(n: string): string {
-    // One string; <br> controls new lines. Colors via CSS classes.
+
     return [
       `<span class="kw">class</span> <span class="type">Developer</span><span class="punct">{</span>`,
       `<br><span class="type">String</span> <span class="var">name</span> <span class="op">=</span>`,
@@ -61,6 +59,6 @@ export class CodeNameComponent implements AfterViewInit, OnDestroy {
   }
 
   private escape(s: string): string {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 }

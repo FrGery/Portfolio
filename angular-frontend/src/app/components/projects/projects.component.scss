@@ -1,4 +1,3 @@
-/* Fixed background same as Home */
 .projects-hero {
   position: relative;
   min-height: 100dvh;
@@ -24,7 +23,6 @@
   background: linear-gradient(180deg, rgba(138, 222, 152, 0.32), rgba(132, 159, 135, 0.12));
 }
 
-/* Page container */
 .projects-wrap {
   position: relative;
   z-index: 1;
@@ -33,7 +31,6 @@
   padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 28px);
 }
 
-/* Title */
 .page-title {
   margin: 0 auto clamp(16px, 3.5vw, 28px);
   font-size: clamp(1.3rem, 3vw, 1.8rem);
@@ -42,12 +39,11 @@
   color: rgba(68, 112, 58, 0.85);
   text-shadow: 0 2px 6px rgba(121, 194, 61, 0.45);
 }
-/* ───────── Project intro block (under page title) ───────── */
+
 .projects-intro {
   padding: clamp(20px, 3vw, 28px);
   margin: 0 auto clamp(28px, 6vh, 48px);
 
-  /* glassy green, consistent with .project-shell */
   background: rgba(50, 79, 50, 0.63);
   border: 1px solid rgba(152, 224, 122, 0.3);
   border-radius: 16px;
@@ -64,7 +60,6 @@
     line-height: 1.65;
   }
 
-  /* small accent heading (optional) */
   .intro-kicker {
     display: inline-block;
     margin-bottom: clamp(8px, 1.6vh, 10px);
@@ -77,7 +72,6 @@
     border: 1px solid rgba(152, 224, 122, .25);
   }
 
-  /* inline highlights */
   .highlight-green {
     color: #b7ff9a;
     font-weight: 600;
@@ -85,6 +79,7 @@
   }
 
 }
+
 .highlight-skill {
   padding: 4px 10px;
   border-radius: 10px;
@@ -98,33 +93,32 @@
   -webkit-backdrop-filter: blur(6px);
   white-space: nowrap;
 }
+
 .highlight-skill:hover {
   background: rgba(152, 224, 122, 0.15);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.11);
 
 }
 
-/* mobile tweak */
 @media (max-width: 640px) {
-  .projects-intro { border-radius: 14px; }
+  .projects-intro {
+    border-radius: 14px;
+  }
 }
 
-/* Shared glass box like My Story */
 .project-shell {
   background: rgba(33, 44, 33, 0.74);
   border: 1px solid rgba(152, 224, 122, 0.59);
   border-radius: 18px;
   backdrop-filter: blur(14px) saturate(1.12);
   -webkit-backdrop-filter: blur(14px) saturate(1.12);
-  box-shadow:
-    0 0 60px rgba(66, 131, 40, 0.79),
-    0 0 60px rgba(48, 108, 24, 0.70),
-    0 6px 28px rgba(0, 0, 0, 0.71);
+  box-shadow: 0 0 60px rgba(66, 131, 40, 0.79),
+  0 0 60px rgba(48, 108, 24, 0.70),
+  0 6px 28px rgba(0, 0, 0, 0.71);
   padding: clamp(20px, 3.5vw, 28px);
   margin-bottom: clamp(28px, 5vw, 44px);
 }
 
-/* Header copy */
 .project-header {
   margin-bottom: clamp(14px, 3vw, 20px);
 }
@@ -144,17 +138,12 @@
   font-size: clamp(1rem, 2.4vw, 1.12rem);
 }
 
-/* Swiper (web component) */
 .project-swiper {
   display: block;
   width: 100%;
   margin-top: clamp(10px, 2vw, 14px);
-
-  /* theme vars */
   --swiper-theme-color: #98e07a;
   --swiper-pagination-color: #98e07a;
-
-  /* contain neighbors */
   overflow: hidden;
 }
 
@@ -169,13 +158,11 @@
   height: auto;
   display: block;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow:
-    0 10px 26px rgba(0,0,0,.35),
-    0 0 12px rgba(152,224,122,.18);
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .35),
+  0 0 12px rgba(152, 224, 122, .18);
 }
 
-/* Style Shadow DOM controls via parts */
 .project-swiper::part(button-prev),
 .project-swiper::part(button-next) {
   width: 44px;
@@ -196,24 +183,24 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, .3), 0 0 10px rgba(152, 224, 122, .25);
 }
 
-/* Pagination bullets */
 .project-swiper::part(pagination-bullet) {
   background: rgba(152, 224, 122, .45);
   opacity: .6;
 }
+
 .project-swiper::part(pagination-bullet-active) {
   background: #98e07a;
   opacity: 1;
   box-shadow: 0 0 8px rgba(152, 224, 122, .45);
 }
 
-/* Show arrows on desktop only */
 @media (max-width: 1024px) {
   .project-swiper::part(button-prev),
-  .project-swiper::part(button-next) { display: none; }
+  .project-swiper::part(button-next) {
+    display: none;
+  }
 }
 
-/* Section separator */
 .section-sep {
   margin: clamp(20px, 4vw, 36px) 0 clamp(20px, 4vw, 36px);
   display: grid;
@@ -227,9 +214,8 @@
   border-radius: 16px;
   background: linear-gradient(180deg, rgba(9, 38, 9, 0.62), rgba(9, 75, 9, 0.58));
   border: 1px solid rgba(63, 63, 63, 0.72);
-  box-shadow:
-    0 0 40px rgba(5, 17, 1, 0.52),
-    0 0 60px rgba(77, 124, 69, 0.52);
+  box-shadow: 0 0 40px rgba(5, 17, 1, 0.52),
+  0 0 60px rgba(77, 124, 69, 0.52);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
@@ -239,6 +225,7 @@
     font-weight: 800;
     font-size: clamp(1.2rem, 3.2vw, 1.6rem);
   }
+
   p {
     margin: 0;
     color: rgba(231, 241, 229, .94);
@@ -246,7 +233,7 @@
     font-size: clamp(1rem, 2.4vw, 1.12rem);
   }
 }
-/* 🐍 Snake game project CTA */
+
 .project-actions {
   text-align: center;
   margin-top: clamp(12px, 3vw, 20px);
@@ -266,9 +253,8 @@
   &:hover {
     background: rgba(152, 224, 122, 0.45);
     transform: translateY(-2px);
-    box-shadow:
-      0 6px 18px rgba(0, 0, 0, 0.35),
-      0 0 14px rgba(152, 224, 122, 0.4);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35),
+    0 0 14px rgba(152, 224, 122, 0.4);
   }
 
   &:active {

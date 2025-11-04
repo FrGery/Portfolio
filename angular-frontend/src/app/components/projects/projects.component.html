@@ -1,5 +1,4 @@
 <section class="projects-hero">
-  <!-- Lottie background (fixed) -->
   <div class="lottie-bg" aria-hidden="true">
     <ng-lottie
       [options]="lottieOptions"
@@ -52,7 +51,6 @@
       </p>
     </div>
 
-    <!-- ========== Featured real-life project ========== -->
     <article class="project-shell" data-aos="fade-up">
       <header class="project-header">
         <h2 class="project-title">{{ featured.title }}</h2>
@@ -79,7 +77,6 @@
       </swiper-container>
     </article>
 
-    <!-- ========== Separator / intro for exam-prep ========== -->
     <div class="section-sep" data-aos="fade-up">
       <div class="sep-inner">
         <h3>⬇Exam-Preparation Projects⬇</h3>
@@ -87,7 +84,6 @@
       </div>
     </div>
 
-    <!-- ========== Exam-prep projects ========== -->
     @for (p of examProjects; track p.title) {
       <article class="project-shell" data-aos="fade-up">
         <header class="project-header">

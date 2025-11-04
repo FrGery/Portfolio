@@ -1,4 +1,3 @@
-// path: src/app/components/cook-component/cook-component.ts
 import {Component, HostListener, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
@@ -37,7 +36,6 @@ export class CookComponent {
     animation.setSpeed(this.backgroundSpeed);
   }
 
-  // 👇 Structured cards: title, date, place, desc
   images: ChefImage[] = [
     {
       src: 'https://res.cloudinary.com/df6cyiedk/image/upload/v1761856079/cook2012_oqgmii.jpg',

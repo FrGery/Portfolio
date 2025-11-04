@@ -1,6 +1,3 @@
-/* path: src/app/components/cook-component/cook-component.scss */
-
-/* Background & layout */
 .cook-hero {
   position: relative;
   min-height: 100dvh;
@@ -34,7 +31,6 @@
   padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 28px);
 }
 
-/* Warm glass card */
 .chef-card {
   background: linear-gradient(180deg, rgba(47, 40, 34, .68), rgba(47, 40, 34, .42));
   border: 1px solid rgba(181, 140, 90, .45);
@@ -71,7 +67,6 @@
   color: rgba(242, 233, 222, .95);
 }
 
-/* Two-up story */
 .chef-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -130,7 +125,6 @@
   color: rgba(255, 244, 232, .78);
 }
 
-/* Cards gallery — 3 per row */
 .photo-gallery {
   display: grid;
   grid-template-columns: repeat(3, minmax(260px, 1fr));
@@ -226,7 +220,6 @@
   color: rgba(242, 233, 222, .92);
 }
 
-/* Skills + CTA (unchanged from your theme) */
 .skills {
   text-align: center;
 }
@@ -278,7 +271,6 @@
   box-shadow: 0 8px 22px rgba(0, 0, 0, .28);
 }
 
-/* Lightbox (image only) */
 .no-scroll {
   overflow: hidden !important;
 }

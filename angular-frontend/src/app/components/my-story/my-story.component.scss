@@ -1,9 +1,7 @@
-/* wrapper spacing */
 .my-story {
   padding: clamp(28px, 6vw, 64px) 0;
 }
 
-/* section title */
 .title {
   margin: 0 auto clamp(16px, 3.5vw, 28px);
   font-size: clamp(1.3rem, 3vw, 1.8rem);
@@ -13,58 +11,46 @@
   text-shadow: 0 2px 6px rgba(121, 194, 61, 0.45);
 }
 
-/* ───────── Big grey/glass box ───────── */
 .story-shell {
-  /* centers the whole box and limits width */
   width: min(100%, 1100px);
   margin-inline: auto;
 
-  /* glass/grey look */
   background: linear-gradient(180deg, rgba(9, 38, 9, 0.62) 0%, rgba(39, 68, 39, 0.82) 100%);
   border: 2px solid rgba(63, 63, 63, 0.72);
   border-radius: 18px;
   backdrop-filter: blur(12px) saturate(1.05);
   -webkit-backdrop-filter: blur(12px) saturate(1.05);
 
-  /* subtle green glow emanating from box edges */
   box-shadow:
     0 0 40px rgba(5, 17, 1, 0.62),
     0 0 60px rgba(77, 124, 69, 0.82);
 
-  /* inner padding so slides don't touch walls */
   padding: clamp(12px, 2vw, 18px);
 
-  /* ensure neighbors are never visible */
   overflow: hidden;
 }
 
-/* ───────── Swiper host ───────── */
 .story-swiper {
   display: block;
   width: 100%;
   height: auto;
 
-  /* Theme / controls */
   --swiper-theme-color: rgba(152, 224, 122, 0.75);
   --swiper-pagination-color: rgba(182, 215, 166, 0.83);
   --swiper-pagination-bullet-inactive-color: rgba(218, 231, 213, 0.47);
   --swiper-pagination-bottom: 10px;
 
-  /* hide overflow so only active slide is visible */
   overflow: hidden;
 }
 
-/* each slide fills shell width and centers content */
 .story-swiper swiper-slide {
   width: 100%;
   display: flex;
   justify-content: center;
-  overflow: hidden; /* hide slide overflow edges */
+  overflow: hidden;
 }
 
-/* ───────── Visible slide content ───────── */
 .story-card {
-  /* stretch to shell’s inner width */
   width: 100%;
   min-height: clamp(280px, 36vw, 420px);
 
@@ -73,7 +59,6 @@
   justify-content: center;
   align-items: center;
 
-  /* subtle tonal panel inside the shell (no rounded corners needed) */
   background: rgba(235, 243, 235, 0.14);
   border: 1px solid rgba(196, 199, 193, 0.45);
   border-radius: 16px;
@@ -83,7 +68,6 @@
   text-shadow: none;
   position: relative;
 
-  /* edge glows (left/right) – contained by .story-shell overflow */
   &::before,
   &::after {
     content: "";
@@ -125,7 +109,6 @@
   }
 }
 
-/* pagination bullets (inside shell, centered) */
 .story-swiper::part(pagination) {
   position: relative;
   margin-top: clamp(8px, 1.5vw, 12px);
@@ -140,20 +123,13 @@
   box-shadow: 0 0 8px rgba(152, 224, 122, .45);
 }
 
-/* arrows disabled (we use dots + swipe); keep these if you later turn on navigation */
-/*
-.story-swiper::part(button-prev),
-.story-swiper::part(button-next) { display: none; }
-*/
 
-/* mobile tweaks */
 @media (max-width: 640px) {
   .story-shell { border-radius: 14px; }
   .story-card::before,
   .story-card::after { width: 42px; filter: blur(14px); }
 }
 
-/* utility */
 .highlight-green {
   color: #67ea72;
   text-shadow: 0 0 4px rgba(27, 148, 33, 0.66);
@@ -161,17 +137,14 @@
 }
 
 
-/* Disable inner edge glows on story cards */
 .story-card::before,
 .story-card::after {
   content: none;
 }
-/* ───────── Show arrows only on desktop ───────── */
 
-/* Base arrow style (same glassy-green theme as other UI elements) */
 .story-swiper::part(button-prev),
 .story-swiper::part(button-next) {
-  display: none; /* hidden by default (mobile/tablet) */
+  display: none;
   width: 44px;
   height: 44px;
   border-radius: 12px;
@@ -183,7 +156,6 @@
   color: rgba(152, 224, 122, 0.73);
 }
 
-/* Hover state */
 .story-swiper::part(button-prev):hover,
 .story-swiper::part(button-next):hover {
   transform: translateY(-1px);
@@ -194,7 +166,6 @@
     0 0 10px rgba(152, 224, 122, .25);
 }
 
-/* Positioning */
 .story-swiper::part(button-prev) {
   left: 18px;
 }
@@ -202,7 +173,6 @@
   right: 18px;
 }
 
-/* Show arrows only when viewport ≥ 1024px (desktop) */
 @media (min-width: 1024px) {
   .story-swiper::part(button-prev),
   .story-swiper::part(button-next) {
@@ -210,7 +180,6 @@
   }
 }
 
-/* ───────── Highlight Skill Badge ───────── */
 .highlight-skill {
   display: inline-block;
   padding: 6px 12px;
@@ -239,7 +208,6 @@
     0 0 10px rgba(152, 224, 122, 0.25);
   transform: translateY(-1px);
 }
-/* start hidden */
 .story-shell.reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -247,7 +215,6 @@
   will-change: opacity, transform;
 }
 
-/* visible */
 .story-shell.shown {
   opacity: 1;
   transform: none;

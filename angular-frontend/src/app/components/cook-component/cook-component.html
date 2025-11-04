@@ -1,6 +1,4 @@
-<!-- path: src/app/components/cook-component/cook-component.html -->
 <section class="cook-hero">
-  <!-- fixed lottie background -->
   <div class="lottie-bg" aria-hidden="true">
     <ng-lottie
       [options]="lottieOptions"
@@ -11,7 +9,6 @@
   <div class="scrim" aria-hidden="true"></div>
 
   <div class="cook-wrap" id="cook-top">
-    <!-- Lead card -->
     <article class="chef-card lead" data-aos="fade-up">
       <h1 class="chef-title">From Kitchen Heat to Clean Code</h1>
       <p class="lead-copy">
@@ -22,7 +19,6 @@
       </p>
     </article>
 
-    <!-- Two-up story -->
     <div class="chef-grid" data-aos="fade-up" data-aos-delay="120">
       <article class="chef-card">
         <h3>My Culinary Journey</h3>
@@ -71,7 +67,6 @@
       </article>
     </div>
 
-    <!-- 🔶 Bootstrap-style Cards Grid -->
     <section class="photo-gallery" data-aos="fade-up" data-aos-delay="180" aria-label="Chef gallery">
       <article
         class="photo-card"
@@ -93,7 +88,6 @@
       </article>
     </section>
 
-    <!-- Transferable skills -->
     <section class="chef-card skills" data-aos="fade-up" data-aos-delay="220">
       <h3>What I bring to software</h3>
       <div class="pill-row">
@@ -108,7 +102,6 @@
       </div>
     </section>
 
-    <!-- Closing / CTA -->
     <section class="chef-card cta" data-aos="fade-up" data-aos-delay="260">
       <p>
         Still love cooking — but my next chapter is building <strong>reliable, maintainable software</strong> with the
@@ -120,7 +113,6 @@
   </div>
 </section>
 
-<!-- ✅ LIGHTBOX (image only) -->
 <div class="lightbox-backdrop" *ngIf="lightboxOpen" (click)="closeLightbox()" aria-modal="true" role="dialog">
   <div class="lightbox" (click)="$event.stopPropagation()">
     <button type="button" class="lb-close" (click)="closeLightbox()" aria-label="Close">×</button>

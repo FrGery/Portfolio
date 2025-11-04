@@ -7,7 +7,7 @@ import 'aos/dist/aos.css';
 
 type Project = {
   title: string;
-  description: string; // allow basic <strong> etc.
+  description: string;
   images: string[];
 };
 
@@ -21,7 +21,6 @@ type Project = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProjectsComponent implements AfterViewInit {
-  // Lottie background (same vibe as Home)
   lottieOptions: AnimationOptions<'svg'> = {
     path: 'assets/lottie.json',
     loop: true,
@@ -70,7 +69,6 @@ Finally, I handled several <strong>bug tickets</strong> throughout development â
     user-friendly UI.
   `;
 
-  // 3) Exam-prep projects
   examProjects: Project[] = [
     {
       title: 'Budget Calculator',
@@ -109,10 +107,8 @@ later enhanced using complementary CSS methods for a more dynamic and adaptive d
   ];
 
   ngAfterViewInit(): void {
-    // Enable <swiper-container>/<swiper-slide>
     register();
 
-    // Animate on Scroll
     setTimeout(() => {
       AOS.init({
         once: true,

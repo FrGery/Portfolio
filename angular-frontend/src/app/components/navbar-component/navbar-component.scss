@@ -1,6 +1,5 @@
 @use './chef-theme' as *;
 
-/* ───────── Layering ───────── */
 .banner {
   z-index: 1000;
 }
@@ -13,7 +12,6 @@
   z-index: 1200;
 }
 
-/* ───────── BANNER (top) ───────── */
 .banner {
   position: relative;
   text-shadow: 0 2px 6px rgba(0, 0, 0, .35);
@@ -35,7 +33,6 @@
   margin: 0 auto;
 }
 
-/* Banner links */
 .banner-links {
   display: flex;
   justify-content: space-between;
@@ -76,7 +73,6 @@
   transform: translateY(-1px);
 }
 
-/* Social icon container */
 .banner-socials {
   display: flex;
   gap: 12px;
@@ -86,7 +82,6 @@
   justify-content: center;
 }
 
-/* ───────── Unified button (icon + email) ───────── */
 .icon,
 .email-btn {
   all: unset;
@@ -124,7 +119,6 @@
   box-shadow: 0 0 0 3px rgba(152, 224, 122, .25);
 }
 
-/* Flash effect when email copied */
 .email-btn.flash svg {
   animation: flashGreen 0.5s ease-out;
 }
@@ -144,7 +138,6 @@
   }
 }
 
-/* ───────── Better Hamburger (mobile only) ───────── */
 .hamburger-btn {
   display: none;
   position: relative;
@@ -207,7 +200,6 @@
   transform: rotate(-45deg);
 }
 
-/* ───────── STICKY NAVBAR ───────── */
 .glassy-navbar {
   position: fixed;
   top: 0;
@@ -270,7 +262,6 @@
   flex: 0 0 auto;
 }
 
-/* ───────── MOBILE (≤640px) ───────── */
 @media (max-width: 640px) {
   .banner-inner {
     grid-template-columns: 1fr auto;
@@ -286,7 +277,6 @@
   }
 }
 
-/* ───────── MOBILE OVERLAY ───────── */
 .mobile-overlay {
   position: fixed;
   inset: 0;
@@ -356,12 +346,10 @@
   cursor: pointer;
 }
 
-/* Prevent background scroll */
 .no-scroll {
   overflow: hidden !important;
 }
 
-/* ───────── Copied Toast ───────── */
 .copied-toast {
   position: fixed;
   bottom: 24px;
@@ -397,17 +385,16 @@
     transform: translate(-50%, 10px);
   }
 }
-/* ───────── BANNER (top, transparent with glowing buttons) ───────── */
+
 .banner {
   position: relative;
-  background: transparent; /* no big box */
+  background: transparent;
   border: none;
   box-shadow: none;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
   z-index: 1000;
 }
 
-/* Inner layout */
 .banner-inner {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -417,7 +404,6 @@
   margin: 0 auto;
 }
 
-/* Menu links */
 .banner-links {
 
   display: flex;
@@ -434,7 +420,6 @@
   flex: 1 1 0;
 }
 
-/* ✅ Each button = same box style as intro-box, glowing green */
 .banner-links a {
   display: block;
   text-align: center;
@@ -449,16 +434,14 @@
   border: 1px solid rgba(152, 224, 122, 0.45);
   background: rgba(33, 44, 33, 0.74);
   backdrop-filter: blur(14px) saturate(1.2);
-  box-shadow:
-    0 0 50px rgba(66, 131, 40, 0.65),
-    0 0 60px rgba(48, 108, 24, 0.45),
-    0 4px 16px rgba(0, 0, 0, 0.45);
-  transition:
-    color 0.18s ease,
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+  box-shadow: 0 0 50px rgba(66, 131, 40, 0.65),
+  0 0 60px rgba(48, 108, 24, 0.45),
+  0 4px 16px rgba(0, 0, 0, 0.45);
+  transition: color 0.18s ease,
+  background 0.18s ease,
+  border-color 0.18s ease,
+  box-shadow 0.18s ease,
+  transform 0.18s ease;
 }
 
 .banner-links a:hover,
@@ -466,14 +449,12 @@
   color: #e8ffd9;
   background: rgba(57, 84, 57, 0.74);
   border-color: rgba(152, 224, 122, 0.55);
-  box-shadow:
-    0 0 50px rgba(66, 131, 40, 0.65),
-    0 0 60px rgba(48, 108, 24, 0.45),
-    0 4px 16px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 50px rgba(66, 131, 40, 0.65),
+  0 0 60px rgba(48, 108, 24, 0.45),
+  0 4px 16px rgba(0, 0, 0, 0.45);
   transform: translateY(-1px);
 }
 
-/* Social icons — same glow style */
 .banner-socials {
   display: flex;
   gap: 12px;
@@ -492,10 +473,9 @@
   border: 1px solid rgba(152, 224, 122, 0.45);
   background: rgba(33, 44, 33, 0.74);
   backdrop-filter: blur(10px);
-  box-shadow:
-    0 0 40px rgba(66, 131, 40, 0.65),
-    0 0 50px rgba(48, 108, 24, 0.45),
-    0 4px 12px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 40px rgba(66, 131, 40, 0.65),
+  0 0 50px rgba(48, 108, 24, 0.45),
+  0 4px 12px rgba(0, 0, 0, 0.45);
   transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
@@ -509,25 +489,19 @@
 .icon:hover {
   transform: translateY(-1px);
   background: rgba(57, 84, 57, 0.74);
-  box-shadow:
-    0 0 50px rgba(66, 131, 40, 0.65),
-    0 0 60px rgba(48, 108, 24, 0.45),
-    0 4px 16px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 50px rgba(66, 131, 40, 0.65),
+  0 0 60px rgba(48, 108, 24, 0.45),
+  0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
-/* ===== Overrides: make navbar backplates full-width while keeping inner content centered ===== */
-/* Place at end to override earlier constraints */
-
-/* Top banner backplate spans full viewport width */
 .banner-inner {
-  display: block;           /* was grid earlier; now acts as full-bleed backplate */
+  display: block;
   width: 100%;
   max-width: none;
   margin: 0;
   padding: 0.85rem 1.75rem;
 }
 
-/* New inner container holds the previous grid and max-width */
 .banner-container {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -536,13 +510,13 @@
   margin: 0 auto;
 }
 
-/* Sticky navbar: keep bar full-bleed, center content inside */
 .glassy-navbar {
   left: 0;
   right: 0;
-  display: block;          /* let inner container center itself */
+  display: block;
   width: 100%;
 }
+
 .glassy-navbar .nav-container {
   display: flex;
   justify-content: space-between;
@@ -553,14 +527,14 @@
   width: 100%;
 }
 
-/* Mobile adjustments for new container */
 @media (max-width: 640px) {
-  .banner-container { grid-template-columns: 1fr auto; }
-  /* Phone view: make the banner backplate fully transparent so the hamburger floats */
+  .banner-container {
+    grid-template-columns: 1fr auto;
+  }
   .banner-inner {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    padding: 0.6rem 0.8rem; /* keep comfortable tap area without looking like a bar */
+    padding: 0.6rem 0.8rem;
   }
 }

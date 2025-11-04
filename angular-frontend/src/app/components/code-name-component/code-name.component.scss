@@ -14,7 +14,6 @@
 .Typewriter__cursor { color:#98e07a; }
 .no-cursor .Typewriter__cursor { display:none; }
 
-/* pierce encapsulation so classes inside injected HTML are styled */
 :host ::ng-deep .tw .kw      { color: rgba(199,146,234,.7); }
 :host ::ng-deep .tw .type    { color: rgba(130,170,255,.7); }
 :host ::ng-deep .tw .var     { color: rgba(255,203,107,.7); }

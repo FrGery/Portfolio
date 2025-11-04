@@ -1,4 +1,3 @@
-// path: src/app/components/home/home.component.ts
 import { AfterViewInit, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
@@ -8,7 +7,6 @@ import { TechnologiesComponent } from '../technologies/technologies.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { MyStoryComponent } from '../my-story/my-story.component';
 
-// ⬇️ NEW: AOS
 import AOS from 'aos';
 
 @Component({
@@ -30,16 +28,16 @@ import AOS from 'aos';
 export class HomeComponent implements OnDestroy, AfterViewInit {
   lottieOptions: AnimationOptions<'svg'> = {
     path: 'assets/lottie.json',
-    loop: false,          // we loop manually
-    autoplay: false,      // we start manually
+    loop: false,
+    autoplay: false,
     renderer: 'svg',
     rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
   };
 
   hexOptions: AnimationOptions<'svg'> = {
     path: 'assets/flash_bg.json',
-    loop: false,          // play once per cycle
-    autoplay: false,      // start after bg completes
+    loop: false,
+    autoplay: false,
     renderer: 'svg',
     rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
   };
@@ -56,13 +54,11 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
   onHexCreated = (a: AnimationItem) => { this.hex = a; this.tryStart(); };
 
   ngAfterViewInit(): void {
-    // AOS is initialized globally (Navbar). If already booted, just ensure measurements are fresh.
     if ((window as any).__aosBooted) {
       setTimeout(() => AOS.refreshHard(), 0);
     }
   }
 
-  // UPDATED: safe teardown
   ngOnDestroy(): void {
     this.killed = true;
 
@@ -82,11 +78,9 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
       return;
     }
 
-    // kick off the loop
     this.runCycle().catch(() => {});
   }
 
-  /** One full cycle: bg → hex → wait 2s → repeat */
   private async runCycle() {
     while (!this.reduce && !this.killed) {
       this.bg?.stop();  this.bg?.goToAndStop(0, true);
@@ -103,7 +97,6 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  /** Play an item from 0 and resolve on 'complete' */
   private playOnce(anim: AnimationItem): Promise<void> {
     return new Promise<void>((resolve) => {
       const handler = () => { anim.removeEventListener('complete', handler); resolve(); };
