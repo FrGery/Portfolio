@@ -18,7 +18,7 @@ export class TechnologiesComponent {
     'TypeScript',
     'HTML',
     'SCSS',
-    'PostgresSQL',
+    'PostgreSQL',
     'MySQL',
     'Git',
     'Docker'
