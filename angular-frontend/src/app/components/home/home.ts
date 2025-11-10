@@ -93,7 +93,7 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
       await this.playOnce(this.hex!);
 
       if (this.killed) break;
-      await this.wait(2000);
+      await this.wait(500);
     }
   }
 
