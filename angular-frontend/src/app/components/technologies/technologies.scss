@@ -30,28 +30,31 @@
 
 .glass {
   position: relative;
+  border: 1px solid rgba(100, 173, 71, 0.57);
   padding: 18px;
   border-radius: 18px;
   background: rgba(33, 44, 33, 0.74);
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   box-shadow:
-    0 0 20px rgba(66, 131, 40, 0.65),
-    0 0 20px rgba(48, 108, 24, 0.45),
-    0 4px 16px rgba(0, 0, 0, 0.45);
+    0 0 40px rgba(75, 189, 29, 0.55),
+    0 0 40px rgba(88, 138, 69, 0.7),
+    0 6px 28px rgba(0, 0, 0, 0.71);
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity .45s ease, transform .45s ease, box-shadow .2s ease, border-color .2s ease;
+  transition: opacity .2s ease, transform .2s ease, box-shadow .08s ease, border-color .08s ease, background .08s ease;
 }
 
 .glass.in { opacity: 1; transform: translateY(0); }
 
 .glass:hover {
-  background: rgba(33, 44, 33, 0.72);
+  background: rgba(21, 33, 21, 0.72);
   box-shadow:
-    0 0 20px rgba(50, 100, 30, 0.63),
-    0 0 30px rgba(37, 84, 18, 0.65),
-    0 4px 16px rgba(0, 0, 0, 0.45);
+    0 0 40px rgba(75, 189, 29, 0.55),
+    0 0 40px rgba(88, 138, 69, 0.7),
+    0 6px 28px rgba(0, 0, 0, 0.71);
+  transition: opacity .45s ease, transform .45s ease, box-shadow .1s ease, border-color .1s ease, background .1s ease;
+
 }
 
 .glass-head { margin-bottom: 10px; }
@@ -63,6 +66,7 @@
   color: #cfe9c7;
   letter-spacing: .02em;
 }
+
 
 .chip-list {
   display: flex;

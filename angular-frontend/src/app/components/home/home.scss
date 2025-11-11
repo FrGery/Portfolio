@@ -23,7 +23,14 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(138, 222, 152, 0.38), rgba(132, 159, 135, 0.51));
+  /* Radial gradient from bright green in center → deep green → near-black at edges */
+  background: radial-gradient(
+      circle at center,
+      rgba(38, 131, 38, 0.24) 0%,
+      rgba(44, 79, 36, 0.71) 40%,
+      rgb(10, 20, 10) 100%
+  );
+  transition: background 0.8s ease-in-out;
 }
 
 :root {
@@ -157,10 +164,10 @@
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   border-radius: 22px;
   padding: clamp(28px, 4vw, 48px) clamp(32px, 5vw, 64px);
-  border: 1px solid rgba(152, 224, 122, 0.59);
+  border: 1px solid rgba(152, 224, 122, 0.38);
   box-shadow:
-    0 0 60px rgba(66, 131, 40, 0.79),
-    0 0 60px rgba(48, 108, 24, 0.70),
+    0 0 60px rgba(75, 189, 29, 0.55),
+    0 0 60px rgba(88, 138, 69, 0.7),
     0 6px 28px rgba(0, 0, 0, 0.71);
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
