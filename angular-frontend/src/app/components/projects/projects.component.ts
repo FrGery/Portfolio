@@ -36,22 +36,22 @@ export class ProjectsComponent implements AfterViewInit {
   featured: Project = {
     title: 'Feedback App – Real, Ongoing projects',
     description: `
-      This is my most important experience so far — the Feedback Application built for our bootcamp.
+      This is my most important experience so far: the Feedback Application built in our bootcamp.
   It’s a full-featured platform where students and mentors can communicate about their experience,
   check the schedule, access lecture information, and provide feedback on both individual sessions and the program overall.
 
       <br/><br/>
       I worked on this project as part of a team of four in a <strong>Scrum</strong> team.
-  My main contribution was integrating <strong>Cloudinary</strong> for image storage —
+  My main contribution was integrating <strong>Cloudinary</strong> for image storage,
   allowing the backend to store only image references instead of files.
   This feature is used in multiple places, such as avatar uploads and our team’s
-  Useful Links component — <strong>collaboration</strong> really mattered here.
+  Useful Links component. <strong>Collaboration</strong> really mattered here.
       <br/><br/>
 I also prepared the <strong>OAuth2 GitHub</strong> login feature
   for AWS deployment, ensuring it can work seamlessly
-  from the server environment — not just locally.       <br/><br/>
-Finally, I handled several <strong>bug tickets</strong> throughout development —
-  it’s not something I can show with screenshots, but I’d be happy to walk you through the details in person.    `,
+  from the server environment, not just locally.       <br/><br/>
+Finally, I handled several <strong>bug tickets</strong> throughout development.
+  While It’s not something I can show with screenshots, I’d be happy to walk you through the details in person.    `,
     images: [
       'https://res.cloudinary.com/df6cyiedk/image/upload/v1761652463/Screenshot_2025-10-28_at_12.50.44_fj2bb6.png',
       'https://res.cloudinary.com/df6cyiedk/image/upload/v1761652462/Screenshot_2025-10-28_at_12.49.01_irmlwr.png',
@@ -61,7 +61,6 @@ Finally, I handled several <strong>bug tickets</strong> throughout development �
     ],
   };
 
-  // 2) Exam-prep intro blurb
   examIntro = `
    The following projects were created as part of exam preparation exercises. Each was a timed challenge —
    I had only 6 hours to build a complete web application from scratch. While they may not look like fully polished
@@ -95,7 +94,7 @@ Users can create and categorize their own Techniques and Art pieces, all of whic
 The main focus of this project was image file handling and responsive layout management — primarily implemented with Flexbox,
 later enhanced using complementary CSS methods for a more dynamic and adaptive design.
 <br/><br/>
-(Right — it might look a bit funny at the moment, since it’s currently using mock images for demonstration.)
+(Right... It might look a bit funny at the moment, since it’s currently using mock images as a demonstration.)
       `,
       images: [
         'https://res.cloudinary.com/df6cyiedk/image/upload/v1760824642/Screenshot_2025-10-18_at_23.56.02_uxfugf.png',

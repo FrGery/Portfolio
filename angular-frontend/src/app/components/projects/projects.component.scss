@@ -20,7 +20,14 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(138, 222, 152, 0.32), rgba(132, 159, 135, 0.12));
+  /* Radial gradient from bright green in center → deep green → near-black at edges */
+  background: radial-gradient(
+      circle at center,
+      rgba(38, 131, 38, 0.24) 0%,
+      rgba(44, 79, 36, 0.71) 40%,
+      rgb(10, 20, 10) 100%
+  );
+  transition: background 0.8s ease-in-out;
 }
 
 .projects-wrap {
