@@ -51,7 +51,7 @@ export class CodeNameComponent implements AfterViewInit, OnDestroy {
   private buildHtml(n: string): string {
 
     return [
-      `<span class="kw">class</span> <span class="type">Developer</span><span class="punct">{</span>`,
+      `<span class="kw">class</span> <span class="type">FullStackDeveloper</span><span class="punct">{</span>`,
       `<br><span class="type">String</span> <span class="var">name</span> <span class="op">=</span>`,
       `<br><span class="name-big">“${this.escape(n)}”</span>`,
       `<br><span class="punct">}</span>`,
