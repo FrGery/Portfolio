@@ -6,11 +6,12 @@ import {
   Inject,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
+  PLATFORM_ID
 } from '@angular/core';
-import {CommonModule, DOCUMENT} from '@angular/common';
-import {ActivatedRoute, NavigationEnd, Router, RouterModule} from '@angular/router';
-import {filter, map, startWith, Subscription} from 'rxjs';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter, map, startWith, Subscription } from 'rxjs';
 import AOS from 'aos';
 
 type MenuItem =
@@ -32,10 +33,13 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostBinding('class.chef-theme') chefTheme = false;
   isHome = false;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              @Inject(DOCUMENT) private doc: Document) {
-  }
+  // Itt injektáljuk a PLATFORM_ID-t, hogy tudjuk, hol vagyunk
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   readonly emailAddress = 'f2gergo@gmail.com';
   showCopied = false;
@@ -51,11 +55,11 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
   private stickyTimer: number | null = null;
 
   menu: MenuItem[] = [
-    {type: 'scroll', label: 'Home', target: 'top'},
-    {type: 'scroll', label: 'Technologies', target: 'technologies'},
-    {type: 'scroll', label: 'My Story', target: 'my-story'},
-    {type: 'route', label: 'Projects', route: '/projects'},
-    {type: 'route', label: 'Chef Career', route: '/cook'},
+    { type: 'scroll', label: 'Home', target: 'top' },
+    { type: 'scroll', label: 'Technologies', target: 'technologies' },
+    { type: 'scroll', label: 'My Story', target: 'my-story' },
+    { type: 'route', label: 'Projects', route: '/projects' },
+    { type: 'route', label: 'Chef Career', route: '/cook' },
   ];
 
   socials: Social[] = [
@@ -88,17 +92,25 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
           url: this.router.url
         };
       })
-    ).subscribe(({theme, url}) => {
+    ).subscribe(({ theme, url }) => {
       this.chefTheme = theme === 'chef';
       this.isHome = url === '/home' || url === '/' || url.startsWith('/home?') || url.startsWith('/home#');
 
-      if ((window as any).__aosBooted) {
-        setTimeout(() => AOS.refreshHard(), 0);
+      // SSR Fix: Csak böngészőben nyúlunk a window-hoz
+      if (isPlatformBrowser(this.platformId)) {
+        if ((window as any).__aosBooted) {
+          setTimeout(() => AOS.refreshHard(), 0);
+        }
       }
     });
   }
 
   ngAfterViewInit(): void {
+    // SSR Fix: Ha nem böngésző, lépjünk ki azonnal
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const boot = () => {
       if ((window as any).__aosBooted) return;
       AOS.init({
@@ -114,7 +126,7 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
     if (document.readyState === 'complete') {
       boot();
     } else {
-      window.addEventListener('load', boot, {once: true});
+      window.addEventListener('load', boot, { once: true });
     }
   }
 
@@ -133,6 +145,11 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostListener('window:scroll')
   onScroll(): void {
+    // SSR Fix: Ha nincs window, nincs scroll
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const y = window.scrollY || document.documentElement.scrollTop || 0;
     const becameScrolled = !this.scrolled && y > this.THRESHOLD;
     const backToTop = this.scrolled && y <= this.THRESHOLD;
@@ -152,14 +169,20 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
-    document.documentElement.classList.toggle('no-scroll', this.menuOpen);
-    document.body.classList.toggle('no-scroll', this.menuOpen);
+    // SSR Fix: Csak böngészőben manipuláljuk a body classokat
+    if (isPlatformBrowser(this.platformId)) {
+      document.documentElement.classList.toggle('no-scroll', this.menuOpen);
+      document.body.classList.toggle('no-scroll', this.menuOpen);
+    }
   }
 
   closeMenu(): void {
     this.menuOpen = false;
-    document.documentElement.classList.remove('no-scroll');
-    document.body.classList.remove('no-scroll');
+    // SSR Fix
+    if (isPlatformBrowser(this.platformId)) {
+      document.documentElement.classList.remove('no-scroll');
+      document.body.classList.remove('no-scroll');
+    }
   }
 
   async onScrollClick(targetId: string) {
@@ -170,8 +193,11 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
       this.router.url.startsWith('/home#');
 
     const doScroll = () => {
-      const el = this.doc.getElementById(targetId);
-      if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+      // SSR Fix: scrollIntoView csak böngészőben van
+      if (isPlatformBrowser(this.platformId)) {
+        const el = this.doc.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     };
 
     if (atHome) {
@@ -184,6 +210,11 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   copyEmail(): void {
+    // SSR Fix: navigator és document csak kliensen van
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const btn = document.querySelector<HTMLButtonElement>('.email-btn');
     navigator.clipboard.writeText(this.emailAddress).then(() => {
       if (btn) {

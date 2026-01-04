@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnDestroy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import type { AnimationItem } from 'lottie-web';
 import { CodeNameComponent } from '../code-name-component/code-name.component';
@@ -44,25 +44,42 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
 
   private bg?: AnimationItem;
   private hex?: AnimationItem;
-  private reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
-  private cycleTimer: number | null = null;
-  private starting = false;
 
+  // ✅ JAVÍTÁS: Nem adunk neki értéket azonnal, mert a window.matchMedia összeomlasztja a szervert
+  private reduce = false;
+  private cycleTimer: any = null; // number helyett any, mert a Node.js-ben a setTimeout objektumot ad vissza
+  private starting = false;
   private killed = false;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // ✅ JAVÍTÁS: Csak a böngészőben nézzük meg a matchMedia-t
+    if (isPlatformBrowser(this.platformId)) {
+      this.reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
+    }
+  }
 
   onBgCreated = (a: AnimationItem) => { this.bg = a; this.tryStart(); };
   onHexCreated = (a: AnimationItem) => { this.hex = a; this.tryStart(); };
 
   ngAfterViewInit(): void {
-    if ((window as any).__aosBooted) {
-      setTimeout(() => AOS.refreshHard(), 0);
+    // ✅ JAVÍTÁS: AOS refresh csak böngészőben
+    if (isPlatformBrowser(this.platformId)) {
+      if ((window as any).__aosBooted) {
+        setTimeout(() => AOS.refreshHard(), 0);
+      }
     }
   }
 
   ngOnDestroy(): void {
     this.killed = true;
 
-    if (this.cycleTimer) { clearTimeout(this.cycleTimer); this.cycleTimer = null; }
+    if (this.cycleTimer) {
+      // ✅ JAVÍTÁS: clearTimeout védelme
+      if (isPlatformBrowser(this.platformId)) {
+        clearTimeout(this.cycleTimer);
+      }
+      this.cycleTimer = null;
+    }
     try { this.bg?.stop?.();  this.bg?.destroy?.(); } catch {}
     try { this.hex?.stop?.(); this.hex?.destroy?.(); } catch {}
   }
@@ -78,7 +95,10 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
       return;
     }
 
-    this.runCycle().catch(() => {});
+    // Csak böngészőben indítjuk el a ciklust
+    if (isPlatformBrowser(this.platformId)) {
+      this.runCycle().catch(() => {});
+    }
   }
 
   private async runCycle() {
@@ -107,9 +127,12 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
 
   private wait(ms: number) {
     return new Promise<void>((res) => {
-      this.cycleTimer = window.setTimeout(() => res(), ms);
+      // ✅ JAVÍTÁS: window.setTimeout helyett sima setTimeout és platform csekk
+      if (isPlatformBrowser(this.platformId)) {
+        this.cycleTimer = setTimeout(() => res(), ms);
+      } else {
+        res(); // Szerveren ne várjunk
+      }
     });
   }
-
-  private noop = () => {};
 }

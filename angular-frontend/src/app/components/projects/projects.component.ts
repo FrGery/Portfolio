@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
 import {register} from 'swiper/element/bundle';
 import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 type Project = {
   title: string;

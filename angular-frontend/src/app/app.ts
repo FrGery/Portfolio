@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {NavbarComponent} from './components/navbar-component/navbar-component';
+import { isPlatformBrowser } from '@angular/common';
+import { NavbarComponent } from './components/navbar-component/navbar-component';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,15 @@ import {NavbarComponent} from './components/navbar-component/navbar-component';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
   protected title = 'angular-frontend';
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngOnInit() {
+
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init();
+    }
+  }
 }

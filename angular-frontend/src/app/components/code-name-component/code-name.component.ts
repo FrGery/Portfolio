@@ -1,5 +1,14 @@
-import {AfterViewInit, Component, ElementRef, input, OnDestroy, ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  input,
+  OnDestroy,
+  ViewChild,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 // @ts-ignore
 import Typewriter from 'typewriter-effect/dist/core';
 
@@ -16,13 +25,23 @@ export class CodeNameComponent implements AfterViewInit, OnDestroy {
   typeDelayMs = input<number>(22);
   cursor = input<string>('▌');
 
-  @ViewChild('tw', {static: true}) twRef!: ElementRef<HTMLDivElement>;
-  private tw: Typewriter | null = null;
+  @ViewChild('tw', { static: true }) twRef!: ElementRef<HTMLDivElement>;
+  private tw: any | null = null;
+
+  // Injektáljuk a platform azonosítót
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngAfterViewInit(): void {
     const html = this.buildHtml(this.name());
 
+    // SSR Fix: Ha nem böngészőben vagyunk, ne csináljunk semmit a window-val
+    if (!isPlatformBrowser(this.platformId)) {
+      // Szerver oldalon beállíthatunk egy statikus tartalmat, hogy a SEO lássa
+      this.twRef.nativeElement.innerHTML = html;
+      return;
+    }
 
+    // Innen már tudjuk, hogy BÖNGÉSZŐBEN vagyunk
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
       this.twRef.nativeElement.innerHTML = html;
       this.twRef.nativeElement.classList.add('no-cursor');
@@ -41,15 +60,16 @@ export class CodeNameComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
     if (this.tw) {
-      this.tw.stop();
+      // Csak ha van stop metódusa (Typewriter-függő)
+      try {
+        this.tw.stop();
+      } catch (e) {}
       this.tw = null;
     }
   }
 
   private buildHtml(n: string): string {
-
     return [
       `<span class="kw">class</span> <span class="type">Developer</span><span class="punct">{</span>`,
       `<br><span class="type">String</span> <span class="var">name</span> <span class="op">=</span>`,
@@ -59,6 +79,11 @@ export class CodeNameComponent implements AfterViewInit, OnDestroy {
   }
 
   private escape(s: string): string {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 }
