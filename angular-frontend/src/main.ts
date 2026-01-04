@@ -1,4 +1,4 @@
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { appConfig } from './app/app.config';
@@ -16,6 +16,6 @@ bootstrapApplication(App, {
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',
       })
-    ),
+    ), provideClientHydration(withEventReplay()),
   ],
 }).catch(err => console.error(err));

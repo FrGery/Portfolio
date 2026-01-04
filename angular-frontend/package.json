@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "serve:ssr:angular-frontend": "node dist/angular-frontend/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -15,9 +16,12 @@
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",
     "@angular/platform-browser": "^20.0.0",
+    "@angular/platform-server": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "@angular/ssr": "^20.3.13",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.8",
+    "express": "^5.1.0",
     "lottie-web": "^5.13.0",
     "ngx-lottie": "^20.0.0",
     "rxjs": "~7.8.0",
@@ -31,7 +35,9 @@
     "@angular/cli": "^20.0.2",
     "@angular/compiler-cli": "^20.0.0",
     "@types/aos": "^3.0.7",
+    "@types/express": "^5.0.6",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.19.27",
     "typescript": "~5.8.2"
   }
 }

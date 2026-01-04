@@ -59,7 +59,10 @@
             "styles": [
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.min.css"
-            ]
+            ],
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": false
           },
           "configurations": {
             "production": {
